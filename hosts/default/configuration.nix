@@ -8,7 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./main-user.nix
+      ../../modules/nixos/main-user.nix
       inputs.home-manager.nixosModules.default
     ]; 
 
@@ -91,6 +91,7 @@
     tree
   ];
 
+  # TODO: extract this into its own flake?
   # https://stackoverflow.com/a/45027283
   environment.interactiveShellInit = ''
     alias sl = "sl -e"

@@ -16,12 +16,14 @@
       pkgs = nixpkgs.legacyPackages.${system};
     in
     {
-      nixosConfigurations.framenix = nixpkgs.lib.nixosSystem {
-        specialArgs = { inherit inputs; };
-        modules = [ 
-          ./configuration.nix
-          inputs.home-manager.nixosModules.default
-        ];
+      nixosConfigurations = {
+        default = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+            modules = [
+            ./hosts/default/configuration.nix
+            inputs.home-manager.nixosModules.default
+          ];
+        };
       };
     };
 }
