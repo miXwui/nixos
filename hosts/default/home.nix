@@ -3,6 +3,8 @@
 {
   imports = [
     ../../modules/home-manager/git.nix
+    ../../modules/home-manager/sway.nix
+    ../../modules/home-manager/fish.nix
   ];
 
   # Home Manager needs a bit of information about you and the paths it should

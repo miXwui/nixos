@@ -29,7 +29,9 @@ in
       initialPassword = "12345";
       description = cfg.fullname;
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [];
+      packages = with pkgs; [
+        firefox
+      ];
       shell = pkgs.fish;
     };
   };
