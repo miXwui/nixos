@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -25,6 +25,10 @@
   boot.loader.grub.enableCryptodisk=true;
 
   boot.initrd.luks.devices."luks-4f95a8c6-4383-457b-ac3a-22f3657e9971".keyFile = "/crypto_keyfile.bin";
+
+  # https://nixos.wiki/Linux_kernel
+  boot.kernelPackages = pkgs.linuxPackages_latest;
+
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -59,6 +63,23 @@
     xkbVariant = "";
   };
 
+#  # Enable CUPS to print documents.
+#  services.printing = {
+#    enable = true;
+#    drivers = [];
+#  }
+
+  # Enable sound with pipewire.
+#  sound.enable = true
+#  hardware.pulseaudio.enable = false
+#  security.rtkit.enable = true;
+#  services.pipewire = {
+#    enable = true;
+#    alsa.enable = true;
+#    alsa.support32Bit = true;
+#    pulse.enable = true;
+#  }
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   main-user.enable = true;
   main-user.username = "mwu";
@@ -69,12 +90,16 @@
     "flakes"
   ];
 
+  # https://nixos.wiki/wiki/Sway#Using_Home_Manager
+  security.polkit.enable = true;
+
   home-manager = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs; };
     users = {
       "mwu" = import ./home.nix;
     };
+    backupFileExtension = "nixbak";
   };
 
   # Allow unfree packages
@@ -82,20 +107,48 @@
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    git
-    wget
-    foot
-    sl
-    tree
-  ];
+  environment = {
+    variables = {
+      # Enable history in IEX
+      ERL_AFLAGS = "-kernel shell_history enabled";
 
-  # TODO: extract this into its own flake?
-  # https://stackoverflow.com/a/45027283
-  environment.interactiveShellInit = ''
-    alias sl = "sl -e"
-  '';
+      # Build Erlang docs with asdf
+      # https://github.com/asdf-vm/asdf-erlang?tab=readme-ov-file#getting-erlang-documentation
+      KERL_BUILD_DOCS = "yes";
+      KERL_DOC_TARGETS = "man html pdf chunks";
+      KERL_INSTALL_HTMLDOCS = "yes";
+      KERL_INSTALL_MANPAGES = "yes";
+
+      # QT_QPA_PLATFORMTHEME =  "gnome";
+    };
+
+    shellAliases = {
+      sl = "sl -e";
+      gl = "git log";
+      gs = "git status";
+    };
+
+    systemPackages = with pkgs; [
+      # Editors
+      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
+      # Utilities
+      git
+      wget
+      bc
+      units
+
+      # Terminal
+      foot
+      tmux
+      tree
+      sl
+
+      # Power management
+      powertop
+      powerstat
+    ];
+  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -109,7 +162,11 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  # https://www.reddit.com/r/NixOS/comments/16mbn41/install_but_dont_enable_openssh_sshd_service/
+  # This adds systemd.services.sshd to the config and automatically enables it:
+  services.openssh.enable = true;
+  # so we disable automatic start up here:
+  systemd.services.sshd.wantedBy = lib.mkForce [ ];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
