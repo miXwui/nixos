@@ -31,6 +31,8 @@ in
       extraGroups = [ "networkmanager" "wheel" ];
       packages = with pkgs; [
         firefox
+        unstable.vscode
+        helix
       ];
       shell = pkgs.fish;
     };

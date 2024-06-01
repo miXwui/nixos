@@ -122,20 +122,15 @@
       # QT_QPA_PLATFORMTHEME =  "gnome";
     };
 
-#    # TODO: extract this into its own flake?
-#    # https://stackoverflow.com/a/45027283
-#    interactiveShellInit = ''
-#      alias sl = "sl -e"
-#    '';
-
     shellAliases = {
       sl = "sl -e";
+      gl = "git log";
       gs = "git status";
     };
 
     systemPackages = with pkgs; [
       # Editors
-      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.<F9>
+      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 
       # Utilities
       git

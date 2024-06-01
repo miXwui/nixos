@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+
 
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
@@ -14,6 +16,14 @@
     let
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
+      overlays = [
+        (final: prev: {
+          unstable = import inputs.nixpkgs-unstable {
+            system = final.system;
+            config.allowUnfree = true;
+          };
+        })
+      ];
     in
     {
       nixosConfigurations = {
@@ -22,6 +32,7 @@
             modules = [
             ./hosts/default/configuration.nix
             inputs.home-manager.nixosModules.default
+            { nixpkgs.overlays = overlays; }
           ];
         };
       };
