@@ -1,0 +1,24 @@
+# NixOS Configurations
+
+## Install a specific version of a package
+
+Find details from <https://lazamar.co.uk/nix-versions/> or search the Git repo for the PR/commit.
+
+Then modify `hosts/home.nix` like so:
+
+```nix
+let
+  old = import (builtins.fetchGit {
+    name = "waybar-old";
+    url = "https://github.com/NixOS/nixpkgs/";
+    ref = "refs/heads/nixpkgs-unstable";
+    rev = "db92283eff575ac2a78d7b2d65d2dad4f7acf14a";
+  }) { system = "x86_64-linux"; };
+in
+{
+  home.packages = with pkgs; [
+    old.waybar
+  ]
+}
+```
+
