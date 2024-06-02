@@ -70,15 +70,15 @@
 #  }
 
   # Enable sound with pipewire.
-#  sound.enable = true
-#  hardware.pulseaudio.enable = false
+#  sound.enable = true;
+#  hardware.pulseaudio.enable = false;
 #  security.rtkit.enable = true;
 #  services.pipewire = {
 #    enable = true;
 #    alsa.enable = true;
 #    alsa.support32Bit = true;
 #    pulse.enable = true;
-#  }
+#  };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   main-user.enable = true;
@@ -180,5 +180,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
