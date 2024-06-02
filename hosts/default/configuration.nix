@@ -129,24 +129,7 @@
     };
 
     systemPackages = with pkgs; [
-      # Editors
-      vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-
-      # Utilities
-      git
-      wget
-      bc
-      units
-
-      # Terminal
-      foot
-      tmux
-      tree
-      sl
-
-      # Power management
-      powertop
-      powerstat
+      #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     ];
   };
 
