@@ -51,14 +51,6 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
-  # Configure keymap in X11
-  services.xserver = {
-    xkb = {
-      layout = "us";
-      variant = "";
-    };
-  };
-
 #  # Enable CUPS to print documents.
 #  services.printing = {
 #    enable = true;
@@ -93,6 +85,13 @@ in
     "nix-command"
     "flakes"
   ];
+
+  # Enable SDDM
+  services.displayManager = {
+    sddm.enable = true;
+    sddm.wayland.enable = true;
+    sessionPackages = [ pkgs.sway ];
+  };
 
   # https://nixos.wiki/wiki/Sway#Using_Home_Manager
   security.polkit.enable = true;
