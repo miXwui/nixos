@@ -3,32 +3,28 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, inputs, ... }:
+let
+  tlpConfig = builtins.readFile ../etc/tlp.conf;
+  keydConfig = builtins.readFile ../etc/keyd/default.conf;
+in
 {
   imports =
     [
-      ./hardware-configuration.nix
-      ../base.nix
-    ];
+      ../modules/nixos/main-user.nix
+      inputs.home-manager.nixosModules.default
+    ]; 
 
-  # Bootloader.
-  boot.loader.grub.enable = true;
-  boot.loader.grub.device = "/dev/vda";
-  boot.loader.grub.useOSProber = true;
-
-  # Setup keyfile
-  boot.initrd.secrets = {
-    "/crypto_keyfile.bin" = null;
-  };
-
-  boot.loader.grub.enableCryptodisk=true;
-
-  boot.initrd.luks.devices."luks-4f95a8c6-4383-457b-ac3a-22f3657e9971".keyFile = "/crypto_keyfile.bin";
-
-  # https://nixos.wiki/Linux_kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # https://nixos.wiki/wiki/Linux_kernel
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages;
+  boot.supportedFilesystems = [ "bcachefs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # Disable wireless support via wpa_supplicant since it's enabled by default in
+  # `/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix`:
+  # https://github.com/NixOS/nixpkgs/blob/0bf03b32dcb0a80013b0ad3eb2446947027cfc4d/nixos/modules/profiles/installation-device.nix#L82
+  # and we can't use networking.networkmanager with networking.wireless.
+  networking.wireless.enable = false;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";

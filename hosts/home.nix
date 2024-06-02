@@ -6,7 +6,7 @@ let
  };
 in
 {
-  imports = [ ../../modules/home-manager ];
+  imports = [ ../modules/home-manager ];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -101,27 +101,27 @@ in
     # '';
 
     "${config.xdg.configHome}/sway" = {
-      source = ../../home/.config/sway;
+      source = ../home/.config/sway;
       recursive = true;
     };
 
     "Pictures/Wallpapers" = {
-      source = ../../home/Pictures/Wallpapers;
+      source = ../home/Pictures/Wallpapers;
       recursive = true;
     };
 
     "${config.xdg.configHome}/waybar" = {
-      source = ../../home/.config/waybar;
+      source = ../home/.config/waybar;
       recursive = true;
     };
 
     "${config.xdg.configHome}/dunst" = {
-      source = ../../home/.config/dunst;
+      source = ../home/.config/dunst;
       recursive = true;
     };
 
     ".icons/default" = {
-      source = ../../home/.local/share/icons/volantes_light_cursors;
+      source = ../home/.local/share/icons/volantes_light_cursors;
       recursive = true;
     };
   };

@@ -1,5 +1,5 @@
 {
-  description = "Framework 13 AMD 7840U NixOS config flake";
+  description = "NixOS and home-manager configuration";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-23.11";
@@ -29,8 +29,18 @@
       nixosConfigurations = {
         default = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
-            modules = [
+          modules = [
             ./hosts/default/configuration.nix
+            inputs.home-manager.nixosModules.default
+            { nixpkgs.overlays = overlays; }
+          ];
+        };
+
+        live-image = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+          modules = [
+            (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+            ./hosts/live-image/configuration.nix
             inputs.home-manager.nixosModules.default
             { nixpkgs.overlays = overlays; }
           ];
