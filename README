@@ -22,3 +22,32 @@ in
 }
 ```
 
+## Build ISO
+
+`flake.nix` is set up to use [nixos-generators](https://github.com/nix-community/nixos-generators):
+
+```sh
+nix build .#iso
+```
+
+[This](https://www.reddit.com/r/NixOS/comments/18gkafh/comment/kd13m58/) also works if added to `flake.nix`:
+
+```nix
+{
+  nixosConfigurations = {
+    live-image = nixpkgs.lib.nixosSystem {
+      specialArgs = { inherit inputs; };
+      modules = [
+        (nixpkgs + "/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix")
+        ./hosts/live-image/configuration.nix
+        inputs.home-manager.nixosModules.default
+        { nixpkgs.overlays = overlays; }
+      ];
+    };
+};
+}
+```
+
+```sh
+nix build .#nixosConfigurations.live-image.config.system.build.isoImage
+```
