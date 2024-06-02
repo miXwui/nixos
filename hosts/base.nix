@@ -58,15 +58,17 @@ in
 #  }
 
   # Enable sound with pipewire.
-#  sound.enable = true;
-#  hardware.pulseaudio.enable = false;
-#  security.rtkit.enable = true;
-#  services.pipewire = {
-#    enable = true;
-#    alsa.enable = true;
-#    alsa.support32Bit = true;
-#    pulse.enable = true;
-#  };
+  #  sound.enable = true;
+  #  hardware.pulseaudio.enable = false;
+  #  security.rtkit.enable = true;
+  services.pipewire = {
+    # Also needed for xdg-desktop-portal-wlr:
+    # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/FAQ#what-is-pipewire
+    enable = true;
+    #  alsa.enable = true;
+    #  alsa.support32Bit = true;
+    #  pulse.enable = true;
+  };
 
   # Bluetooth
   hardware.bluetooth = {
@@ -95,6 +97,22 @@ in
 
   # https://nixos.wiki/wiki/Sway#Using_Home_Manager
   security.polkit.enable = true;
+
+  # XDG Desktop Portals
+  # https://nixos.org/manual/nixos/stable/#sec-wayland
+  # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
+  # https://discourse.nixos.org/t/why-does-enabling-xdg-portal-install-so-many-packages/28283
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true;
+    config = {
+      sway = {
+        default = [
+          "gtk"
+        ];
+      };
+    };
+  };
 
   home-manager = {
     # also pass inputs to home-manager modules
@@ -135,6 +153,8 @@ in
       #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       tlp
       keyd
+      # https://github.com/emersion/xdg-desktop-portal-wlr
+      xdg-desktop-portal-wlr
     ];
 
     etc."tlp.conf".text = tlpConfig;
