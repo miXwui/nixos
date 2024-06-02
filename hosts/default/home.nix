@@ -46,6 +46,7 @@ in
 
     # Desktop environment
     unstable.sway
+    unstable.waybar
     swayidle
     ulauncher
     networkmanagerapplet
@@ -107,6 +108,12 @@ in
       source = ../../home/Pictures/Wallpapers;
       recursive = true;
     };
+
+    "${config.xdg.configHome}/waybar" = {
+      source = ../../home/.config/waybar;
+      recursive = true;
+    };
+
   };
 
   # Home Manager can also manage your environment variables through

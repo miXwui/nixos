@@ -146,6 +146,7 @@
     packages = with pkgs; [
       cantarell-fonts
       cascadia-code
+      font-awesome
     ];
 
     fontconfig = {
