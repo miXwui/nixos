@@ -5,6 +5,7 @@
 { config, lib, pkgs, inputs, ... }:
 let
   tlpConfig = builtins.readFile ../../etc/tlp.conf;
+  keydConfig = builtins.readFile ../../etc/keyd/default.conf;
 in
 {
   imports =
@@ -141,9 +142,11 @@ in
     systemPackages = with pkgs; [
       #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
       tlp
+      keyd
     ];
 
     etc."tlp.conf".text = tlpConfig;
+    etc."keyd/default.conf".text = keydConfig;
   };
 
   fonts = {
@@ -182,6 +185,7 @@ in
   systemd.services.sshd.wantedBy = lib.mkForce [ ];
 
   services.tlp.enable = true;
+  services.keyd.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
