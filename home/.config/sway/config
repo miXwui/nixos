@@ -3,6 +3,9 @@
 # Read `man 5 sway` for a complete reference.
 
 ### Auto start
+# Needed for dunst, etc.
+# https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 # Enable GUI applications' root prompt
 # Ensure polkit-kde is installed on Fedora
 exec /usr/libexec/kf5/polkit-kde-authentication-agent-1
