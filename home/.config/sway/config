@@ -1,0 +1,588 @@
+# Copy this to ~/.config/sway/config and edit it to your liking.
+#
+# Read `man 5 sway` for a complete reference.
+
+### Auto start
+# Enable GUI applications' root prompt
+# Ensure polkit-kde is installed on Fedora
+exec /usr/libexec/kf5/polkit-kde-authentication-agent-1
+# Ulauncher
+# exec GDK_BACKEND=wayland ulauncher --hide-window
+exec ulauncher --hide-window
+for_window [app_id="ulauncher"] floating enable, border none
+# Network
+exec nm-applet --indicator
+# Bluetooth
+exec blueman-applet
+# Gammastep
+# Currently not using geoclue for gammastep
+# x|Requires geoclue for location awareness
+# x|/etc/geoclue/geoclue.conf add:
+# x|[gammastep]
+# x|allowed=true
+# x|system=false
+# x|users=
+#
+# exec gammastep 
+# Since geoclue ain't that reliable...
+# https://rumpelsepp.org/blog/geolocation-for-gammastep/ (thanks!)
+# 
+# systemd service
+# ~/.config/systemd/user/gammastep.service
+# calls
+# ~/.config/sway/scripts/gammastep-wrapper.sh
+#
+# KDEConnect-indicator
+exec kdeconnect-indicator
+# flashfocus
+# exec_always ~/.local/bin/flashfocus
+# Watch for when things like images are copied to clipboard
+exec wl-paste --watch ~/.config/sway/scripts/wl-paste.sh
+# Set mouse cursor theme
+seat * xcursor_theme volantes_light_cursors
+exec gsettings set org.gnome.desktop.interface cursor-theme volantes_light_cursors
+###
+
+# Make mouse cursor follow focus
+mouse_warping container
+
+### Variables
+#
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
+# Home row direction keys, like vim
+set $left j
+set $down k
+set $up i
+set $right l
+# Your preferred terminal emulator
+set $term foot
+# Your preferred application launcher
+# Note: pass the final command to swaymsg so that the resulting window can be opened
+# on the original workspace that the command was run on.
+# set $menu menu_path | dmenu | xargs swaymsg exec --
+set $menu ulauncher-toggle
+
+set $lock swaylock
+
+set $cursor_timeout seat * hide_cursor 1000
+
+# Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
+#output * bg /usr/share/backgrounds/default.png fill
+output * bg ~/Pictures/Wallpapers/PXL_20220801_011526749.MP.jpg fill
+# Cycles through wallpapers with $mod+z
+set $wallkey $mod+z
+set $wallkey0 output * bg ~/Pictures/Wallpapers/PXL_20220801_011526749.MP.jpg fill; bindsym $wallkey $$wallkey1
+set $wallkey1 output * bg ~/Pictures/Wallpapers/wp1.jpg fill; bindsym $wallkey $$wallkey2
+set $wallkey2 output * bg ~/Pictures/Wallpapers/wp2.jpg fill; bindsym $wallkey $$wallkey3
+set $wallkey3 output * bg ~/Pictures/Wallpapers/city-day.png fill; bindsym $wallkey $$wallkey4
+set $wallkey4 output * bg ~/Pictures/Wallpapers/city-night.png fill; bindsym $wallkey $$wallkey5
+set $wallkey5 output * bg ~/Pictures/Wallpapers/wp3.jpg fill; bindsym $wallkey $$wallkey0
+bindsym $wallkey $wallkey1
+
+#
+# Example configuration:
+#
+#   output HDMI-A-1 resolution 1920x1080 position 1920,0
+#
+# You can get the names of your outputs by running: swaymsg -t get_outputs
+
+# pos 0,600, since y is invert. Screen is moved physically down 600 pixels.
+# Don't use negative numbers as they seem to cause mouse/window bug on Microsoft Edge.
+# Internal Dell 4K Display: 3840x2160
+# output eDP-1 res --custom 2560x1440 pos 0 600 scale_filter linear
+
+output eDP-1 pos 0 0 scale 1.5
+
+# Cycles through fractional scales
+set $scalekey $mod+equal
+set $scalekey0 output eDP-1 scale 0.5; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 0.5"; bindsym $scalekey $$scalekey1
+set $scalekey1 output eDP-1 scale 1; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1"; bindsym $scalekey $$scalekey2
+set $scalekey2 output eDP-1 scale 1.25; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.25"; bindsym $scalekey $$scalekey3
+set $scalekey3 output eDP-1 scale 1.5; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.5"; bindsym $scalekey $$scalekey4
+set $scalekey4 output eDP-1 scale 2; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 2"; bindsym $scalekey $$scalekey5
+set $scalekey5 output eDP-1 scale 3; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 3"; bindsym $scalekey $$scalekey0
+bindsym $scalekey $scalekey1
+
+#
+# output eDP-1 res 3840x2160 pos 0,600 scale 1.5 scale_filter linear
+# 3840 / 1.5 = 2560 for display scaling and mouse to be able to swap displays.
+output 'Dell Inc. DELL U3421WE H3TS653' res 3440x1440 pos 2560 0
+output 'BOE 0x095F Unknown' res 2256x1504
+
+# Focus monitor on Sway launch
+focus output 'Dell Inc. DELL U3421WE H3TS653'
+
+### Disable laptop screen and fingerprint reader on lid close
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+### Idle configuration
+#
+# Example configuration:
+#
+# exec swayidle -w \
+#          timeout 300 'swaylock -f -c 000000' \
+#          timeout 600 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+#          before-sleep 'swaylock -f -c 000000'
+#
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+
+# Inhibit dpms off, lock, and suspend-then-hibernate on AC power.
+# Send notification examples: 
+# timeout 285 'dunstify "locking in 15s" -a swayidle' \
+# timeout 290 'dunstify "locking in 10s" -a swayidle' \
+# timeout 295 'dunstify "locking in 5s" -a swayidle' \
+# Inhibitor example:
+# https://github.com/swaywm/sway/issues/2595#issuecomment-480673973
+exec swayidle -w \
+    timeout 300 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+    timeout 480 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || $lock' \
+    timeout 600 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || systemctl suspend-then-hibernate' \
+    before-sleep '$lock'
+       
+### Input configuration
+#
+# Example configuration:
+#
+#   input "2:14:SynPS/2_Synaptics_TouchPad" {
+#       dwt enabled
+#       tap enabled
+#       natural_scroll enabled
+#       middle_emulation enabled
+#   }
+#
+input "2362:628:PIXA3854:00_093A:0274_Touchpad" click_method clickfinger
+
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+
+input * xkb_numlock enabled
+
+# https://github.com/swaywm/sway/wiki#load-a-modified-custom-xkb-keymap-xmodmap-equivalent
+# cp /usr/share/X11/xkb/symbols/us ~/.xkb/symbols/custom
+#input * xkb_layout custom,custom(intl)
+
+# Set this for keyd's compose macro to work correctly.
+# See `man keyd` example 5 for more details.
+input * xkb_options "compose:menu"
+
+# https://github.com/swaywm/sway/issues/1133i
+# https://github.com/swaywm/sway/issues/4152#issuecomment-492046289
+# https://gist.github.com/jatcwang/ae3b7019f219b8cdc6798329108c9aee?permalink_comment_id=3751860#gistcomment-3751860
+# https://askubuntu.com/a/1201800
+# https://www.commandlinux.com/man-page/man7/xkeyboard-config.7.html
+# `localectl list-x11-keymap-*`
+## make caps lock toggle layout with led
+# input * xkb_options "grp:caps_toggle,grp_led:caps"
+# We can also run `xkbcomp $DISPLAY xkb.dump`
+# and use it to override everything with:
+# input * xkb_file "~/xkb.dump"
+
+input type:pointer {
+    accel_profile flat
+    pointer_accel 0
+    # scroll_factor 
+}
+
+input type:touchpad {
+       dwt enabled
+       tap enabled
+       natural_scroll enabled
+       middle_emulation enabled
+   }
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return fullscreen disable, exec $term
+#
+    # Kill focused window
+    bindsym $mod+Shift+q kill
+
+    # kill -9 focused window
+    bindsym Ctrl+Alt+Delete exec ~/.config/sway/scripts/kill-9-current-window.sh
+
+    # Start your launcher
+    
+    # Just the super key: 
+    # bindcode --release 133 exec $menu
+    #
+    bindsym $mod+d fullscreen disable, exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mod+Shift+c reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Passthrough mode which toggles enabling/disabling of all keybindings except
+# that combo. Displays `passthrough` as Sway status in waybar (like `resize` and `move`).
+mode passthrough {
+	bindsym $mod+Backspace mode default
+}
+bindsym $mod+Backspace mode passthrough
+
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+$left focus left
+    bindsym $mod+$down focus down 
+    bindsym $mod+$up focus up
+    bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+$left move left
+    bindsym $mod+Shift+$down move down
+    bindsym $mod+Shift+$up move up
+    bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mod+Shift+Left move left
+    bindsym $mod+Shift+Down move down
+    bindsym $mod+Shift+Up move up
+    bindsym $mod+Shift+Right move right
+
+    bindsym Alt+Tab focus next
+    bindsym Alt+Shift+Tab focus prev
+    bindsym $mod+Shift+Tab focus output right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+    
+    bindsym $mod+Tab workspace back_and_forth
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+b splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    # https://github.com/swaywm/sway/issues/6925
+    # https://github.com/swaywm/sway/pull/4255
+    # https://github.com/swaywm/sway/issues/5397
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+    # Toggle window on all workspaces
+    bindsym $mod+Shift+s sticky toggle
+#
+# Scratchpad:
+#
+    # Sway has a "scratchpad", which is a bag of holding for windows.
+    # You can send windows there and get them back later.
+
+    # Move the currently focused window to the scratchpad
+    bindsym $mod+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    # With home row direction keys (like vim)
+    bindsym $left resize shrink width 50px
+    bindsym $right resize grow width 50px
+    bindsym $down resize shrink height 50px
+    bindsym $up resize grow height 50px
+
+    # Ditto, with arrow keys
+    bindsym Left resize shrink width 50px
+    bindsym Right resize grow width 50px
+    bindsym Down resize shrink height 50px
+    bindsym Up resize grow height 50px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+mode "move" {
+   # With home row direction keys (like vim)
+    bindsym $left move left 50px
+    bindsym $right move right 50px
+    bindsym $up move up 50px
+    bindsym $down move down 50px
+    
+    # Ditto, with arrow keys   
+    bindsym Left move left 50px
+    bindsym Right move right 50px
+    bindsym Up move up 50px
+    bindsym Down move down 50px
+
+    # Return to default mode
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+m mode "move"
+
+# Toggle dpms all
+# From https://github.com/swaywm/sway/issues/2910#issuecomment-476544900
+#bindsym --locked $mod+t exec swayidle -w \
+#  timeout 1 'swaymsg "output * dpms off"' \
+#  resume 'swaymsg "output * dpms on "; pkill -nx swayidle'
+# This should work after Fedora 35 upgrade with latest sway
+# Hotkey to toggle only the internal display off/on. Using `output * dpms toggle`
+# may result in error "Cannot apply toggle to all outputs".
+bindsym --locked $mod+t exec swaymsg 'output eDP-1 dpms toggle'
+
+#
+## Function Keys:
+#
+# Volume keys
+#bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% && dunstify -h string:x-dunst-stack-tag:audio "Volume: " -h int:value:$(pactl list sinks | tr ' ' '\n' | grep -m1 '%' | tr -d '% ') -t 1000
+#bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% && dunstify -h string:x-dunst-stack-tag:audio "Volume: " -h int:value:$(pactl list sinks | tr ' ' '\n' | grep -m1 '%' | tr -d '% ') -t 1000
+#bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
+bindsym --locked XF86AudioRaiseVolume exec ~/.config/sway/scripts/volume.sh up
+bindsym --locked  XF86AudioLowerVolume exec ~/.config/sway/scripts/volume.sh down
+bindsym --locked XF86AudioMute exec ~/.config/sway/scripts/volume.sh mute
+bindsym --locked XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# Brightness
+bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness.sh up
+bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness.sh down
+
+# Media keys
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# Search key
+bindsym XF86Search exec $menu
+#
+## wlogout
+# hide_cursor 0 to show mouse cursor
+bindsym $mod+Ctrl+Return exec killall wlogout || wlogout
+#, seat * hide_cursor 0
+# reset hide_cursor to default
+#for_window [app_id="wlogout"] $cursor_timeout
+#seat * hide_cursor 1000
+#
+
+## Sleep
+# We use systemd instead of Sway
+# In /etc/systemd/logind.conf:
+# HandlePowerKey=suspend-then-hibernate
+
+# Power-saver-balanced profile (225)
+# https://www.reddit.com/r/i3wm/comments/bgwcmr/comment/elq39y9/?utm_source=share&utm_medium=web2x&context=3
+# For i3 but same for pkexec in Sway:
+# Another problem is that pkexec has a quirk: it refuses to work if its parent process exits before pkexec
+#  can get its properties; because of this, just using bindsym <some-key> exec pkexec <some-program> in i3\
+#  config will not work. You need to force the shell process to stay and wait until pkexec does its work and
+#  exits, e.g., by adding a seemingly useless && : to the shell command:
+#  bindsym <some-key> exec pkexec <some-program> && :
+# If you are invoking pkexec from a shell script, you should make sure that pkexec is not the last command
+#  in the script (for the last command the shell may implicitly add exec, replacing the shell process with pkexec,
+#  and then pkexec may fail if the parent process of that shell has exited). You can either
+#  add && : to the command, or append a useless command like exit $?.
+bindsym Ctrl+Shift+$mod+P exec pkexec ~/.config/sway/scripts/set-power-saver-balanced.sh && :
+
+# Fast commands
+bindsym Ctrl+Shift+Alt+F exec ~/.config/sway/scripts/fast-commands.sh
+
+# Dunstify
+bindsym Ctrl+Shift+$mod+Up exec dunstctl history-pop
+bindsym Ctrl+Shift+$mod+Down exec dunstctl close
+# The above for some reason doesn't work with my keyd alt arrow layer
+# So I'm also binding with  just i and k.
+bindsym Ctrl+Shift+$mod+i exec dunstctl history-pop
+bindsym Ctrl+Shift+$mod+k exec dunstctl close
+
+## Screenshot
+#
+# Select section and send to swappy
+bindsym $mod+Print exec ~/.config/sway/scripts/screen-utils.sh
+bindsym Print exec ~/.config/sway/scripts/screenshot-section.sh
+
+# Record animated gif
+# https://github.com/ammen99/wf-recorder/issues/24#issuecomment-494588362
+#
+bindsym Ctrl+Alt+Shift+G exec ~/.config/sway/scripts/gif-record.sh
+
+# Get hex color
+bindsym Ctrl+Alt+Shift+K+C exec ~/.config/sway/scripts/color-picker.sh
+bindsym Ctrl+Alt+Shift+C exec ~/.config/sway/scripts/pick-color.sh
+
+### Todo/enable
+## capture all screens to clipboard    
+#bindsym Shift+Print exec grim - | wl-copy    
+#    
+# capture the specified screen area to clipboard    
+#bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy    
+#        
+# capture the focused monitor to clipboard    
+#bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
+
+#capture the focused monitor to swappy
+bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot-current-display.sh
+
+# capture all screens to clipboard
+bindsym Ctrl+Shift+Print exec ~/.config/sway/scripts/screenshot-all-displays.sh
+####
+
+# Floating Windows
+for_window [app_id="gnome-calculator"] floating enable
+for_window [app_id="org.gnome.Calculator"] floating enable
+for_window [app_id="gnome-calendar"] floating enable
+for_window [app_id="gnome-control-center"] floating enable
+for_window [app_id="org.gnome.Software"] floating enable
+for_window [app_id="org.gnome.Nautilus"] floating enable
+for_window [app_id="gnome-font-viewer"] floating enable
+for_window [app_id="com.rafaelmardojai.Blanket"] floating enable
+
+for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
+
+for_window [app_id="blueman-manager"] floating enable
+for_window [app_id="pavucontrol"] floating enable, move position cursor, move down 250
+
+for_window [class="privateinternetaccess"] floating enable, move position cursor, move left 150, move down 250
+
+for_window [app_id="mpv"] floating enable
+for_window [app_id="vlc"] floating enable
+for_window [class="vlc"] floating enable
+
+for_window [app_id="gcolor3"] floating enable
+for_window [app_id="zenity"] floating enable
+
+for_window [title="Firefox — Sharing Indicator"] floating enable
+###
+
+# Overrides: fonts, borders, and gaps, etc.
+# Hex values with 95% transparency/opacity (f2) alpha values
+set $lightbluegreen #68beb7f2
+set $onlightbluegreen #1d2d2b
+set $darkbluegreen #235450f2
+set $yellow #ffc300f2
+set $bggray #4f5b5af2
+set $darkcharcoal #333333
+set $whitesmoke #f5f5f5
+# Old, ununsed
+set $gray #888888
+set $lightblue #90c9ec
+set $darkblue #022334
+
+# class                 border          bground         text              indicator  child_border
+client.focused          $lightbluegreen $lightbluegreen $onlightbluegreen $yellow    $lightbluegreen
+client.focused_inactive $bggray         $bggray         $whitesmoke       $yellow    $bggray
+client.unfocused        $darkbluegreen  $darkbluegreen  $whitesmoke       $yellow    $darkbluegreen
+# Using Sway's defaults
+# client.urgent         #2f343a         #900000         #ffffff           #900000    #900000
+
+default_border normal 5
+default_floating_border normal 5
+gaps inner 10
+# popup_during_fullscreen smart (default) | ignore | leave_fullscreen
+###
+
+# Focus on window activation
+# https://www.reddit.com/r/swaywm/comments/c3h2ja/auto_focus_windows/
+focus_on_window_activation focus
+
+# https://www.reddit.com/r/i3wm/comments/9zkpml/do_not_all_of_applications_ask_for_focus_when/
+# for_window [class=.*]
+
+# Set opacity/transparency for all windows
+# mod+x toggles through n% opacities.
+# mod+c toggles between 10% and 100% opacity.
+# https://github.com/swaywm/sway/issues/6574#issuecomment-933873196
+# https://www.reddit.com/r/swaywm/comments/cr42d3/how_can_i_set_transparency_for_windows_and_also/
+set $alpha-key-n $mod+x
+set $alpha-key-toggle $mod+c
+set $alpha 1.0
+set $alpha-on-0 [class=.*] opacity 0.5; [app_id=.*] opacity 0.5; bindsym $alpha-key-n $$alpha-on-1; set $$alpha 0.5
+set $alpha-on-1 [class=.*] opacity 0.8; [app_id=.*] opacity 0.8; bindsym $alpha-key-n $$alpha-on-2; set $$alpha 0.8
+set $alpha-on-2 [class=.*] opacity 0.9; [app_id=.*] opacity 0.9; bindsym $alpha-key-n $$alpha-on-3; set $$alpha 0.9
+set $alpha-on-3 [class=.*] opacity 0.95; [app_id=.*] opacity 0.95; bindsym $alpha-key-n $$alpha-on-0; set $$alpha 0.95
+set $alpha-off-0 [class=.*] opacity 0.1; [app_id=.*] opacity 0.1; bindsym $alpha-key-toggle $$alpha-off-1; set $$alpha 0.1
+set $alpha-off-1 [class=.*] opacity 1; [app_id=.*] opacity 1; bindsym $alpha-key-toggle $$alpha-off-0; set $$alpha 1
+bindsym $alpha-key-n $alpha-on-2
+bindsym $alpha-key-toggle $alpha-off-1
+for_window [class=.*] opacity $$alpha
+for_window [app_id=.*] opacity $$alpha
+
+# Hide cursor after one second of inactivity.
+#$cursor_timeout
+seat * hide_cursor when-typing disable
+###
+
+#
+# Status Bar:
+#
+# Read `man 5 sway-bar` for more information about this section.
+bar {
+    swaybar_command waybar
+#   position top
+#
+#   # When the status_command prints a new line to stdout, swaybar updates.
+#   # The default just shows the current date and time.
+#   status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+#
+#   colors {
+#       statusline #ffffff
+#       background #323232
+#       inactive_workspace #32323200 #32323200 #5c5c5c
+#   }
+}
+
+include /etc/sway/config.d/*
