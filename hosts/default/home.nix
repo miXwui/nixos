@@ -96,6 +96,16 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    "${config.xdg.configHome}/sway" = {
+      source = ../../home/.config/sway;
+      recursive = true;
+    };
+
+    "Pictures/Wallpapers" = {
+      source = ../../home/Pictures/Wallpapers;
+      recursive = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
