@@ -80,6 +80,14 @@
 #    pulse.enable = true;
 #  };
 
+  # Bluetooth
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
+
+  services.blueman.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   main-user.enable = true;
   main-user.username = "mwu";

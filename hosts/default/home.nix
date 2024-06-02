@@ -49,6 +49,7 @@ in
     swayidle
     ulauncher
     networkmanagerapplet
+    blueman
 
     grim
     slurp
