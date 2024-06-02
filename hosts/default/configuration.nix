@@ -3,7 +3,9 @@
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
 { config, lib, pkgs, inputs, ... }:
-
+let
+  tlpConfig = builtins.readFile ../../etc/tlp.conf;
+in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -138,7 +140,10 @@
 
     systemPackages = with pkgs; [
       #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+      tlp
     ];
+
+    etc."tlp.conf".text = tlpConfig;
   };
 
   fonts = {
