@@ -49,6 +49,7 @@ in
     unstable.waybar
     swayidle
     ulauncher
+    dunst
     networkmanagerapplet
     blueman
 
@@ -111,6 +112,11 @@ in
 
     "${config.xdg.configHome}/waybar" = {
       source = ../../home/.config/waybar;
+      recursive = true;
+    };
+
+    "${config.xdg.configHome}/dunst" = {
+      source = ../../home/.config/dunst;
       recursive = true;
     };
 
