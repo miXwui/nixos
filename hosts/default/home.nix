@@ -83,7 +83,7 @@ in
 
     # Programs
     unstable.firefox
-  ];
+ ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -114,6 +114,10 @@ in
       recursive = true;
     };
 
+    ".icons/default" = {
+      source = ../../home/.local/share/icons/volantes_light_cursors;
+      recursive = true;
+    };
   };
 
   # Home Manager can also manage your environment variables through
