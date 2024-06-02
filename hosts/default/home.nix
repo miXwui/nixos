@@ -1,7 +1,14 @@
-{ config, pkgs, ... }:
-
+{ config, pkgs, inputs, ... }:
+let
+  unstable = import inputs.nixpkgs-unstable {
+    system = pkgs.system;
+    config.allowUnfree = true;
+ };
+in
 {
   imports = [ ../../modules/home-manager ];
+
+  nixpkgs.config.allowUnfree = true;
 
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -19,7 +26,7 @@
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
-  home.packages = [
+  home.packages = with pkgs; [
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -36,6 +43,44 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
+
+    # Desktop environment
+    unstable.sway
+    swayidle
+    ulauncher
+    networkmanagerapplet
+
+    grim
+    slurp
+    wl-clipboard
+
+    # Utilities
+    git
+    fish
+    htop
+    jq
+    wget
+    bc
+    units
+
+    # Editors
+    vim
+    unstable.vscode
+    unstable.helix
+
+    # Terminal
+    unstable.foot
+    unstable.contour
+    tmux
+    tree
+    sl
+
+    # Power management
+    powertop
+    powerstat
+
+    # Programs
+    unstable.firefox
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage

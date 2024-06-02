@@ -29,11 +29,7 @@ in
       initialPassword = "12345";
       description = cfg.fullname;
       extraGroups = [ "networkmanager" "wheel" ];
-      packages = with pkgs; [
-        firefox
-        unstable.vscode
-        helix
-      ];
+      packages = with pkgs; [ ];
       shell = pkgs.fish;
     };
   };
