@@ -46,6 +46,7 @@ in
 
     # Desktop environment
     unstable.sway
+    swaylock
     unstable.waybar
     swayidle
     ulauncher
