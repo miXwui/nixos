@@ -1,0 +1,250 @@
+{
+  "layer": "top", // Waybar at top layer
+  "position": "bottom", // Waybar position (top|bottom|left|right)
+  "height": 30, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  // Choose the order of the modules
+  "modules-left": [
+    "sway/workspaces",
+    "sway/mode",
+    "custom/scratchpad-indicator",
+    "custom/media",
+    "cpu",
+    "temperature",
+    "memory",
+    "disk",
+    "battery",
+    "network",
+    "bluetooth",
+    "mpv"
+  ],
+  "modules-center": ["sway/window"],
+  "modules-right": [
+    "idle_inhibitor",
+    "custom/dunst",
+    "custom/power_profile",
+    "pulseaudio#sink",
+    "pulseaudio#source",
+    "backlight",
+    "custom/weather",
+    "clock",
+    "tray"
+  ],
+  // Modules configuration
+  // "sway/workspaces": {
+  //     "disable-scroll": true,
+  //     "all-outputs": true,
+  //     "format": "{name}: {icon}",
+  //     "format-icons": {
+  //         "1": "",
+  //         "2": "",
+  //         "3": "",
+  //         "4": "",
+  //         "5": "",
+  //         "urgent": "",
+  //         "focused": "",
+  //         "default": ""
+  //     }
+  // },
+  "sway/mode": {
+    "format": "<span style=\"italic\">{}</span>",
+    "min-length": 10
+  },
+  "custom/scratchpad-indicator": {
+    "interval": 60,
+    "return-type": "json",
+    "exec": "swaymsg -t get_tree | jq --unbuffered --compact-output '(recurse(.nodes[]) | select(.name == \"__i3_scratch\") | .focus) as $scratch_ids | [..  | (.nodes? + .floating_nodes?) // empty | .[] | select(.id |IN($scratch_ids[]))] as $scratch_nodes | if ($scratch_nodes|length) > 0 then { text: \"\\($scratch_nodes | length)\", tooltip: $scratch_nodes | map(\"\\(.app_id // .window_properties.class) (\\(.id)): \\(.name)\") | join(\"\\n\") } else empty end'",
+    "format": "{} 🗗",
+    "on-click": "exec swaymsg 'scratchpad show'",
+    "on-click-right": "exec swaymsg 'move scratchpad'"
+  },
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "unknown-tag": "N/A",
+    "interval": 60,
+    "consume-icons": {
+      "on": " "
+    },
+    "random-icons": {
+      "off": "<span color=\"#f53c3c\"></span> ",
+      "on": " "
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 "
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "",
+      "deactivated": ""
+    },
+    // `timeout` is in minutes. Possible to set partial minutes like so: `30.5`.
+    "timeout": 30.5
+  },
+  "custom/dunst": {
+    "return-type": "json",
+    "tooltip": true,
+    "exec": "~/.config/waybar/scripts/dunst.sh",
+    "on-click": "dunstctl set-paused toggle",
+    "restart-interval": 60
+  },
+  "tray": {
+    // "icon-size": 21,
+    "spacing": 10
+  },
+  "clock": {
+    // "timezone": "America/New_York",
+    "format": "{:%a %m-%d %I:%M %p}",
+    "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+    "format-alt": "{:%a %m-%d-%Y %I:%M:%S %p}",
+    "today-format": "<span color='#ff6699'><b><u>{}</u></b></span>", 
+    "calendar-weeks-pos": "left", 
+    "format-calendar": "<span color='#ecc6d9'><b>{}</b></span>", 
+    "format-calendar-weeks": "<span color='#99ffdd'><b>W{:%V}</b></span>", 
+    "format-calendar-weekdays": "<span color='#ffcc66'><b>{}</b></span>", 
+    "interval": 60,
+    "on-click-right": "gnome-calendar"
+  },
+  "cpu": {
+    "format": "{usage}% {avg_frequency} ",
+    "tooltip": false,
+    // default is 10
+    "interval": 60
+  },
+  "temperature": {
+    // "thermal-zone": 2,
+    // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+    "critical-threshold": 80,
+    // "format-critical": "{temperatureC}°C {icon}",
+    "format": "{temperatureC}°C {icon}",
+    "format-icons": ["", "", ""],
+    "interval": 60
+  },
+  "memory": {
+    "format": "{}% "
+  },
+  "disk": {
+    "interval": 60,
+    "format": "{free} {path}",
+    "path": "/"
+  },
+  "backlight": {
+    // "device": "acpi_video1",
+    "format": "{percent}% {icon}",
+    "format-icons": ["🌚", "🌛", "🌓", "🌔", "🌝"],
+    "on-scroll-up": "light -A 5",
+    "on-scroll-down": "light -U 5",
+    "on-click": "light -S 30",
+    "on-click-right": "light -S 75",
+    "on-click-middle": "light -S 100"
+  },
+  "battery": {
+    "states": {
+      // "good": 95,
+      "warning": 30,
+      "critical": 15
+    },
+    "format": "{capacity}% {icon} {power:.3}W",
+    "format-charging": "{capacity}%  {power:.3}W",
+    "format-plugged": "{capacity}%  {power:.3}W",
+    "format-alt": "{time} {icon} {power:.3}W",
+    // "format-good": "", // An empty format will hide the module
+    // "format-full": "",
+    "format-icons": ["", "", "", "", ""],
+    // "max-length": 25,
+    "interval": 60
+  },
+  "battery#bat2": {
+    "bat": "BAT2"
+  },
+  "bluetooth": {
+    //"format": "{icon} {status}",
+    "interval": 60,
+    "format-icons": {
+      "enabled": " on",
+      "disabled": " off"
+    },
+    "tooltip-format": "{status}",
+    "on-click-right": "blueman-manager"
+  },
+  "network": {
+    // "interface": "wlp2*", // (Optional) To force the use of this interface
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "down: {bandwidthDownBits} up: {bandwidthUpBits}",
+    "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
+    "interval": 60
+  },
+  "pulseaudio#sink": {
+    // "scroll-step": 1, // %, can be a float
+    "format": "{volume}% {icon}",
+    "format-muted": "",
+    "format-bluetooth": "{volume}% {icon} {desc}",
+    "format-bluetooth-muted": " {icon} {desc}",
+    "format-icons": {
+      "hifi": "hifi",
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": ["", "", ""]
+    },
+    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+    "on-click-right": "gnome-control-center sound"
+  },
+  "pulseaudio#source": {
+    "format": "{format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
+    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
+    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
+    "on-click-right": "gnome-control-center sound",
+    "tooltip": false
+  },
+  "custom/media": {
+    "format": "{icon} {}",
+    "return-type": "json",
+    "max-length": 40,
+    "format-icons": {
+      "spotify": "",
+      "default": "🎜"
+    },
+    "escape": true,
+    "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null" // Script in resources folder
+    // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+  },
+  "custom/weather": {
+    "format": "{}",
+    "return-type": "json",
+    "tooltip": true,
+    "interval": 900,
+    "exec": "$HOME/.config/waybar/scripts/weather.sh",
+    "on-click": "$HOME/.config/waybar/scripts/weather.sh'"
+  },
+  "custom/power_profile": {
+    "return-type": "json",
+    "tooltip": true,
+    "exec": "~/.config/waybar/scripts/tlp.sh",
+    "interval": 60,
+    "on-click": "",
+    "on-click-right": "pkexec ~/.config/waybar/scripts/tlp-bat.sh",
+    "on-click-middle": "pkexec ~/.config/waybar/scripts/tlp-ac.sh"
+  }
+}
