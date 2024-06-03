@@ -1,10 +1,8 @@
 #!/bin/bash
 
 COUNT=$(dunstctl count waiting)
-ENABLED=
-DISABLED=
-if [ $COUNT != 0 ]; then DISABLED=" $COUNT"; fi
-# if dunstctl is-paused | grep -q "false" ; then echo $ENABLED; else echo $DISABLED; fi
+ENABLED=""
+DISABLED=""
 
 if dunstctl is-paused | grep -q "false"; then
   jq -c -r --null-input \
