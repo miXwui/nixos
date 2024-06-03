@@ -118,6 +118,22 @@ in
     '';
   };
 
+  systemd = {
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+          Type = "simple";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          Restart = "on-failure";
+          RestartSec = 1;
+          TimeoutStopSec = 10;
+        };
+    };
+  };
+
   # PAM
   # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
   # https://github.com/swaywm/sway/issues/2773#issuecomment-427570877
@@ -193,7 +209,7 @@ in
       keyd
       # https://github.com/emersion/xdg-desktop-portal-wlr
       xdg-desktop-portal-wlr
-      kdePackages.polkit-kde-agent-1
+      polkit_gnome
       gparted
     ];
 
