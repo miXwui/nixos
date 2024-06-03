@@ -8,7 +8,7 @@
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 # Enable GUI applications' root prompt
 # Ensure polkit-kde is installed on Fedora
-exec /usr/libexec/kf5/polkit-kde-authentication-agent-1
+# Exec /usr/libexec/kf6/polkit-kde-authentication-agent-1
 # Ulauncher
 # exec GDK_BACKEND=wayland ulauncher --hide-window
 exec ulauncher --hide-window
