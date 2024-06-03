@@ -96,8 +96,27 @@ in
   };
 
   # Polkit
-  # https://nixos.wiki/wiki/Sway#Using_Home_Manager
-  security.polkit.enable = true;
+  security.polkit = {
+    # https://nixos.wiki/wiki/Sway#Using_Home_Manager
+    enable = true;
+    # https://nixos.wiki/wiki/Polkit#Reboot/poweroff_for_unprivileged_users
+    extraConfig = ''
+      polkit.addRule(function(action, subject) {
+        if (
+          subject.isInGroup("users")
+            && (
+              action.id == "org.freedesktop.login1.reboot" ||
+              action.id == "org.freedesktop.login1.reboot-multiple-sessions" ||
+              action.id == "org.freedesktop.login1.power-off" ||
+              action.id == "org.freedesktop.login1.power-off-multiple-sessions"
+            )
+          )
+        {
+          return polkit.Result.YES;
+        }
+      })
+    '';
+  };
 
   # PAM
   # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
@@ -174,6 +193,8 @@ in
       keyd
       # https://github.com/emersion/xdg-desktop-portal-wlr
       xdg-desktop-portal-wlr
+      kdePackages.polkit-kde-agent-1
+      gparted
     ];
 
     etc."tlp.conf".text = tlpConfig;
