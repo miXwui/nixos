@@ -266,11 +266,13 @@ https://github.com/Alexays/Waybar/issues/416#issuecomment-515894252
 #custom-dunst {
     border-bottom: 3px solid #00e3c1;
     color: #00e3c1;
+    font-size: 20px;
 }
 
 #custom-dunst.muted {
-    border-bottom: 3px solid #587165;
-    color: #587165;
+    border-bottom: 3px solid #dc0017;
+    color: #dc0017;
+    font-size: 20px;
 }
 
 #mpd {

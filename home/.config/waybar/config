@@ -94,6 +94,15 @@
     "timeout": 30.5
   },
   "custom/dunst": {
+    // Waiting on this to be able to pass in JSON keys, e.g.:
+    // "format": "{count}{icon}"
+    // https://github.com/Alexays/Waybar/issues/432
+    "format": "{}{icon}",
+    "format-icons": {
+      // https://github.com/Alexays/Waybar/issues/2111#issuecomment-1506678252
+      "unmuted": "<span font='16' rise='-3000'></span>",
+      "muted": "<span font='16' rise='-3000'></span>"
+    },
     "return-type": "json",
     "tooltip": true,
     "exec": "~/.config/waybar/scripts/dunst.sh",
