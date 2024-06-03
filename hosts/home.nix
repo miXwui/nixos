@@ -47,6 +47,7 @@ in
     # Desktop environment
     unstable.sway
     swaylock
+    wlogout
     unstable.waybar
     swayidle
     ulauncher
@@ -126,6 +127,11 @@ in
       source = ../home/.local/share/icons/volantes_light_cursors;
       recursive = true;
     };
+
+    "${config.xdg.configHome}/wlogout" = {
+      source = ../home/.config/wlogout;
+      recursive = true;
+    };    
   };
 
   # Home Manager can also manage your environment variables through
