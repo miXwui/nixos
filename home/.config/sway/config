@@ -7,8 +7,7 @@
 # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 # Enable GUI applications' root prompt
-# Ensure polkit-kde is installed on Fedora
-# Exec /usr/libexec/kf6/polkit-kde-authentication-agent-1
+exec /nix/var/nix/profiles/system/sw/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
 # Ulauncher
 # exec GDK_BACKEND=wayland ulauncher --hide-window
 exec ulauncher --hide-window
