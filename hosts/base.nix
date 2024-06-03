@@ -100,16 +100,18 @@ in
 
   # XDG Desktop Portals
   # https://nixos.org/manual/nixos/stable/#sec-wayland
-  # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
   # https://discourse.nixos.org/t/why-does-enabling-xdg-portal-install-so-many-packages/28283
   xdg.portal = {
     enable = true;
     wlr.enable = true;
     config = {
+      # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
       sway = {
         default = [
           "gtk"
         ];
+        "org.freedesktop.impl.portal.Screenshot" = "wlr";
+        "org.freedesktop.impl.portal.ScreenCast" = "wlr";
       };
     };
   };
