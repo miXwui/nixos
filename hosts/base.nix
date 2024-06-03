@@ -95,8 +95,25 @@ in
     sessionPackages = [ pkgs.sway ];
   };
 
+  # Polkit
   # https://nixos.wiki/wiki/Sway#Using_Home_Manager
   security.polkit.enable = true;
+
+  # PAM
+  # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
+  # https://github.com/swaywm/sway/issues/2773#issuecomment-427570877
+  security.pam.services.swaylock = {
+    text = ''
+      #
+      # PAM configuration file for the swaylock screen locker. By default, it includes
+      # the 'login' configuration file (see /etc/pam.d/login)
+      #
+
+      auth            sufficient      pam_unix.so try_first_pass likeauth nullok
+      auth            sufficient      pam_fprintd.so
+      #auth           include         login
+    '';
+  };
 
   # XDG Desktop Portals
   # https://nixos.org/manual/nixos/stable/#sec-wayland
