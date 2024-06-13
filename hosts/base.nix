@@ -6,6 +6,10 @@
 let
   tlpConfig = builtins.readFile ../etc/tlp.conf;
   keydConfig = builtins.readFile ../etc/keyd/default.conf;
+
+  my-gparted-with-xhost-root = pkgs.gparted.overrideAttrs (previousAttrs: {
+    configureFlags = previousAttrs.configureFlags ++ [ "--enable-xhost-root" ];
+  });
 in
 {
   imports =
@@ -119,14 +123,21 @@ in
   };
 
   systemd = {
-    user.services.polkit-gnome-authentication-agent-1 = {
-      description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+    # https://nixos.wiki/wiki/Sway#Systemd_services
+    # https://nixos.wiki/wiki/Polkit#Authentication_agents
+    user.services.polkit-kde-authentication-agent-1 = {
+      description = "polkit-kde-authentication-agent-1";
+      # https://nixos.wiki/wiki/Qt#qt5
+      # TODO: remove this and use wrapQtAppsHook. Try wrapping all QT apps.
+      # Tried wrapping and it didn't work *shrugs*.
+      path = [ "/run/current-system/sw/" ]; ### Fix empty PATH to find qt plugins
       serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
+          Environment= [
+            "QT_QPA_PLATFORM=wayland"
+            "QML2_IMPORT_PATH=${pkgs.kdePackages.kirigami}/lib/qt-6/qml"
+          ];
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 10;
@@ -209,8 +220,14 @@ in
       keyd
       # https://github.com/emersion/xdg-desktop-portal-wlr
       xdg-desktop-portal-wlr
-      polkit_gnome
-      gparted
+      kdePackages.polkit-kde-agent-1
+      # Fixes: `qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""`
+      kdePackages.qtwayland
+      # Fixes for polkit-kde: `module org.kde.kirigami is not installed`
+      # https://discourse.nixos.org/t/shell-nix-for-kde-kirigami-development/14011
+      kdePackages.kirigami
+      my-gparted-with-xhost-root
+      xorg.xhost
     ];
 
     etc."tlp.conf".text = tlpConfig;
