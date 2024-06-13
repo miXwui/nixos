@@ -125,19 +125,11 @@ in
   systemd = {
     # https://nixos.wiki/wiki/Sway#Systemd_services
     # https://nixos.wiki/wiki/Polkit#Authentication_agents
-    user.services.polkit-kde-authentication-agent-1 = {
-      description = "polkit-kde-authentication-agent-1";
-      # https://nixos.wiki/wiki/Qt#qt5
-      # TODO: remove this and use wrapQtAppsHook. Try wrapping all QT apps.
-      # Tried wrapping and it didn't work *shrugs*.
-      path = [ "/run/current-system/sw/" ]; ### Fix empty PATH to find qt plugins
+    user.services.polkit-gnome-authentication-agent-1 = {
+      description = "polkit-gnome-authentication-agent-1";
       serviceConfig = {
           Type = "simple";
-          ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
-          Environment= [
-            "QT_QPA_PLATFORM=wayland"
-            "QML2_IMPORT_PATH=${pkgs.kdePackages.kirigami}/lib/qt-6/qml"
-          ];
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           Restart = "on-failure";
           RestartSec = 1;
           TimeoutStopSec = 10;
@@ -220,12 +212,7 @@ in
       keyd
       # https://github.com/emersion/xdg-desktop-portal-wlr
       xdg-desktop-portal-wlr
-      kdePackages.polkit-kde-agent-1
-      # Fixes: `qt.qpa.plugin: Could not find the Qt platform plugin "wayland" in ""`
-      kdePackages.qtwayland
-      # Fixes for polkit-kde: `module org.kde.kirigami is not installed`
-      # https://discourse.nixos.org/t/shell-nix-for-kde-kirigami-development/14011
-      kdePackages.kirigami
+      polkit_gnome
       my-gparted-with-xhost-root
       xorg.xhost
     ];
