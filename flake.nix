@@ -31,10 +31,19 @@
     in
     {
       nixosConfigurations = {
-        default = nixpkgs.lib.nixosSystem {
+        framework = nixpkgs.lib.nixosSystem {
+          specialArgs = { inherit inputs; };
+            modules = [
+              ./hosts/framework/configuration.nix
+              inputs.home-manager.nixosModules.default
+              { nixpkgs.overlays = overlays; }
+            ];
+          };
+
+        qemu = nixpkgs.lib.nixosSystem {
           specialArgs = { inherit inputs; };
           modules = [
-            ./hosts/default/configuration.nix
+            ./hosts/qemu/configuration.nix
             inputs.home-manager.nixosModules.default
             { nixpkgs.overlays = overlays; }
           ];
@@ -43,17 +52,17 @@
 
       # https://github.com/nix-community/nixos-generators?tab=readme-ov-file#using-in-a-flake
       packages.x86_64-linux = {
-       iso = nixos-generators.nixosGenerate {
-         system = "x86_64-linux";
+        iso = nixos-generators.nixosGenerate {
+        system = "x86_64-linux";
 
-         specialArgs = { inherit inputs; };
-         modules = [
-           ./hosts/live-image/configuration.nix
-           inputs.home-manager.nixosModules.default
-           { nixpkgs.overlays = overlays; }
-         ];
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/live-image/configuration.nix
+          inputs.home-manager.nixosModules.default
+          { nixpkgs.overlays = overlays; }
+        ];
 
-         format = "iso";
+        format = "iso";
        };       
      };
     };
