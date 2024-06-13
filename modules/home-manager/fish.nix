@@ -3,6 +3,7 @@
 {
   programs.fish = {
     enable = true;
+    # TODO: setup gnome keyring here?
     interactiveShellInit = ''
       #function nvm
         #bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
@@ -18,8 +19,9 @@
       ## https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
       #source ~/.asdf/asdf.fish
 
+      # TODO:
       ## https://major.io/p/use-gnome-keyring-with-sway/
-      #export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
+      #export SSH_AUTH_SOCK=/run/user/$(id -u)/keyring/ssh
    '';
     plugins = [
       { name = "bass"; src = pkgs.fishPlugins.bass.src; }
@@ -31,6 +33,8 @@
     ];
     shellAbbrs = {
       # Misc
+      # Yes I pay for YT Premium. And have been for a while. You should too, until there's a superior platform that doesn't need to run on ads
+      # and creators can be paid directly, or something.
       ytdl = "~/Documents/scripts/download-yt-mix.sh";
 
       # Git

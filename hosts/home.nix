@@ -147,6 +147,12 @@ in
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    # TESTTEST = "$XDG_RUNTIME_DIR";
+  };
+
+  systemd.user.sessionVariables = {
+    # XDG_RUNTIME_DIR = "/run/user/$(id -u)";
+    # TESTTEST = "$XDG_RUNTIME_DIR";
   };
 
   # Let Home Manager install and manage itself.

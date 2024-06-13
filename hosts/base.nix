@@ -61,8 +61,11 @@ in
 #    drivers = [];
 #  }
 
+#  # Mostly used for printer discovery
+#  services.avahi.enable = true;
+
   # Enable sound with pipewire.
-  #  sound.enable = true;
+  #  sound.enable = true; # apparently extraneous if pipewire is enabled.
   #  hardware.pulseaudio.enable = false;
   #  security.rtkit.enable = true;
   services.pipewire = {
@@ -81,6 +84,8 @@ in
   };
 
   services.blueman.enable = true;
+
+ # services.upower.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   main-user.enable = true;
@@ -136,6 +141,19 @@ in
         };
     };
   };
+
+  # Fingerprint
+  services.fprintd.enable = true;
+
+  # security.pam.services.polkit-1.fprintAuth
+
+  # Allow password first then fingerprint.
+  # security.pam.services.polkit-1 = {
+  #   text = ''
+  #     auth       sufficient   pam_unix.so try_first_pass likeauth nullok
+  #     auth       sufficient   pam_fprintd.so
+  #   ''; 
+  # };
 
   # PAM
   # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
@@ -215,6 +233,14 @@ in
       polkit_gnome
       my-gparted-with-xhost-root
       xorg.xhost
+
+      # fwupd
+      # udisks
+
+      # audit
+      # btrfs-assistant
+
+      # firewalld-gui
     ];
 
     etc."tlp.conf".text = tlpConfig;
