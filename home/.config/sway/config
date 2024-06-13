@@ -8,7 +8,7 @@
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 # Enable Polkit GUI service
 # https://nixos.wiki/wiki/Sway#Systemd_services
-exec systemctl start --user polkit-kde-authentication-agent-1.service
+exec systemctl start --user polkit-gnome-authentication-agent-1.service
 # Ulauncher
 # exec GDK_BACKEND=wayland ulauncher --hide-window
 exec ulauncher --hide-window
@@ -493,8 +493,6 @@ for_window [app_id="org.gnome.Software"] floating enable
 for_window [app_id="org.gnome.Nautilus"] floating enable
 for_window [app_id="gnome-font-viewer"] floating enable
 for_window [app_id="com.rafaelmardojai.Blanket"] floating enable
-
-for_window [app_id="org.kde.polkit-kde-authentication-agent-1"] floating enable
 
 for_window [app_id="blueman-manager"] floating enable
 for_window [app_id="pavucontrol"] floating enable, move position cursor, move down 250
