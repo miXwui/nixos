@@ -6,8 +6,9 @@
 # Needed for dunst, etc.
 # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-# Enable GUI applications' root prompt
-exec /nix/var/nix/profiles/system/sw/etc/xdg/autostart/polkit-gnome-authentication-agent-1.desktop
+# Enable Polkit GUI service
+# https://nixos.wiki/wiki/Sway#Systemd_services
+exec systemctl start --user polkit-kde-authentication-agent-1.service
 # Ulauncher
 # exec GDK_BACKEND=wayland ulauncher --hide-window
 exec ulauncher --hide-window
