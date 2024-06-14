@@ -106,6 +106,7 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
+    # Write files
     "${config.xdg.configHome}/sway" = {
       source = ../home/.config/sway;
       recursive = true;
@@ -134,7 +135,32 @@ in
     "${config.xdg.configHome}/wlogout" = {
       source = ../home/.config/wlogout;
       recursive = true;
-    };    
+    };
+  };
+
+  # Themes
+  dconf.settings = {
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Adwaita-dark";
+      package = pkgs.gnome.gnome-themes-extra;
+    };
+  };
+
+  qt = {
+    enable = true;
+    platformTheme = {
+      name = "adwaita";
+    };
+    style = {
+      name = "adwaita-dark";
+    };
   };
 
   # Home Manager can also manage your environment variables through

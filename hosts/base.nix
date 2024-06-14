@@ -199,8 +199,6 @@ in
       KERL_DOC_TARGETS = "man html pdf chunks";
       KERL_INSTALL_HTMLDOCS = "yes";
       KERL_INSTALL_MANPAGES = "yes";
-
-      # QT_QPA_PLATFORMTHEME =  "gnome";
     };
 
     shellAliases = {
@@ -258,6 +256,7 @@ in
   # programs.mtr.enable = true;
   programs.light.enable = true;
   programs.fish.enable = true;
+  programs.dconf.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
