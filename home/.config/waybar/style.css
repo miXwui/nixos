@@ -80,6 +80,7 @@ window#waybar.chromium {
 #backlight,
 #network,
 #bluetooth,
+#privacy,
 #pulseaudio,
 #wireplumber,
 #custom-media,
@@ -188,6 +189,11 @@ label:focus {
 #bluetooth {
     border-bottom: 3px solid #1085e7;
     color: #1085e7;
+}
+
+#privacy {
+    border-bottom: 3px solid #e8abeb;
+    color: #e8abeb;
 }
 
 #wireplumber, #custom-wireplumber-source {
