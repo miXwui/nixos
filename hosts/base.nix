@@ -62,16 +62,19 @@ in
 #  }
 
   # Enable sound with pipewire.
-  #  sound.enable = true;
-  #  hardware.pulseaudio.enable = false;
-  #  security.rtkit.enable = true;
+  # https://nixos.wiki/wiki/PipeWire
+  # Remove sound.enable or set it to false if you had it set previously, as sound.enable is only meant for ALSA-based configurations
+  # rtkit is optional but recommended
+  security.rtkit.enable = true;
   services.pipewire = {
     # Also needed for xdg-desktop-portal-wlr:
     # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/FAQ#what-is-pipewire
     enable = true;
-    #  alsa.enable = true;
-    #  alsa.support32Bit = true;
-    #  pulse.enable = true;
+    alsa.enable = true;
+    alsa.support32Bit = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    #jack.enable = true;
   };
 
   # Bluetooth
@@ -215,6 +218,15 @@ in
       polkit_gnome
       my-gparted-with-xhost-root
       xorg.xhost
+
+      # Audio
+      pavucontrol
+      helvum
+
+      # audit
+      # btrfs-assistant
+
+      # firewalld-gui
     ];
 
     etc."tlp.conf".text = tlpConfig;

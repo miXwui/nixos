@@ -81,6 +81,7 @@ window#waybar.chromium {
 #network,
 #bluetooth,
 #pulseaudio,
+#wireplumber,
 #custom-media,
 #custom-weather,
 #tray,
@@ -189,7 +190,7 @@ label:focus {
     color: #1085e7;
 }
 
-#pulseaudio {
+#wireplumber, #custom-wireplumber-source {
     border-bottom: 3px solid #90b1b1;
     color: #90b1b1;
 }

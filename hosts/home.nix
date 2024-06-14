@@ -51,13 +51,16 @@ in
     unstable.waybar
     swayidle
     ulauncher
+    libnotify # for notify-send
     dunst
     networkmanagerapplet
     blueman
-
+    
     grim
     slurp
     wl-clipboard
+
+    gnome.zenity
 
     # Utilities
     git
