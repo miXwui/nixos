@@ -28,7 +28,7 @@ in
       isNormalUser = true;
       initialPassword = "12345";
       description = cfg.fullname;
-      extraGroups = [ "networkmanager" "wheel" ];
+      extraGroups = [ "networkmanager" "wheel" "video" ];
       packages = with pkgs; [ ];
       shell = pkgs.fish;
     };

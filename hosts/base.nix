@@ -274,6 +274,7 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
+  programs.light.enable = true;
   programs.fish.enable = true;
   # programs.gnupg.agent = {
   #   enable = true;
