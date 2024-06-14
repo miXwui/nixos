@@ -59,11 +59,19 @@ in
   services.gvfs.enable = true; 
   services.udisks2.enable = true;
 
-#  # Enable CUPS to print documents.
-#  services.printing = {
-#    enable = true;
-#    drivers = [];
-#  }
+  # Enable CUPS to print documents.
+  services.printing = {
+    enable = true;
+    drivers = [ ];
+  };
+
+  # Mostly used for printer discovery
+  services.avahi = {
+    enable = true;
+    nssmdns4 = true;
+    nssmdns6 = false;
+    openFirewall = true;
+  };
 
   # Enable sound with pipewire.
   # https://nixos.wiki/wiki/PipeWire
