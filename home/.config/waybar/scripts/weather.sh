@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 IFS=":" read -ra split_response <<<$(curl -s "https://v2.wttr.in/?format=3")
 
