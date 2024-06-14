@@ -55,6 +55,10 @@ in
     LC_TIME = "en_US.UTF-8";
   };
 
+  # Enable automounting USB/drives
+  services.gvfs.enable = true; 
+  services.udisks2.enable = true;
+
 #  # Enable CUPS to print documents.
 #  services.printing = {
 #    enable = true;
@@ -232,6 +236,15 @@ in
       keyd
       nix-search-cli
       tlp
+
+      # Enable automounting USB/drives
+      udisks
+      udiskie
+      usbutils
+      # GParted
+      my-gparted-with-xhost-root
+      xorg.xhost
+
       # https://github.com/emersion/xdg-desktop-portal-wlr
       xdg-desktop-portal-wlr
 

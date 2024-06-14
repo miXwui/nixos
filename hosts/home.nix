@@ -55,7 +55,13 @@ in
     dunst
     networkmanagerapplet
     blueman
-    
+    # File managers
+    gnome.nautilus
+    cinnamon.nemo-with-extensions
+    kdePackages.dolphin
+    xfce.thunar
+    spacedrive
+
     grim
     slurp
     wl-clipboard
