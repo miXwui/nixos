@@ -51,3 +51,10 @@ nix build .#iso
 ```sh
 nix build .#nixosConfigurations.live-image.config.system.build.isoImage
 ```
+
+## Search packages
+
+```sh
+nix-search <package name>
+```
+
