@@ -163,6 +163,34 @@ in
     };
   };
 
+  # MIME
+  # ~/.config/mimeapps.list 
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/http" = [ "firefox.desktop" ];
+    "x-scheme-handler/https" = [ "firefox.desktop" ];
+    "x-scheme-handler/chrome" = [ "firefox.desktop" ];
+    "text/html" = [ "firefox.desktop" ];
+    "application/x-extension-htm" = [ "firefox.desktop" ];
+    "application/x-extension-html" = [ "firefox.desktop" ];
+    "application/x-extension-shtml" = [ "firefox.desktop" ];
+    "application/xhtml+xml" = [ "firefox.desktop" ];
+    "application/x-extension-xhtml" = [ "firefox.desktop" ];
+    "application/x-extension-xht" = [ "firefox.desktop" ];
+  };
+
+  xdg.mimeApps.associations.added = {
+    "x-scheme-handler/http" = [ "firefox.desktop" ];
+    "x-scheme-handler/https" = [ "firefox.desktop" ];
+    "x-scheme-handler/chrome" = [ "firefox.desktop" ];
+    "text/html" = [ "firefox.desktop" ];
+    "application/x-extension-htm" = [ "firefox.desktop" ];
+    "application/x-extension-html" = [ "firefox.desktop" ];
+    "application/x-extension-shtml" = [ "firefox.desktop" ];
+    "application/xhtml+xml" = [ "firefox.desktop" ];
+    "application/x-extension-xhtml" = [ "firefox.desktop" ];
+    "application/x-extension-xht" = [ "firefox.desktop" ];
+  };
+
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. If you don't want to manage your shell through Home
   # Manager then you have to manually source 'hm-session-vars.sh' located at
