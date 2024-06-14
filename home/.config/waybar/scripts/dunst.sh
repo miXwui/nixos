@@ -16,8 +16,8 @@ if dunstctl is-paused | grep -q "false"; then
     }'
 else
   jq -c -r --null-input \
-    --arg text "$DISABLED" \
-    --arg tooltip "$DISABLED" \
+    --arg text "$DISABLED$COUNT" \
+    --arg tooltip "$DISABLED$COUNT" \
     '{
       "text": $text,
       "alt": "muted",

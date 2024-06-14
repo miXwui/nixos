@@ -106,9 +106,8 @@
     // https://github.com/Alexays/Waybar/issues/432
     "format": "{}{icon}",
     "format-icons": {
-      // https://github.com/Alexays/Waybar/issues/2111#issuecomment-1506678252
-      "unmuted": "<span font='16' rise='-3000'></span>",
-      "muted": "<span font='16' rise='-3000'></span>"
+      "unmuted": "",
+      "muted": ""
     },
     "return-type": "json",
     "tooltip": true,

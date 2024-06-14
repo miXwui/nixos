@@ -2,7 +2,7 @@
     border: none;
     border-radius: 0;
     /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "Liberation Mono", Roboto, Helvetica, Arial, "Font Awesome 5 Free", sans-serif;
+    font-family: "Liberation Mono", "Font Awesome 6 Free", "sans-serif";
     font-size: 13px;
     min-height: 0;
 }
@@ -267,13 +267,11 @@ https://github.com/Alexays/Waybar/issues/416#issuecomment-515894252
 #custom-dunst {
     border-bottom: 3px solid #00e3c1;
     color: #00e3c1;
-    font-size: 20px;
 }
 
 #custom-dunst.muted {
     border-bottom: 3px solid #dc0017;
     color: #dc0017;
-    font-size: 20px;
 }
 
 #mpd {
