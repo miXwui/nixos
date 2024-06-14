@@ -229,13 +229,16 @@ in
 
     systemPackages = with pkgs; [
       #vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-      tlp
+
+      # Utilities
       keyd
+      nix-search-cli
+      tlp
       # https://github.com/emersion/xdg-desktop-portal-wlr
       xdg-desktop-portal-wlr
+
+      # Polkit
       polkit_gnome
-      my-gparted-with-xhost-root
-      xorg.xhost
 
       # Audio
       pavucontrol
