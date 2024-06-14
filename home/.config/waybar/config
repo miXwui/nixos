@@ -16,7 +16,7 @@
     "battery",
     "network",
     "bluetooth",
-    "mpv"
+    // "mpv",
   ],
   "modules-center": ["sway/window"],
   "modules-right": [
@@ -25,6 +25,14 @@
     "custom/power_profile",
     // "pulseaudio#sink",
     // "pulseaudio#source",
+    "wireplumber",
+    // TODO:
+    // Finish wireplumber implementation when the module for source
+    // releases and the sink/source module has port name support
+    // e.g. headphone, headset, car.
+    // https://github.com/Alexays/Waybar/pull/1905
+    // https://github.com/Alexays/Waybar/issues/3229
+    "custom/wireplumber-source",
     "backlight",
     "custom/weather",
     "clock",
@@ -197,34 +205,59 @@
     "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
     "interval": 60
   },
-  "pulseaudio#sink": {
-    // "scroll-step": 1, // %, can be a float
+  // "pulseaudio#sink": {
+  //   // "scroll-step": 1, // %, can be a float
+  //   "format": "{volume}% {icon}",
+  //   "format-muted": "",
+  //   "format-bluetooth": "{volume}% {icon} {desc}",
+  //   "format-bluetooth-muted": " {icon} {desc}",
+  //   "format-icons": {
+  //     "hifi": "hifi",
+  //     "headphone": "",
+  //     "hands-free": "",
+  //     "headset": "",
+  //     "phone": "",
+  //     "portable": "",
+  //     "car": "",
+  //     "default": ["", "", ""]
+  //   },
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+  //   "on-click-right": "gnome-control-center sound"
+  // },
+  // "pulseaudio#source": {
+  //   "format": "{format_source}",
+  //   "format-source": "{volume}% ",
+  //   "format-source-muted": "",
+  //   "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  //   "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%+",
+  //   "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-",
+  //   "on-click-right": "gnome-control-center sound",
+  //   "tooltip": false
+  // },
+  "wireplumber": {
     "format": "{volume}% {icon}",
-    "format-muted": "",
-    "format-bluetooth": "{volume}% {icon} {desc}",
-    "format-bluetooth-muted": " {icon} {desc}",
-    "format-icons": {
-      "hifi": "hifi",
-      "headphone": "",
-      "hands-free": "",
-      "headset": "",
-      "phone": "",
-      "portable": "",
-      "car": "",
-      "default": ["", "", ""]
-    },
-    "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
-    "on-click-right": "gnome-control-center sound"
+    "format-muted": "{volume}%🔇",
+    "max-volume": 200.0,
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+    "on-click-right": "pavucontrol -t 3",
+    "on-click-middle": "helvum",
+    "format-icons": ["", "", ""]
   },
-  "pulseaudio#source": {
-    "format": "{format_source}",
-    "format-source": "{volume}% ",
-    "format-source-muted": "",
-    "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
-    "on-scroll-up": "pactl set-source-volume @DEFAULT_SOURCE@ +1%",
-    "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -1%",
-    "on-click-right": "gnome-control-center sound",
-    "tooltip": false
+  "custom/wireplumber-source": {
+    "format": "{}% {icon}",
+    "format-icons": {
+      "unmuted": "",
+      "muted": ""
+    },
+    "return-type": "json",
+    "exec": "$HOME/.config/waybar/scripts/wireplumber-source.sh",
+    "exec-on-event": true,
+    "interval": "once",
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+    "on-scroll-up": "wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SOURCE@ 1%+",
+    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 1%-",
+    "on-click-right": "pavucontrol -t 4",
+    "on-click-middle": "helvum"
   },
   "custom/media": {
     "format": "{icon} {}",

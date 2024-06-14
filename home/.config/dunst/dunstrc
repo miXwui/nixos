@@ -326,7 +326,7 @@ background = "#4a4b99"
 foreground = "#d3d3d3"
 frame_color = "#d3d3d3"
 set_transient = yes
-format = "%b\n<b><i>%s</i></b>"
+format = "<b><i>%s</i></b>\n%b"
 
 [volume]
 desktop_entry = volume
