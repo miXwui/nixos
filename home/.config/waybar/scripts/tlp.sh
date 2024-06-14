@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 EPP=$(cat /sys/devices/system/cpu/cpu0/cpufreq/energy_performance_preference)
 

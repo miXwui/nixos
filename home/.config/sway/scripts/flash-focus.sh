@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # https://github.com/fennerm/flashfocus/issues/68
 # Would use if I could find a simple no-dependency way to run
