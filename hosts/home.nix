@@ -89,7 +89,6 @@ in
     unstable.helix
 
     # Terminal
-    unstable.foot
     unstable.contour
     tmux
     tree
