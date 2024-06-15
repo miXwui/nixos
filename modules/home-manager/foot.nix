@@ -1,4 +1,5 @@
-{pkgs, ...}:
+{pkgs, unstable, ...}:
+
 let
   #catppuccinDrv = pkgs.fetchurl {
   #  # https://www.reddit.com/r/Nix/comments/17o6698/foot_configuration_in_homemanager_importing_a/ — thanks!
@@ -8,6 +9,7 @@ let
 in {
   programs.foot = {
     enable = true;
+    package = unstable.foot;
     settings = {
       main = {
         #include = "${catppuccinDrv}";
