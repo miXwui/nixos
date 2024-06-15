@@ -57,8 +57,6 @@ in
     unstable.waybar
     swayidle
     ulauncher # TODO: remove
-    libnotify # for notify-send
-    dunst
     networkmanagerapplet
     blueman
     # File managers
@@ -130,11 +128,6 @@ in
 
     "${config.xdg.configHome}/waybar" = {
       source = ../home/.config/waybar;
-      recursive = true;
-    };
-
-    "${config.xdg.configHome}/dunst" = {
-      source = ../home/.config/dunst;
       recursive = true;
     };
 
