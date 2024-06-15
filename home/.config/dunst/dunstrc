@@ -208,7 +208,7 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/wmenu -p dunst:
+    dmenu = /usr/bin/fuzzel -p dunst:
 
     # Browser for opening urls in context menu.
     browser = /usr/bin/xdg-open

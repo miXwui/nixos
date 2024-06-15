@@ -56,7 +56,7 @@ in
     wlogout
     unstable.waybar
     swayidle
-    ulauncher
+    ulauncher # TODO: remove
     libnotify # for notify-send
     dunst
     networkmanagerapplet
