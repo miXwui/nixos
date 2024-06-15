@@ -184,6 +184,8 @@ in
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
       };
     };
+    # For gcolor3, etc.
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
   };
 
   home-manager = {
