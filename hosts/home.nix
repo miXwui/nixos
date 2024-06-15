@@ -6,6 +6,12 @@ let
   };
 in
 {
+  # Project wide args to use e.g. `{ unstable, ... }`
+  # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
+  _module.args = {
+    unstable = unstable;
+  };
+
   imports = [ ../modules/home-manager ];
 
   nixpkgs.config.allowUnfree = true;
