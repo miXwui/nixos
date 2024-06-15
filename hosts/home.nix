@@ -87,7 +87,6 @@ in
     unstable.helix
 
     # Terminal
-    unstable.contour
     tmux
     tree
     sl
