@@ -10,5 +10,6 @@
     ./hyprpicker.nix
     ./git.nix
     ./qtwayland.nix
+    ./wlay.nix
   ];
 }

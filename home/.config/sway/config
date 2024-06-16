@@ -75,6 +75,7 @@ set $wallkey4 output * bg ~/Pictures/Wallpapers/city-night.png fill; bindsym $wa
 set $wallkey5 output * bg ~/Pictures/Wallpapers/wp3.jpg fill; bindsym $wallkey $$wallkey0
 bindsym $wallkey $wallkey1
 
+### Display outputs ###
 #
 # Example configuration:
 #
@@ -82,31 +83,51 @@ bindsym $wallkey $wallkey1
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
-# pos 0,600, since y is invert. Screen is moved physically down 600 pixels.
-# Don't use negative numbers as they seem to cause mouse/window bug on Microsoft Edge.
-# Internal Dell 4K Display: 3840x2160
-# output eDP-1 res --custom 2560x1440 pos 0 600 scale_filter linear
+# Beware there may be issues with setting negative positional numbers.
+# https://github.com/swaywm/sway/issues/7667
 
-output eDP-1 pos 0 0 scale 1.5
+# Monitor configuration
+# +-------------+
+# |  3440x1440  | (top monitor)
+# +-------------+
+#   +---------+
+#   |2256x1504|   (bottom monitor)
+#   +---------+
 
-# Cycles through fractional scales
-set $scalekey $mod+equal
-set $scalekey0 output eDP-1 scale 0.5; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 0.5"; bindsym $scalekey $$scalekey1
-set $scalekey1 output eDP-1 scale 1; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1"; bindsym $scalekey $$scalekey2
-set $scalekey2 output eDP-1 scale 1.25; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.25"; bindsym $scalekey $$scalekey3
-set $scalekey3 output eDP-1 scale 1.5; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.5"; bindsym $scalekey $$scalekey4
-set $scalekey4 output eDP-1 scale 2; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 2"; bindsym $scalekey $$scalekey5
-set $scalekey5 output eDP-1 scale 3; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 3"; bindsym $scalekey $$scalekey0
-bindsym $scalekey $scalekey1
+# Displays
 
+# (top monitor)    - Ultrawide 3440x1440
+set $ultrawide       'Dell Inc. DELL U3421WE H3TS653'
+
+# (bottom monitor) - Framework 13 'BOE 0x095F Unknown' 2256x1504
+set $framework13     'eDP-1'
+
+# Display to focus on Sway launch
+focus output $ultrawide
+
+# Set up output settings
 #
-# output eDP-1 res 3840x2160 pos 0,600 scale 1.5 scale_filter linear
-# 3840 / 1.5 = 2560 for display scaling and mouse to be able to swap displays.
-output 'Dell Inc. DELL U3421WE H3TS653' res 3440x1440 pos 2560 0
-output 'BOE 0x095F Unknown' res 2256x1504
+# Calculate x position to center bottom monitor to top monitor by:
+# (top monitor width - (bottom monitor width / scale factor)) / 2
+# e.g. scale factors of:
+#  0.5: (3440 - (2256 / 0.5 )) / 2 = -536
+#    1: (3440 - (2256 / 1   )) / 2 = 592
+# 1.25: (3440 - (2256 / 1.25)) / 2 = 818
+#
+# y position remains as the height of the top monitor.
+output $ultrawide   pos 0   0    scale 1
+output $framework13 pos 968 1440 scale 1.5
 
-# Focus monitor on Sway launch
-focus output 'Dell Inc. DELL U3421WE H3TS653'
+# Cycles through fractional scales for $framework13
+set $scalekey $mod+equal
+set $scalekey0 output $framework13 pos -536 1440 scale 0.5 ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 0.5";  bindsym $scalekey $$scalekey1
+set $scalekey1 output $framework13 pos 592  1440 scale 1   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1";    bindsym $scalekey $$scalekey2
+set $scalekey2 output $framework13 pos 818  1440 scale 1.25; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.25"; bindsym $scalekey $$scalekey3
+set $scalekey3 output $framework13 pos 968  1440 scale 1.5 ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.5";  bindsym $scalekey $$scalekey4
+set $scalekey4 output $framework13 pos 1156 1440 scale 2   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 2";    bindsym $scalekey $$scalekey5
+set $scalekey5 output $framework13 pos 1344 1440 scale 3   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 3";    bindsym $scalekey $$scalekey0
+bindsym $scalekey $scalekey1
+###
 
 ### Disable laptop screen and fingerprint reader on lid close
 set $laptop eDP-1
