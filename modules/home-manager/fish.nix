@@ -1,8 +1,13 @@
-{ pkgs, home-manager, ... }:
+{ pkgs, home-manager, fish, ... }:
 
 {
+  _module.args = {
+    fish = pkgs.fish;
+  };
+
   programs.fish = {
     enable = true;
+    package = fish;
     interactiveShellInit = ''
       #function nvm
         #bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv

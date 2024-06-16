@@ -1,8 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, qtwayland, ... }:
 
 {
-  home.packages = with pkgs; [
-    kdePackages.qtwayland # requirement for qt apps
+  _module.args = {
+    qtwayland = pkgs.kdePackages.qtwayland;
+  };
+
+  home.packages = [
+    qtwayland # requirement for qt apps
   ];
 
   home.sessionVariables = {

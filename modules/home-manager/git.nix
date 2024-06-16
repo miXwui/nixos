@@ -1,8 +1,14 @@
-{ pkgs, home-manager, ... }:
+{ pkgs, home-manager, git, ... }:
 
 {
+  _module.args = {
+    git = pkgs.git;
+  };
+  
   programs.git = {
     enable = true;
+    package = git;
+
     userName = "Michael Wu";
     userEmail = "me@miXwui.com";
 

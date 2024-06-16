@@ -1,7 +1,11 @@
-{ pkgs, config, ... }:
+{ pkgs, config, gcolor3, ... }:
 
 {
-  home.packages = with pkgs; [
+  _module.args = {
+    gcolor3 = pkgs.gcolor3;
+  };
+
+  home.packages = [
     gcolor3
   ];
 

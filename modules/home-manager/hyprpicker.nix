@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, hyprpicker, ... }:
 
 let
   makeDesktopItem = pkgs.makeDesktopItem;
@@ -10,8 +10,12 @@ let
   };
 in
 {
+  _module.args = {
+    hyprpicker = pkgs.hyprpicker;
+  };
+  
   home.packages = [
     myDesktopItem
-    pkgs.hyprpicker
+    hyprpicker
   ];
 }

@@ -64,17 +64,10 @@ in
     xfce.thunar
     spacedrive
 
-    # Screengrab
-    grim
-    slurp
-    swappy
-    wl-clipboard
     # Camera
     snapshot
 
     # CLI utilities
-    git
-    fish
     htop
     jq
     wget

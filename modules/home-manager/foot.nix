@@ -1,4 +1,4 @@
-{pkgs, unstable, ...}:
+{pkgs, unstable, foot, ...}:
 
 let
   #catppuccinDrv = pkgs.fetchurl {
@@ -7,9 +7,13 @@ let
   #  hash = "sha256-plQ6Vge6DDLj7cBID+DRNv4b8ysadU2Lnyeemus9nx8=";
   #};
 in {
+  _module.args = {
+    foot = unstable.foot;
+  };
+
   programs.foot = {
     enable = true;
-    package = unstable.foot;
+    package = foot;
     settings = {
       main = {
         #include = "${catppuccinDrv}";

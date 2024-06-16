@@ -1,4 +1,4 @@
-{ pkgs, unstable, ... }:
+{ pkgs, unstable, wlay, ... }:
 
 let
   makeDesktopItem = pkgs.makeDesktopItem;
@@ -10,8 +10,12 @@ let
   };
 in
 {
+  _module.args = {
+    wlay = unstable.wlay;
+  };
+
   home.packages = [
     myDesktopItem
-    unstable.wlay
+    wlay
   ];
 }

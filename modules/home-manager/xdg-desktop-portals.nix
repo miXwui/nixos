@@ -1,6 +1,15 @@
-{ config, pkgs, unstable, ... }:
+{ config, pkgs, 
+  xdg-desktop-portal-wlr,
+  xdg-desktop-portal-gtk,
+  dunst, slurp, fuzzel,
+... }:
 
 {
+   _module.args = {
+    xdg-desktop-portal-wlr = pkgs.xdg-desktop-portal-wlr;
+    xdg-desktop-portal-gtk = pkgs.xdg-desktop-portal-gtk;
+  };
+
   # XDG Desktop Portals
   # https://nixos.org/manual/nixos/stable/#sec-wayland
   # https://discourse.nixos.org/t/why-does-enabling-xdg-portal-install-so-many-packages/28283
@@ -39,19 +48,17 @@
 
         [screencast]
         # Toggle dunst notifications when screensharing
-        exec_before=${pkgs.dunst}/bin/dunstctl set-paused toggle true
-        exec_after=${pkgs.dunst}/bin/dunstctl set-paused false
+        exec_before=${dunst}/bin/dunstctl set-paused toggle true
+        exec_after=${dunst}/bin/dunstctl set-paused false
 
         # Select output with slurp
         chooser_type=simple
-        chooser_cmd=${pkgs.slurp}/bin/slurp -f %o -or
+        chooser_cmd=${slurp}/bin/slurp -f %o -or
         
         # Can also select via dmenu/etc.
         # chooser_type=dmenu
-        # chooser_cmd=${unstable.fuzzel}/bin/fuzzel --dmenu
+        # chooser_cmd=${fuzzel}/bin/fuzzel --dmenu
       '';
     };
   };
 }
-
-

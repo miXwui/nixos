@@ -1,9 +1,18 @@
-{ config, pkgs, unstable, ... }:
+{ config, pkgs,
+  dunst, libnotify,
+  fuzzel, xdg-utils,
+... }:
 
 {
-  home.packages = with pkgs; [
+  _module.args = {
+    dunst = pkgs.dunst;
+    libnotify = pkgs.libnotify; # for notify-send
+    xdg-utils = pkgs.xdg-utils;
+  };
+
+  home.packages = [
     dunst
-    libnotify # for notify-send
+    libnotify  
   ];
 
   home.file = {
@@ -14,8 +23,8 @@
         "/usr/bin/xdg-open"
       ]
       [
-        "${unstable.fuzzel}/bin/fuzzel --dmenu"
-        "${pkgs.xdg-utils}/bin/xdg-open"
+        "${fuzzel}/bin/fuzzel --dmenu"
+        "${xdg-utils}/bin/xdg-open"
       ]
       (builtins.readFile ../../home/.config/dunst/dunstrc);
     };
