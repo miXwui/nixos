@@ -1,5 +1,7 @@
 {
   imports = [
+    ./swayfx.nix
+    ./wayland-utils.nix
     ./cursors.nix
     ./dunst.nix
     ./fish.nix

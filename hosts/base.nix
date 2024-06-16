@@ -4,6 +4,11 @@
 
 { config, lib, pkgs, inputs, ... }:
 let
+  sway = {
+    pkg = pkgs.unstable.swayfx; # sway or swayfx
+    swayfx.enable = true;
+  };
+
   tlpConfig = builtins.readFile ../etc/tlp.conf;
   keydConfig = builtins.readFile ../etc/keyd/default.conf;
 
@@ -111,7 +116,7 @@ in
   services.displayManager = {
     sddm.enable = true;
     sddm.wayland.enable = true;
-    sessionPackages = [ pkgs.sway ];
+    sessionPackages = [ sway.pkg ];
   };
 
   # Polkit
@@ -170,7 +175,7 @@ in
 
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = { inherit inputs; sway = sway; };
     users = {
       "mwu" = import ./home.nix;
     };

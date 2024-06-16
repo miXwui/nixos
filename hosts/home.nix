@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, inputs, sway, ... }:
 let
   unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
@@ -13,6 +13,7 @@ in
   };
 
   imports = [ ../modules/home-manager ];
+  swayfx.enable = sway.swayfx.enable;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -51,7 +52,7 @@ in
     # '')
 
     # Desktop environment
-    unstable.sway
+    sway.pkg
     swaylock
     wlogout
     unstable.waybar

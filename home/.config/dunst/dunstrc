@@ -227,7 +227,7 @@
     # corners.
     # The radius will be automatically lowered if it exceeds half of the
     # notification height to avoid clipping text and/or icons.
-    corner_radius = 0
+    corner_radius = 10
 
     # Ignore the dbus closeNotification message.
     # Useful to enforce the timeout set by dunst configuration. Without this
@@ -290,41 +290,41 @@
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
     # Otherwise the "#" and following would be interpreted as a comment.
-    background = "#222222"
+    background = "#222222aa"
     foreground = "#d3d3d3"
-    frame_color = "#d3d3d3"
+    frame_color = "#d3d3d3aa"
     timeout = 10
     # Icon for notifications with low urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_normal]
-    background = "#022334"
+    background = "#094868aa"
     foreground = "#d3d3d3"
-    frame_color = "#d3d3d3"
+    frame_color = "#d3d3d3aa"
     timeout = 10
     # Icon for notifications with normal urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [urgency_critical]
-    background = "#900000"
+    background = "#900000aa"
     foreground = "#d3d3d3"
-    frame_color = "#d3d3d3"
+    frame_color = "#d3d3d3aa"
     timeout = 0
     # Icon for notifications with critical urgency, uncomment to enable
     #default_icon = /path/to/icon
 
 [swayidle]
 desktop_entry = swayidle
-background = "#c08f00"
+background = "#c08f00aa"
 foreground = "#d3d3d3"
-frame_color = "#d3d3d3"
+frame_color = "#d3d3d3aa"
 set_transient = yes
 
 [audio]
 desktop_entry = audio
-background = "#4a4b99"
+background = "#4a4b99aa"
 foreground = "#d3d3d3"
-frame_color = "#d3d3d3"
+frame_color = "#d3d3d3aa"
 set_transient = yes
 format = "<b><i>%s</i></b>\n%b"
 
@@ -342,9 +342,9 @@ set_transient = yes
 
 [wl-clipboard]
 desktop_entry = wl-paste
-background = "#42f59b"
+background = "#42f59baa"
 foreground = "#222222"
-frame_color = "#d3d3d3"
+frame_color = "#d3d3d3aa"
 set_transient = yes
 format = "%b\n<b><i>%s</i></b>"
 
