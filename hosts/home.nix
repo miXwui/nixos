@@ -66,13 +66,15 @@ in
     xfce.thunar
     spacedrive
 
+    # Screengrab
     grim
     slurp
+    swappy
     wl-clipboard
+    # Camera
+    snapshot
 
-    gnome.zenity
-
-    # Utilities
+    # CLI utilities
     git
     fish
     htop
@@ -80,6 +82,9 @@ in
     wget
     bc
     units
+
+    # GUI utilities
+    gnome.zenity # requirement for scripts using zenity
 
     # Editors
     vim
@@ -98,7 +103,7 @@ in
     # Programs
     unstable.firefox
     unstable.chromium
- ];
+  ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
