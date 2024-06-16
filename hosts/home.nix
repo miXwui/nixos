@@ -82,6 +82,8 @@ in
     unstable.vscode
     unstable.helix
 
+    zeal
+
     # Terminal
     tmux
     tree
@@ -177,6 +179,10 @@ in
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+
+    # Enable Ozone Wayland support in Chromium and Electron based applications
+    # https://nixos.wiki/wiki/Wayland#Electron_and_Chromium
+    NIXOS_OZONE_WL = "1";
   };
 
   # Let Home Manager install and manage itself.
