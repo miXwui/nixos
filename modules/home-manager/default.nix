@@ -1,5 +1,6 @@
 {
   imports = [
+    ./cursors.nix
     ./dunst.nix
     ./fish.nix
     ./foot.nix

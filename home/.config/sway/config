@@ -37,9 +37,6 @@ exec kdeconnect-indicator
 # exec_always ~/.local/bin/flashfocus
 # Watch for when things like images are copied to clipboard
 exec wl-paste --watch ~/.config/sway/scripts/wl-paste.sh
-# Set mouse cursor theme
-seat * xcursor_theme volantes_light_cursors
-exec gsettings set org.gnome.desktop.interface cursor-theme volantes_light_cursors
 ###
 
 # Make mouse cursor follow focus

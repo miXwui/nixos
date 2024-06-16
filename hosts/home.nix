@@ -130,11 +130,6 @@ in
       recursive = true;
     };
 
-    ".icons/default" = {
-      source = ../home/.local/share/icons/volantes_light_cursors;
-      recursive = true;
-    };
-
     "${config.xdg.configHome}/wlogout" = {
       source = ../home/.config/wlogout;
       recursive = true;
