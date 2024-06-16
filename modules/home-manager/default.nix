@@ -11,5 +11,6 @@
     ./git.nix
     ./qtwayland.nix
     ./wlay.nix
+    ./xdg-desktop-portals.nix
   ];
 }

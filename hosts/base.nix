@@ -168,26 +168,6 @@ in
     '';
   };
 
-  # XDG Desktop Portals
-  # https://nixos.org/manual/nixos/stable/#sec-wayland
-  # https://discourse.nixos.org/t/why-does-enabling-xdg-portal-install-so-many-packages/28283
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true;
-    config = {
-      # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
-      sway = {
-        default = [
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.Screenshot" = "wlr";
-        "org.freedesktop.impl.portal.ScreenCast" = "wlr";
-      };
-    };
-    # For gcolor3, etc.
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-  };
-
   home-manager = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = { inherit inputs; };
@@ -236,9 +216,6 @@ in
       # GParted
       my-gparted-with-xhost-root
       xorg.xhost
-
-      # https://github.com/emersion/xdg-desktop-portal-wlr
-      xdg-desktop-portal-wlr
 
       # Polkit
       polkit_gnome
