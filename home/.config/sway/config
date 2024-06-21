@@ -596,5 +596,4 @@ bar {
 #   }
 }
 
-include ./swayfx
 include /etc/sway/config.d/*

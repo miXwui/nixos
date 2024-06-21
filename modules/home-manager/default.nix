@@ -1,6 +1,6 @@
 {
   imports = [
-    ./swayfx.nix
+    ./sway.nix
     ./wayland-utils.nix
     ./cursors.nix
     ./dunst.nix

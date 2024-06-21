@@ -10,10 +10,10 @@ in
   # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
   _module.args = {
     unstable = unstable;
+    sway = sway;
   };
 
   imports = [ ../modules/home-manager ];
-  swayfx.enable = sway.swayfx.enable;
 
   nixpkgs.config.allowUnfree = true;
 
@@ -52,11 +52,8 @@ in
     # '')
 
     # Desktop environment
-    sway.pkg
-    swaylock
-    wlogout
-    unstable.waybar
-    swayidle
+    kanshi
+    imv
     ulauncher # TODO: remove
     networkmanagerapplet
     blueman
@@ -119,27 +116,6 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
-
-    # Write files
-    "${config.xdg.configHome}/sway" = {
-      source = ../home/.config/sway;
-      recursive = true;
-    };
-
-    "Pictures/Wallpapers" = {
-      source = ../home/Pictures/Wallpapers;
-      recursive = true;
-    };
-
-    "${config.xdg.configHome}/waybar" = {
-      source = ../home/.config/waybar;
-      recursive = true;
-    };
-
-    "${config.xdg.configHome}/wlogout" = {
-      source = ../home/.config/wlogout;
-      recursive = true;
-    };
   };
 
   # Themes
@@ -168,7 +144,7 @@ in
   };
 
   # MIME
-  # ~/.config/mimeapps.list 
+  # ~/.config/mimeapps.list
   xdg.mimeApps.defaultApplications = {
     "x-scheme-handler/http" = [ "firefox.desktop" ];
     "x-scheme-handler/https" = [ "firefox.desktop" ];
