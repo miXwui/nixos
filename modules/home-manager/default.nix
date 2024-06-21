@@ -14,5 +14,6 @@
     ./qtwayland.nix
     ./wlay.nix
     ./xdg-desktop-portals.nix
+    ./language-servers.nix
   ];
 }
