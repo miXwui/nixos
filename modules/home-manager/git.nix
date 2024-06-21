@@ -37,6 +37,7 @@
 
       diff = {
         tool = "vscode";
+        wsErrorHighlight = "all";
       };
 
       difftool = {
