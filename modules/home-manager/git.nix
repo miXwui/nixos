@@ -4,7 +4,7 @@
   _module.args = {
     git = pkgs.git;
   };
-  
+
   programs.git = {
     enable = true;
     package = git;
@@ -30,11 +30,11 @@
       };
 
       # TODO: Maybe use vimdiff or helix instead?
-      
+
       core = {
         editor = "code --wait --new-window";
       };
- 
+
       diff = {
         tool = "vscode";
       };

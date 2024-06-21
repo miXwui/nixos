@@ -8,7 +8,7 @@
     [
       ./hardware-configuration.nix
       ../base.nix
-    ]; 
+    ];
 
   # Bootloader
   boot.loader.systemd-boot.enable = true;

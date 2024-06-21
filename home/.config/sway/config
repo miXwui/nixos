@@ -22,10 +22,10 @@ exec blueman-applet
 # x|system=false
 # x|users=
 #
-# exec gammastep 
+# exec gammastep
 # Since geoclue ain't that reliable...
 # https://rumpelsepp.org/blog/geolocation-for-gammastep/ (thanks!)
-# 
+#
 # systemd service
 # ~/.config/systemd/user/gammastep.service
 # calls
@@ -148,7 +148,7 @@ bindswitch --reload --locked lid:off output $laptop enable
 # resumed. It will also lock your screen before your computer goes to sleep.
 
 # Inhibit dpms off, lock, and suspend-then-hibernate on AC power.
-# Send notification examples: 
+# Send notification examples:
 # timeout 285 'dunstify "locking in 15s" -a swayidle' \
 # timeout 290 'dunstify "locking in 10s" -a swayidle' \
 # timeout 295 'dunstify "locking in 5s" -a swayidle' \
@@ -159,7 +159,7 @@ exec swayidle -w \
     timeout 480 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || $lock' \
     timeout 600 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || systemctl suspend-then-hibernate' \
     before-sleep '$lock'
-       
+
 ### Input configuration
 #
 # Example configuration:
@@ -201,7 +201,7 @@ input * xkb_options "compose:menu"
 input type:pointer {
     accel_profile flat
     pointer_accel 0
-    # scroll_factor 
+    # scroll_factor
 }
 
 input type:touchpad {
@@ -225,8 +225,8 @@ input type:touchpad {
     bindsym Ctrl+Alt+Delete exec ~/.config/sway/scripts/kill-9-current-window.sh
 
     # Start your launcher
-    
-    # Just the super key: 
+
+    # Just the super key:
     # bindcode --release 133 exec $menu
     #
     bindsym $mod+d fullscreen disable, exec $menu
@@ -256,7 +256,7 @@ bindsym $mod+Backspace mode passthrough
 #
     # Move your focus around
     bindsym $mod+$left focus left
-    bindsym $mod+$down focus down 
+    bindsym $mod+$down focus down
     bindsym $mod+$up focus up
     bindsym $mod+$right focus right
     # Or use $mod+[up|down|left|right]
@@ -306,7 +306,7 @@ bindsym $mod+Backspace mode passthrough
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
     # We just use 1-10 as the default.
-    
+
     bindsym $mod+Tab workspace back_and_forth
 #
 # Layout stuff:
@@ -379,8 +379,8 @@ mode "move" {
     bindsym $right move right 50px
     bindsym $up move up 50px
     bindsym $down move down 50px
-    
-    # Ditto, with arrow keys   
+
+    # Ditto, with arrow keys
     bindsym Left move left 50px
     bindsym Right move right 50px
     bindsym Up move up 50px
@@ -478,13 +478,13 @@ bindsym Ctrl+Alt+Shift+K+C exec ~/.config/sway/scripts/color-picker.sh
 bindsym Ctrl+Alt+Shift+C exec ~/.config/sway/scripts/pick-color.sh
 
 ### Todo/enable
-## capture all screens to clipboard    
-#bindsym Shift+Print exec grim - | wl-copy    
-#    
-# capture the specified screen area to clipboard    
-#bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy    
-#        
-# capture the focused monitor to clipboard    
+## capture all screens to clipboard
+#bindsym Shift+Print exec grim - | wl-copy
+#
+# capture the specified screen area to clipboard
+#bindsym Shift+Alt+Print exec grim -g "$(slurp)" - | wl-copy
+#
+# capture the focused monitor to clipboard
 #bindsym Shift+Control+Print exec grim -o $(swaymsg -t get_outputs | jq -r '.[] | select(.focused) | .name') - | wl-copy
 
 #capture the focused monitor to swappy

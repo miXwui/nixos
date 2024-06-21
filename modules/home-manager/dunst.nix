@@ -12,7 +12,7 @@
 
   home.packages = [
     dunst
-    libnotify  
+    libnotify
   ];
 
   home.file = {

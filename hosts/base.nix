@@ -21,7 +21,7 @@ in
     [
       ../modules/nixos/main-user.nix
       inputs.home-manager.nixosModules.default
-    ]; 
+    ];
 
   # https://nixos.wiki/wiki/Linux_kernel
   # boot.kernelPackages = pkgs.linuxPackages_latest;
@@ -61,7 +61,7 @@ in
   };
 
   # Enable automounting USB/drives
-  services.gvfs.enable = true; 
+  services.gvfs.enable = true;
   services.udisks2.enable = true;
 
   # Enable CUPS to print documents.

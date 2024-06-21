@@ -13,7 +13,7 @@ in
   _module.args = {
     hyprpicker = pkgs.hyprpicker;
   };
-  
+
   home.packages = [
     myDesktopItem
     hyprpicker

@@ -1,4 +1,4 @@
-{ config, pkgs, 
+{ config, pkgs,
   xdg-desktop-portal-wlr,
   xdg-desktop-portal-gtk,
   dunst, slurp, fuzzel,
@@ -25,17 +25,17 @@
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
       };
     };
-    extraPortals = with pkgs; [ 
+    extraPortals = with pkgs; [
       # https://github.com/emersion/xdg-desktop-portal-wlr
-      
-      # This needs to be added to Sway config:  
+
+      # This needs to be added to Sway config:
       # https://github.com/emersion/xdg-desktop-portal-wlr/blob/master/README.md#running
       # exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
 
       # Pipewire is required for xdg-desktop-portal-wlr:
       # https://github.com/emersion/xdg-desktop-portal-wlr/wiki/FAQ#what-is-pipewire
       xdg-desktop-portal-wlr
-    
+
       # For gcolor3, etc.
       xdg-desktop-portal-gtk
     ];
@@ -54,7 +54,7 @@
         # Select output with slurp
         chooser_type=simple
         chooser_cmd=${slurp}/bin/slurp -f %o -or
-        
+
         # Can also select via dmenu/etc.
         # chooser_type=dmenu
         # chooser_cmd=${fuzzel}/bin/fuzzel --dmenu

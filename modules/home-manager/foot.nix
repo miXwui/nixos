@@ -27,7 +27,7 @@ in {
       cursor = {
         color = "1e1e1e d9d9d9";  # 111111 cccccc
       };
-        
+
       colors = {
         foreground = "eaeaea"; #dddddd # light gray
         background = "0d0d0d"; #000000 # black
