@@ -115,14 +115,6 @@ in
     #jack.enable = true;
   };
 
-  # Bluetooth
-  hardware.bluetooth = {
-    enable = true;
-    powerOnBoot = true;
-  };
-
-  services.blueman.enable = true;
-
   # https://nixos.wiki/wiki/PipeWire#Bluetooth_Configuration
   services.pipewire.wireplumber.extraConfig = {
     "monitor.bluez.properties" = {
