@@ -164,6 +164,7 @@ in
   };
 
   systemd = {
+    ### Polkit
     # https://nixos.wiki/wiki/Sway#Systemd_services
     # https://nixos.wiki/wiki/Polkit#Authentication_agents
     user.services.polkit-gnome-authentication-agent-1 = {
@@ -175,7 +176,10 @@ in
           RestartSec = 1;
           TimeoutStopSec = 10;
         };
+      partOf = [ "graphical-session-pre.target" ];
+      wantedBy = [ "graphical-session-pre.target" ];
     };
+    ###
 
     ### Keyring
     # Doesn't work from home manager yet, but copying the systemd unit from it:
