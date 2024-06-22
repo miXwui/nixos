@@ -66,3 +66,8 @@ nix-search <package name>
 We use Gnome Keyring for `pkcs11` and `secrets`. We use `gcr` for SSH since [that functionality has been moved there](https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/60).
 
 Seahorse (Passwords and Keys) is also installed.
+
+## Fingerprint
+
+User files are stored under `/var/lib/fprint/<user>` which can be migrated to another installation ([ref](https://community.frame.work/t/cross-distro-dualboot-and-or-reinstall-save-your-var-lib-fprint-user-files-from-the-one-that-works/12908/2)).\
+The actual fingerprints for Framework 13 apparently are stored directly on the sensor.
