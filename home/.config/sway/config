@@ -9,6 +9,10 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 # Enable Polkit GUI service
 # https://nixos.wiki/wiki/Sway#Systemd_services
 exec systemctl start --user polkit-gnome-authentication-agent-1.service
+# Enable gnome-keyring service
+exec systemctl start --user gnome-keyring.service
+# Enable ssh-agent through gcr
+exec systemctl start --user gcr-ssh-agent.{service, socket}
 # Network
 exec nm-applet --indicator
 # Bluetooth

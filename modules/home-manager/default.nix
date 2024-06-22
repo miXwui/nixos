@@ -2,6 +2,7 @@
   imports = [
     ./sway.nix
     ./wayland-utils.nix
+    ./keyring.nix
     ./cursors.nix
     ./dunst.nix
     ./fish.nix

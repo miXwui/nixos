@@ -58,3 +58,11 @@ nix build .#nixosConfigurations.live-image.config.system.build.isoImage
 nix-search <package name>
 ```
 
+## Keyring
+
+- `hosts/base.nix`
+- `modules/home-manager/keyring.nix`
+
+We use Gnome Keyring for `pkcs11` and `secrets`. We use `gcr` for SSH since [that functionality has been moved there](https://gitlab.gnome.org/GNOME/gnome-keyring/-/merge_requests/60).
+
+Seahorse (Passwords and Keys) is also installed.

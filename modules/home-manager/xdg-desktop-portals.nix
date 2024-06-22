@@ -23,6 +23,7 @@
         # ... except for the ScreenCast, Screenshot and Secret
         "org.freedesktop.impl.portal.Screenshot" = "wlr";
         "org.freedesktop.impl.portal.ScreenCast" = "wlr";
+        "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
       };
     };
     extraPortals = with pkgs; [
