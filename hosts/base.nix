@@ -133,6 +133,17 @@ in
     };
   };
 
+  # https://nixos.wiki/wiki/PipeWire#Low-latency_setup
+  services.pipewire.extraConfig.pipewire."92-low-latency" = {
+    context.properties = {
+      default.clock.rate = 48000;
+      default.clock.quantum = 32;
+      default.clock.min-quantum = 32;
+      default.clock.max-quantum = 32;
+    };
+  };
+
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   main-user.enable = true;
   main-user.username = "mwu";
