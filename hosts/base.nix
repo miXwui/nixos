@@ -364,6 +364,10 @@ in
   services.keyd.enable = true;
   services.gnome.gnome-keyring.enable = true;
 
+  ## fwupd
+  services.fwupd.enable = true;
+  services.fwupd.extraRemotes = [ "lvfs-testing" ];
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];

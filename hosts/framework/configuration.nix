@@ -117,7 +117,6 @@ in
 
   ## Packages
   environment.systemPackages = with pkgs; [
-    fwupd
     amdgpu_top
     nvtopPackages.amd
     vulkan-tools
