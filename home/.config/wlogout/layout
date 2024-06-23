@@ -1,6 +1,6 @@
 {
     "label" : "lock",
-    "action" : "swaylock",
+    "action" : "~/.config/sway/scripts/lock-screen.sh",
     "text" : "(l)ock",
     "keybind" : "l"
 }

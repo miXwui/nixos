@@ -62,8 +62,6 @@ set $term foot
 # on the original workspace that the command was run on.
 set $menu fuzzel --fuzzy-min-length=2
 
-set $lock swaylock
-
 set $cursor_timeout seat * hide_cursor 1000
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
@@ -160,9 +158,9 @@ bindswitch --reload --locked lid:off output $laptop enable
 # https://github.com/swaywm/sway/issues/2595#issuecomment-480673973
 exec swayidle -w \
     timeout 300 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
-    timeout 480 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || $lock' \
+    timeout 480 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || ~/.config/sway/scripts/lock-screen.sh' \
     timeout 600 'grep 1 /sys/class/power_supply/ACAD/online && exit 1 || systemctl suspend-then-hibernate' \
-    before-sleep '$lock'
+    before-sleep '~/.config/sway/scripts/lock-screen.sh'
 
 ### Input configuration
 #

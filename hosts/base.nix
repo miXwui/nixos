@@ -7,6 +7,7 @@ let
   sway = {
     pkg = pkgs.unstable.swayfx; # sway or swayfx
     swayfx.enable = true;
+    lockCommand = "hyprlock"; # "swaylock -d" or "gtklock -d" or "hyprlock"
   };
 
   tlpConfig = builtins.readFile ../etc/tlp.conf;
@@ -246,7 +247,12 @@ in
 
   # PAM
   # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
-  security.pam.services.swaylock = {};
+  security.pam.services = {
+    # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
+    swaylock = {};
+    gtklock = {};
+    hyprlock = {};
+  };
 
   home-manager = {
     # also pass inputs to home-manager modules
