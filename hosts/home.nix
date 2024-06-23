@@ -1,11 +1,13 @@
-{ config, pkgs, inputs, sway, ... }:
+{ pkgs, inputs, sway, ... }:
 let
+  ### Unstable packages
   unstable = import inputs.nixpkgs-unstable {
     system = pkgs.system;
     config.allowUnfree = true;
   };
 in
 {
+  ### MODULE ARGS ###
   # Project wide args to use e.g. `{ unstable, ... }`
   # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
   _module.args = {
@@ -13,15 +15,10 @@ in
     sway = sway;
   };
 
+  ### IMPORTS ###
   imports = [ ../modules/home-manager ];
 
-  nixpkgs.config.allowUnfree = true;
-
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "mwu";
-  home.homeDirectory = "/home/mwu";
-
+  ### EXTRA ###
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -31,73 +28,53 @@ in
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = with pkgs; [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
+  nixpkgs.config.allowUnfree = true;
 
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+  ### USER ###
+  # Home Manager needs a bit of information about you and the paths it should
+  # manage.
+  home.username = "mwu";
+  home.homeDirectory = "/home/mwu";
 
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
+  ### SESSION VARIABLES ###
+  # Home Manager can also manage your environment variables through
+  # 'home.sessionVariables'. If you don't want to manage your shell through Home
+  # Manager then you have to manually source 'hm-session-vars.sh' located at
+  # either
+  #
+  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+  #
+  # or
+  #
+  #  /etc/profiles/per-user/mwu/etc/profile.d/hm-session-vars.sh
+  #
+  home.sessionVariables = {
+    # EDITOR = "emacs";
 
-    # Desktop environment
-    kanshi
-    imv
-    ulauncher # TODO: remove
-    networkmanagerapplet
-    blueman
-    # File managers
-    gnome.nautilus
-    cinnamon.nemo-with-extensions
-    kdePackages.dolphin
-    xfce.thunar
-    spacedrive
+    ## Enable Ozone Wayland support in Chromium and Electron based applications
+    # https://nixos.wiki/wiki/Wayland#Electron_and_Chromium
+    NIXOS_OZONE_WL = "1";
 
-    # Camera
-    snapshot
+    ## Elixir/Erlang
+    # Enable history in IEX
+    ERL_AFLAGS = "-kernel shell_history enabled";
 
-    # CLI utilities
-    htop
-    jq
-    wget
-    bc
-    units
+    # Build Erlang docs with asdf
+    # https://github.com/asdf-vm/asdf-erlang?tab=readme-ov-file#getting-erlang-documentation
+    KERL_BUILD_DOCS = "yes";
+    KERL_DOC_TARGETS = "man html pdf chunks";
+    KERL_INSTALL_HTMLDOCS = "yes";
+    KERL_INSTALL_MANPAGES = "yes";
+  };
 
-    # GUI utilities
-    gnome.zenity # requirement for scripts using zenity
+  ### SHELL ALIASES ###
+  home.shellAliases = {
+    sl = "sl -e";
+    gl = "git log";
+    gs = "git status";
+  };
 
-    # Editors
-    vim
-    unstable.vscode
-    unstable.helix
-
-    zeal
-
-    # Terminal
-    tmux
-    tree
-    sl
-
-    # Power management
-    powertop
-    powerstat
-
-    # Programs
-    unstable.firefox
-    unstable.chromium
-  ];
-
+  ### HOME FILES ###
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
@@ -113,7 +90,7 @@ in
     # '';
   };
 
-  # Themes
+  ### THEMES ###
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
@@ -138,7 +115,7 @@ in
     };
   };
 
-  # MIME
+  ### MIME ###
   # ~/.config/mimeapps.list
   xdg.mimeApps.defaultApplications = {
     "x-scheme-handler/http" = [ "firefox.desktop" ];
@@ -166,25 +143,70 @@ in
     "application/x-extension-xht" = [ "firefox.desktop" ];
   };
 
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. If you don't want to manage your shell through Home
-  # Manager then you have to manually source 'hm-session-vars.sh' located at
-  # either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/mwu/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
+  ### PACKAGES ###
+  home.packages = with pkgs; [
+    # # Adds the 'hello' command to your environment. It prints a friendly
+    # # "Hello, world!" when run.
+    # pkgs.hello
 
-    # Enable Ozone Wayland support in Chromium and Electron based applications
-    # https://nixos.wiki/wiki/Wayland#Electron_and_Chromium
-    NIXOS_OZONE_WL = "1";
-  };
+    # # It is sometimes useful to fine-tune packages, for example, by applying
+    # # overrides. You can do that directly here, just don't forget the
+    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
+    # # fonts?
+    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
 
+    # # You can also create simple shell scripts directly inside your
+    # # configuration. For example, this adds a command 'my-hello' to your
+    # # environment:
+    # (pkgs.writeShellScriptBin "my-hello" ''
+    #   echo "Hello, ${config.home.username}!"
+    # '')
+    # Desktop environment
+    kanshi
+    ulauncher # TODO: remove
+    networkmanagerapplet
+    blueman
+    # File managers
+    gnome.nautilus
+    cinnamon.nemo-with-extensions
+    kdePackages.dolphin
+    xfce.thunar
+    spacedrive
+
+    # Camera
+    snapshot
+
+    # CLI utilities
+    htop
+    jq
+    wget
+    bc
+    units
+    # GUI utilities
+    gnome.zenity # requirement for scripts using zenity
+
+    # Editors
+    vim
+    unstable.vscode
+    unstable.helix
+
+    zeal
+
+    # Terminal
+    tmux
+    tree
+    sl
+
+    # Power management
+    powertop
+    powerstat
+
+    # Programs
+    unstable.firefox
+    unstable.chromium
+  ];
+
+  ### MISCELLANEOUS ###
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
