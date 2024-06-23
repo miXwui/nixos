@@ -35,7 +35,7 @@ exec blueman-applet
 # calls
 # ~/.config/sway/scripts/gammastep-wrapper.sh
 #
-# KDEConnect-indicator
+# KDE Connect
 exec kdeconnect-indicator
 # flashfocus
 # exec_always ~/.local/bin/flashfocus

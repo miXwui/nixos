@@ -317,6 +317,13 @@ in
   programs.fish.enable = true;
   programs.dconf.enable = true; # needed for Gnome color scheme settings, etc.
 
+  ## KDE Connect
+  # Crashes using Home Manager with `services.kdeconnect` so we set up here.
+  programs.kdeconnect = {
+    enable = true;
+    package = pkgs.kdePackages.kdeconnect-kde;
+  };
+
   # programs.gnupg.agent = {
   #   enable = true;
   #   enableSSHSupport = true;
