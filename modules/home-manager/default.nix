@@ -3,6 +3,7 @@
     ./sway.nix
     ./wayland-utils.nix
     ./keyring.nix
+    ./ssh.nix
     ./cursors.nix
     ./dunst.nix
     ./fish.nix

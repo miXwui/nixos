@@ -1,2 +1,5 @@
 # nixos-generator dir
 result
+
+# sops-nix
+secrets

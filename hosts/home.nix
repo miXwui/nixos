@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, sway, ... }:
+{ config, pkgs, inputs, sway, sops, ... }:
 let
   ### Unstable packages
   unstable = import inputs.nixpkgs-unstable {
@@ -13,6 +13,7 @@ in
   _module.args = {
     unstable = unstable;
     sway = sway;
+    sops = sops;
   };
 
   ### IMPORTS ###

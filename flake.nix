@@ -17,6 +17,13 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # sops-nix
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      # optional, not necessary for the module
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixos-generators, ... }@inputs:

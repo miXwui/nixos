@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   ### Sway
   sway = {
@@ -47,7 +47,17 @@ in
   imports = [
     ../modules/nixos/main-user.nix
     inputs.home-manager.nixosModules.default
+    inputs.sops-nix.nixosModules.sops
   ];
+
+  ### SOPS ###
+  sops = {
+    defaultSopsFile = /home/${config.main-user.username}/nixos/secrets/secrets.yaml;
+    defaultSopsFormat = "yaml";
+    validateSopsFiles = false; # to allow the file to be outside the git repo/nix store
+
+    age.keyFile = /home/${config.main-user.username}/nixos/secrets/.config/sops/age/keys.txt;
+  };
 
   ### KERNEL ###
   # https://nixos.wiki/wiki/Linux_kernel
@@ -174,7 +184,11 @@ in
   ### HOME MANAGER ###
   home-manager = {
     # also pass inputs to home-manager modules
-    extraSpecialArgs = { inherit inputs; sway = sway; };
+    extraSpecialArgs = {
+      inherit inputs;
+      sway = sway;
+      sops = config.sops;
+    };
     users = {
       "mwu" = import ./home.nix;
     };
@@ -182,7 +196,10 @@ in
   };
 
   ### ENVIRONMENT VARIABLES ###
-  environment.variables = {};
+  environment.variables = {
+    # https://github.com/getsops/sops/blob/3458c3534f215012d1f813d8507f531239bf1485/README.rst?plain=1#L211
+    SOPS_AGE_KEY_FILE = "/home/${config.main-user.username}/nixos/secrets/.config/sops/age/keys.txt";
+  };
 
   ### SHELL ALIASES ###
   environment.shellAliases = {};
@@ -360,6 +377,11 @@ in
 
     # Keyring
     gcr-with-ssh
+
+    # Secrets
+    sops
+    age
+    ssh-to-age
 
     # Audio
     pavucontrol

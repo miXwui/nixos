@@ -1,5 +1,7 @@
 # NixOS Configurations
 
+To be stored in `/home/<user>/nixos/`.
+
 ## Install a specific version of a package
 
 Find details from <https://lazamar.co.uk/nix-versions/> or search the Git repo for the PR/commit.
@@ -79,3 +81,65 @@ fwupdmgr refresh
 fwupdmgr get-updates
 fwupdmgr update
 ```
+
+## Secrets
+
+Managed using [`sops-nix`](https://github.com/Mic92/sops-nix/).
+
+- Video guide: [NixOS Secrets Management | SOPS-NIX](https://www.youtube.com/watch?v=G5f6GC7SnhU)
+
+### Generating using [`ssh-to-age`](https://github.com/Mic92/ssh-to-age?tab=readme-ov-file#usage)
+
+1. Generate new ssh age key:
+
+   ```sh
+   nix shell nixpkgs#age -c age-keygen -o secrets/.config/sops/age/keys.txt
+   ```
+
+2. Or generate age key from existing ssh key:
+
+   ```sh
+   nix run nixpkgs#ssh-to-age -- -private-key -i ~/.ssh/id_ed25519 > secrets/.config/sops/age/keys.txt
+   ```
+
+   If the ssh key has a passphrase, run this before:
+
+   ```sh
+   read -s SSH_TO_AGE_PASSPHRASE; export SSH_TO_AGE_PASSPHRASE
+   ```
+
+3. Get the public key:
+
+   ```sh
+   nix shell nixpkgs#age -c age-keygen -y secrets/.config/sops/age/keys.txt
+   ```
+
+#### Creating SOPS secrets file
+
+```sh
+mkdir secrets
+cd secrets
+sops secrets.yaml
+```
+
+### Files needed
+
+Instead of using the default SOPS path `~/.config/sops/age/keys.txt`, we set the `SOPS_AGE_KEY_FILE` environment variable in `hosts/base.nix` to:
+`/home/<user>/nixos/secrets/.config/sops/age/keys.txt`.
+
+So be sure these required files are added (the `secrets/` dir is gitignored):
+
+- `/home/<user>/nixos/secrets/.config/sops/age/keys.txt`
+- `/home/<user>/nixos/secrets/secrets.yaml`
+
+### SSH keys
+
+Systemd `ssh-config.service` defined in `hosts/base.nix` will automatically set up and write files to `~/.ssh` using `sops-nix`.
+
+See `modules/home-manager/ssh.nix`.
+
+## Notable programs
+
+- [Geoclue](https://gitlab.freedesktop.org/geoclue/)
+  - Uses Google geolocation API.
+  - Systemd `geoclue-config.service` write url with API key (from `sops-nix`) to `/etc/geoclue/conf.d/90-custom-wifi.conf`.

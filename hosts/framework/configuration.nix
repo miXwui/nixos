@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 let
   fprintd = pkgs.fprintd;
 in
@@ -121,4 +121,13 @@ in
     nvtopPackages.amd
     vulkan-tools
   ];
+
+  ## SOPS
+  sops = {
+    secrets = {
+      google_api_key  = { owner = config.main-user.username; };
+      ssh_private_key = { owner = config.main-user.username; };
+      ssh_public_key  = { owner = config.main-user.username; };
+    };
+  };
 }
