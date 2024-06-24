@@ -1,9 +1,13 @@
-{ pkgs, home-manager, git, ... }:
+{ pkgs, git, ... }:
 
 {
   _module.args = {
     git = pkgs.git;
   };
+
+  home.packages = with pkgs; [
+    bfg-repo-cleaner
+  ];
 
   programs.git = {
     enable = true;
