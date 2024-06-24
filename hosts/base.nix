@@ -312,17 +312,26 @@ in
   ### PROGRAMS ###
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
-  # programs.mtr.enable = true;
   programs.light.enable = true;
   programs.fish.enable = true;
   programs.dconf.enable = true; # needed for Gnome color scheme settings, etc.
 
-  ## KDE Connect
+  ## Networking
+  # KDE Connect
   # Crashes using Home Manager with `services.kdeconnect` so we set up here.
   programs.kdeconnect = {
     enable = true;
     package = pkgs.kdePackages.kdeconnect-kde;
   };
+
+  # Wireshark
+  # Users also need to be added to the `wireshark` group.
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
+
+  programs.mtr.enable = true;
 
   # programs.gnupg.agent = {
   #   enable = true;

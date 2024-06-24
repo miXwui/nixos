@@ -1,4 +1,4 @@
-{ pkgs, inputs, sway, ... }:
+{ config, pkgs, inputs, sway, ... }:
 let
   ### Unstable packages
   unstable = import inputs.nixpkgs-unstable {
@@ -88,6 +88,12 @@ in
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # Wireshark
+    "${config.xdg.configHome}/wireshark" = {
+      source = ../home/.config/wireshark;
+      recursive = true;
+    };
   };
 
   ### THEMES ###
