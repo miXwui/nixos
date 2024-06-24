@@ -71,8 +71,14 @@ in
   ### SHELL ALIASES ###
   home.shellAliases = {
     sl = "sl -e";
-    gl = "git log";
+    ga = "git add";
+    gc = "git commit";
+    gco = "git checkout";
+    gcp = "git cherry-pick";
+    gl = "git prettylog";
+    gp = "git push";
     gs = "git status";
+    gt = "git tag";
   };
 
   ### HOME FILES ###

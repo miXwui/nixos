@@ -46,6 +46,7 @@
       gri = "git rebase -i HEAD~";
       gap = "git add -p";
       gsu = "git stash -u";
+      gcad = "GIT_COMMITTER_DATE=\"$(git log -1 --format=%ad <commit-hash>)\" git commit --amend --no-edit --date \"$(git log -1 --format=%ad <commit-hash>)\"";
       gwhoami = "echo \"user.name:\" (git config user.name) && echo \"user.email:\" (git config user.email)";
       ggrep = "git log -i --grep=\"\"";
       grl = "git rev-list --count HEAD ^branch";
