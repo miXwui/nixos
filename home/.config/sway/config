@@ -18,23 +18,9 @@ exec nm-applet --indicator
 # Bluetooth
 exec blueman-applet
 # Gammastep
-# Currently not using geoclue for gammastep
-# x|Requires geoclue for location awareness
-# x|/etc/geoclue/geoclue.conf add:
-# x|[gammastep]
-# x|allowed=true
-# x|system=false
-# x|users=
-#
-# exec gammastep
-# Since geoclue ain't that reliable...
-# https://rumpelsepp.org/blog/geolocation-for-gammastep/ (thanks!)
-#
-# systemd service
-# ~/.config/systemd/user/gammastep.service
-# calls
-# ~/.config/sway/scripts/gammastep-wrapper.sh
-#
+# can also setup a systemd service that gets location via IP address,
+# see: ~/.config/sway/scripts/gammastep-wrapper.sh
+exec gammastep
 # KDE Connect
 exec kdeconnect-indicator
 # flashfocus

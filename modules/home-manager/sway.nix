@@ -23,6 +23,12 @@ in
     wlogout
   ];
 
+  ### SERVICES
+  services.gammastep = {
+    enable = true;
+    provider = "geoclue2";
+  };
+
   ### WRITE FILES
   home.file = {
     "${config.xdg.configHome}/sway" = {
