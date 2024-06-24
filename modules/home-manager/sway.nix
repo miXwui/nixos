@@ -4,6 +4,8 @@ let
   gtklock-userinfo = pkgs.gtklock-userinfo-module;
   gtklock-powerbar = pkgs.gtklock-powerbar-module;
   gtklock-playerctl = pkgs.gtklock-playerctl-module;
+
+  polkit_gnome = pkgs.polkit_gnome;
 in
 {
   ### PACKAGES
@@ -21,12 +23,34 @@ in
 
     swayidle
     wlogout
+
+    # Polkit
+    polkit_gnome
   ];
 
   ### SERVICES
   services.gammastep = {
     enable = true;
     provider = "geoclue2";
+  };
+
+  # https://nixos.wiki/wiki/Sway#Systemd_services
+  # https://nixos.wiki/wiki/Polkit#Authentication_agents
+  systemd.user.services.polkit-gnome-authentication-agent-1 = {
+    Unit = {
+      Description = "polkit-gnome-authentication-agent-1";
+      PartOf = [ "graphical-session-pre.target" ];
+    };
+    Install = {
+      WantedBy = [ "graphical-session-pre.target" ];
+    };
+    Service = {
+      Type = "simple";
+      ExecStart = "${polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
+    };
   };
 
   ### WRITE FILES

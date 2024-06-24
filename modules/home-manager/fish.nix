@@ -22,9 +22,6 @@
       ## asdf Fish & Git
       ## https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
       #source ~/.asdf/asdf.fish
-
-      ## https://major.io/p/use-gnome-keyring-with-sway/
-      #export SSH_AUTH_SOCK=/run/user/1000/keyring/ssh
    '';
     plugins = [
       { name = "bass"; src = pkgs.fishPlugins.bass.src; }
