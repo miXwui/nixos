@@ -226,6 +226,27 @@ in
   ## keyd
   services.keyd.enable = true;
 
+  ## GeoClue
+  services.geoclue2 = {
+    enable = true;
+    # geoProviderUrl = "https://beacondb.net/v1/geolocate"; # TODO: possibly switch to this
+  };
+
+  # Add our own Google geolocate API key into GeoClue's [wifi] url= config since:
+  # [nixos/geoclue2: not working because Mozilla Location Service is retiring](https://github.com/NixOS/nixpkgs/issues/321121)
+  systemd.services.geoclue-config = lib.mkIf (config.sops.secrets ? google_api_key) {
+    description = "Add our own Google geolocate API key into GeoClue's [wifi] url= config.";
+    script = ''
+      mkdir -p /etc/geoclue/conf.d
+      echo "
+      [wifi]
+      enable=true
+      url=https://www.googleapis.com/geolocation/v1/geolocate?key=$(cat ${config.sops.secrets.google_api_key.path})
+      " > /etc/geoclue/conf.d/90-custom-wifi.conf
+    '';
+    wantedBy = [ "multi-user.target" ];
+  };
+
   ## fwupd
   services.fwupd.enable = true;
   services.fwupd.extraRemotes = [ "lvfs-testing" ];
