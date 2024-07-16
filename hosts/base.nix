@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, hardware, ... }:
 let
   ### Sway
   sway = {
@@ -12,10 +12,12 @@ let
   };
 
   ### TLP
-  tlpConfig = builtins.readFile ../etc/tlp.conf;
-
-  ### keyd
-  keydConfig = builtins.readFile ../etc/keyd/default.conf;
+  tlpConfig = {
+    "amd_7840u" = builtins.readFile ../etc/tlp.amd.7840u.conf;
+    "intel_i7-1165g7" = builtins.readFile ../etc/tlp.intel.i7-1165g7.conf;
+    "intel_i7-6700hq_and_nvidia_gtx_960m" = builtins.readFile ../etc/tlp.intel.i7-6700hq.and.nvidia.gtx-960m.conf;
+    "qemu" = builtins.readFile ../etc/tlp.qemu.conf;
+  }.${hardware.platform};
 
   ### GParted with xhost root
   my-gparted-with-xhost-root = pkgs.gparted.overrideAttrs (previousAttrs: {
@@ -26,6 +28,10 @@ in
   ### IMPORTS ###
   imports = [
     ../modules/nixos/main-user.nix
+    ./common/hardware_input-laptop.nix
+    ./common/hardware_fingerprint.nix
+    ./common/hardware_bluetooth.nix
+    ./common/hardware_ssd.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
   ];
@@ -203,9 +209,6 @@ in
   ## TLP
   services.tlp.enable = true;
 
-  ## keyd
-  services.keyd.enable = true;
-
   ## GeoClue
   services.geoclue2 = {
     enable = true;
@@ -270,6 +273,15 @@ in
   # `modules/home-manager/keyring.nix`.
   services.gnome.gnome-keyring.enable = true;
 
+  ### SOPS ###
+  sops = {
+    secrets = {
+      google_api_key  = { owner = config.main-user.username; };
+      ssh_private_key = { owner = config.main-user.username; };
+      ssh_public_key  = { owner = config.main-user.username; };
+    };
+  };
+
   ### PROGRAMS ###
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -305,8 +317,6 @@ in
 
     # Utilities
     nix-search-cli
-    tlp
-    keyd
 
     # Enable automounting USB/drives
     udisks
@@ -329,7 +339,6 @@ in
   ### ETC FILES ###
   environment = {
     etc."tlp.conf".text = tlpConfig;
-    etc."keyd/default.conf".text = keydConfig;
   };
 
   ### FONTS ###
@@ -351,6 +360,22 @@ in
   };
 
   ### MISC ###
+
+  # Ignore power button press.
+  # `suspend-then-hibernate` instead of just `suspend`.
+  services.logind.extraConfig = ''
+    HandlePowerKey=ignore # ignore power
+    HandleSuspendKey=suspend-then-hibernate
+    HandleLidSwitch=suspend-then-hibernate
+  '';
+
+  systemd.sleep.extraConfig = ''
+    AllowHibernation=yes
+    AllowSuspendThenHibernate=yes
+    HibernateDelaySec=60min
+    HibernateMode=platform
+  '';
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
