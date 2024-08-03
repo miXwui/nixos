@@ -10,11 +10,11 @@ option=$(zenity --list --title="Fast Commands" --text="Select a goTTa G0 fAsTT!!
   02 "Zenity Color Picker (Ctrl+Shift+Alt+C)" \
   03 "GColor3" \
   04 "Gnome Tweaks" \
-  1 "Downloads" \
-  2 "Documents" \
-  3 "Videos" \
-  4 "Pictures" \
-  5 "Music" \
+  1 "tmp" \
+  2 "documents" \
+  3 "videos" \
+  4 "pictures" \
+  5 "music" \
   6 "DSA" \
   7 "CCM" \
   100 "Find App ID")
@@ -43,31 +43,31 @@ case $option in
   ;;
 
 1)
-  nautilus ~/Downloads
+  nautilus $XDG_DOWNLOAD_DIR
   ;;
 
 2)
-  nautilus ~/Documents
+  nautilus $XDG_DOCUMENTS_DIR
   ;;
 
 3)
-  nautilus ~/Videos
+  nautilus $XDG_VIDEOS_DIR
   ;;
 
 4)
-  nautilus ~/Pictures
+  nautilus $XDG_PICTURES_DIR
   ;;
 
 5)
-  nautilus ~/Music
+  nautilus $XDG_MUSIC_DIR
   ;;
 
 6)
-  nautilus ~/Work/desophy/ccm/ccm-website
+  nautilus $XDG_WORK_DIR/desophy/ccm/ccm-website
   ;;
 
 7)
-  nautilus ~/Work/desophy/dsa/dsa-website
+  nautilus $XDG_WORK_DIR/desophy/dsa/dsa-website
   ;;
 
 100)

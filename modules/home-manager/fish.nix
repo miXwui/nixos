@@ -33,7 +33,7 @@
     ];
     shellAbbrs = {
       # Misc
-      ytdl = "~/Documents/scripts/download-yt-mix.sh";
+      ytdl = "$XDG_SCRIPTS_DIR/download-yt-mix.sh";
 
       # Git
       gca = "git commit --amend";

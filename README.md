@@ -1,6 +1,6 @@
 # NixOS Configurations
 
-To be stored in `/home/<user>/nixos/`.
+To be stored in `$XDG_NIXOS_DIR/`.
 
 ## Useful references (thanks!)
 
@@ -28,7 +28,7 @@ Remove all but the current generation with `sudo nix-collect-garbage -d`.
 Remove old entries and rebuild boot options:
 
 ```sh
-sudo nix-collect-garbage -d && sudo nixos-rebuild boot --flake .#framework_13_amd_7840u
+sudo nix-collect-garbage -d && sudo nixos-rebuild boot --flake $XDG_NIXOS_DIR/.#framework_13_amd_7840u
 ```
 
 or
@@ -66,6 +66,15 @@ nix build .#iso
 ```sh
 nix build .#nixosConfigurations.live-image.config.system.build.isoImage
 ```
+
+## XDG user directories
+
+Set in `xdg.userDirs` in [home.nix](hosts/home.nix). See for full list.
+
+The values can be accessed within `nix` flakes like so:\
+`"${config.xdg.userDirs.extraConfig.XDG_WALLPAPERS_DIR}"`.
+
+The environment variables can be used in scripts, e.g. `$XDG_WALLPAPERS_DIR`.
 
 ## Packages
 
@@ -201,12 +210,12 @@ sops secrets.yaml
 ### Files needed
 
 Instead of using the default SOPS path `~/.config/sops/age/keys.txt`, we set the `SOPS_AGE_KEY_FILE` environment variable in `hosts/base.nix` to:
-`/home/<user>/nixos/secrets/.config/sops/age/keys.txt`.
+`$XDG_NIXOS_DIR/secrets/.config/sops/age/keys.txt`.
 
 So be sure these required files are added (the `secrets/` dir is gitignored):
 
-* `/home/<user>/nixos/secrets/.config/sops/age/keys.txt`
-* `/home/<user>/nixos/secrets/secrets.yaml`
+* `$XDG_NIXOS_DIR/secrets/.config/sops/age/keys.txt`
+* `$XDG_NIXOS_DIR/secrets/secrets.yaml`
 
 ### SSH keys
 

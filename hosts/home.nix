@@ -128,32 +128,72 @@ in
     };
   };
 
-  ### MIME ###
+  ### XDG ###
   # ~/.config/mimeapps.list
-  xdg.mimeApps.defaultApplications = {
-    "x-scheme-handler/http" = [ "firefox.desktop" ];
-    "x-scheme-handler/https" = [ "firefox.desktop" ];
-    "x-scheme-handler/chrome" = [ "firefox.desktop" ];
-    "text/html" = [ "firefox.desktop" ];
-    "application/x-extension-htm" = [ "firefox.desktop" ];
-    "application/x-extension-html" = [ "firefox.desktop" ];
-    "application/x-extension-shtml" = [ "firefox.desktop" ];
-    "application/xhtml+xml" = [ "firefox.desktop" ];
-    "application/x-extension-xhtml" = [ "firefox.desktop" ];
-    "application/x-extension-xht" = [ "firefox.desktop" ];
-  };
-
-  xdg.mimeApps.associations.added = {
-    "x-scheme-handler/http" = [ "firefox.desktop" ];
-    "x-scheme-handler/https" = [ "firefox.desktop" ];
-    "x-scheme-handler/chrome" = [ "firefox.desktop" ];
-    "text/html" = [ "firefox.desktop" ];
-    "application/x-extension-htm" = [ "firefox.desktop" ];
-    "application/x-extension-html" = [ "firefox.desktop" ];
-    "application/x-extension-shtml" = [ "firefox.desktop" ];
-    "application/xhtml+xml" = [ "firefox.desktop" ];
-    "application/x-extension-xhtml" = [ "firefox.desktop" ];
-    "application/x-extension-xht" = [ "firefox.desktop" ];
+  xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = true;
+      download = "${config.home.homeDirectory}/tmp";
+      documents = "${config.home.homeDirectory}/documents";
+      music = "${config.home.homeDirectory}/music";
+      pictures = "${config.home.homeDirectory}/pictures";
+      videos =  "${config.home.homeDirectory}/videos";
+      desktop = "${config.home.homeDirectory}/desktop";
+      templates = "${config.home.homeDirectory}/templates";
+      publicShare = "${config.home.homeDirectory}/public";
+      extraConfig = {
+        XDG_NIXOS_DIR = "${config.home.homeDirectory}/nixos";
+        # Prioritize using `config.xdg.configHome` where possible.
+        # This is not currently set by default in NixOS, see:
+        # https://github.com/NixOS/nixpkgs/issues/224525
+        XDG_CONFIG_HOME = "${config.xdg.configHome}";
+        XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
+        XDG_GIT_CLONES_DIR = "${config.home.homeDirectory}/projects/git-clones";
+        XDG_SCRIPTS_DIR = "${config.home.homeDirectory}/projects/scripts";
+        XDG_TMP_DIR = "${config.home.homeDirectory}/tmp";
+        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
+      };
+    };
+  
+    mime.enable = true;
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "x-scheme-handler/http" = [ "firefox-private.desktop" ];
+        "x-scheme-handler/https" = [ "firefox-private.desktop" ];
+        "x-scheme-handler/chrome" = [ "firefox-private.desktop" ];
+        "text/html" = [ "firefox-private.desktop" ];
+        "application/x-extension-htm" = [ "firefox-private.desktop" ];
+        "application/x-extension-html" = [ "firefox-private.desktop" ];
+        "application/x-extension-shtml" = [ "firefox-private.desktop" ];
+        "application/xhtml+xml" = [ "firefox-private.desktop" ];
+        "application/x-extension-xhtml" = [ "firefox-private.desktop" ];
+        "application/x-extension-xht" = [ "firefox-private.desktop" ];
+        "video/mp4" = [ "mpv.desktop" ];
+        "video/x-matroska" = [ "mpv.desktop" ];
+        "video/quicktime" = [ "mpv.desktop" ];
+        "image/*" = [ "org.gnome.Loupe.desktop" ];
+        "application/x-bittorrent" = [ "qBitorrent.desktop" ];
+      };
+      associations.added = {
+        "x-scheme-handler/http" = [ "firefox-private.desktop" ];
+        "x-scheme-handler/https" = [ "firefox-private.desktop" ];
+        "x-scheme-handler/chrome" = [ "firefox-private.desktop" ];
+        "text/html" = [ "firefox-private.desktop" ];
+        "application/x-extension-htm" = [ "firefox-private.desktop" ];
+        "application/x-extension-html" = [ "firefox-private.desktop" ];
+        "application/x-extension-shtml" = [ "firefox-private.desktop" ];
+        "application/xhtml+xml" = [ "firefox-private.desktop" ];
+        "application/x-extension-xhtml" = [ "firefox-private.desktop" ];
+        "application/x-extension-xht" = [ "firefox-private.desktop" ];
+        "video/mp4" = [ "mpv.desktop" ];
+        "video/x-matroska" = [ "mpv.desktop" ];
+        "video/quicktime" = [ "mpv.desktop" ];
+        "image/*" = [ "org.gnome.Loupe.desktop" ];
+        "application/x-bittorrent" = [ "qBitorrent.desktop" ];
+      };
+    };
   };
 
   ### PACKAGES ###
@@ -218,6 +258,11 @@ in
     unstable.firefox
     unstable.chromium
   ];
+
+  home.activation = {
+    # Scripts to run during the activation phase.
+    # createMyDir = '' '';
+  };
 
   ### MISCELLANEOUS ###
   # Let Home Manager install and manage itself.

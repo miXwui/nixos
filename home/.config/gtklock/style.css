@@ -1,5 +1,5 @@
 window {
-  background-image: url("../../Pictures/Wallpapers/PXL_20220801_011526749.MP.jpg");
+  background-image: url("$XDG_WALLPAPERS_DIR/PXL_20220801_011526749.MP.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

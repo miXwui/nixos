@@ -1,8 +1,8 @@
 daemonize
 #ignore-empty-password
 color=00000000
-image=~/Pictures/Wallpapers/PXL_20220801_011526749.MP.jpg
+image=$XDG_WALLPAPERS_DIR/PXL_20220801_011526749.MP.jpg
 # Can set wallpaper per display like so:
-#image=eDP-1:~/Pictures/Wallpapers/lock_main.png
-#image=DP-4:~/Pictures/Wallpapers/lock_U3419W.png
-#image=DP-3:~/Pictures/Wallpapers/lock_VA32U.png
+#image=eDP-1:$XDG_WALLPAPERS_DIR/lock_main.png
+#image=DP-4:$XDG_WALLPAPERS_DIR/lock_U3419W.png
+#image=DP-3:$XDG_WALLPAPERS_DIR/lock_VA32U.png

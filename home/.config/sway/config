@@ -52,15 +52,15 @@ set $cursor_timeout seat * hide_cursor 1000
 
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
 #output * bg /usr/share/backgrounds/default.png fill
-output * bg ~/Pictures/Wallpapers/PXL_20220801_011526749.MP.jpg fill
+output * bg $XDG_WALLPAPERS_DIR/PXL_20220801_011526749.MP.jpg fill
 # Cycles through wallpapers with $mod+z
 set $wallkey $mod+z
-set $wallkey0 output * bg ~/Pictures/Wallpapers/PXL_20220801_011526749.MP.jpg fill; bindsym $wallkey $$wallkey1
-set $wallkey1 output * bg ~/Pictures/Wallpapers/wp1.jpg fill; bindsym $wallkey $$wallkey2
-set $wallkey2 output * bg ~/Pictures/Wallpapers/wp2.jpg fill; bindsym $wallkey $$wallkey3
-set $wallkey3 output * bg ~/Pictures/Wallpapers/city-day.png fill; bindsym $wallkey $$wallkey4
-set $wallkey4 output * bg ~/Pictures/Wallpapers/city-night.png fill; bindsym $wallkey $$wallkey5
-set $wallkey5 output * bg ~/Pictures/Wallpapers/wp3.jpg fill; bindsym $wallkey $$wallkey0
+set $wallkey0 output * bg $XDG_WALLPAPERS_DIR/PXL_20220801_011526749.MP.jpg fill; bindsym $wallkey $$wallkey1
+set $wallkey1 output * bg $XDG_WALLPAPERS_DIR/wp1.jpg fill; bindsym $wallkey $$wallkey2
+set $wallkey2 output * bg $XDG_WALLPAPERS_DIR/wp2.jpg fill; bindsym $wallkey $$wallkey3
+set $wallkey3 output * bg $XDG_WALLPAPERS_DIR/city-day.png fill; bindsym $wallkey $$wallkey4
+set $wallkey4 output * bg $XDG_WALLPAPERS_DIR/city-night.png fill; bindsym $wallkey $$wallkey5
+set $wallkey5 output * bg $XDG_WALLPAPERS_DIR/wp3.jpg fill; bindsym $wallkey $$wallkey0
 bindsym $wallkey $wallkey1
 
 ### Display outputs ###

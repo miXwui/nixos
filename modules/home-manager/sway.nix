@@ -117,8 +117,8 @@ in
     };
 
     # Wallpapers
-    "Pictures/Wallpapers" = {
-      source = ../../home/Pictures/Wallpapers;
+    "${config.xdg.userDirs.extraConfig.XDG_WALLPAPERS_DIR}" = {
+      source = ../../home/pictures/wallpapers;
       recursive = true;
     };
 
