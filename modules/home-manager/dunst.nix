@@ -7,7 +7,6 @@
   _module.args = {
     dunst = pkgs.dunst;
     libnotify = pkgs.libnotify; # for notify-send
-    xdg-utils = pkgs.xdg-utils;
   };
 
   home.packages = [

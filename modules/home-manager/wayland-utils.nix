@@ -1,6 +1,7 @@
-{ config, pkgs,
+{ pkgs,
   grim, slurp, swappy,
   wl-clipboard,
+  xdg-utils,
 ... }:
 
 {
@@ -9,6 +10,7 @@
     slurp = pkgs.slurp;
     swappy = pkgs.swappy;
     wl-clipboard = pkgs.wl-clipboard;
+    xdg-utils = pkgs.xdg-utils;
   };
 
   home.packages = [
@@ -16,5 +18,7 @@
     slurp
     swappy
     wl-clipboard
+    # TODO: clipboard history
+    xdg-utils
   ];
 }
