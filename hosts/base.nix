@@ -17,6 +17,7 @@ let
     "intel_i7-1165g7" = builtins.readFile ../etc/tlp.intel.i7-1165g7.conf;
     "intel_i7-6700hq_and_nvidia_gtx_960m" = builtins.readFile ../etc/tlp.intel.i7-6700hq.and.nvidia.gtx-960m.conf;
     "qemu" = builtins.readFile ../etc/tlp.qemu.conf;
+    "live-image" = builtins.readFile ../etc/tlp.live-image.conf;
   }.${hardware.platform};
 
   ### GParted with xhost root

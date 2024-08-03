@@ -42,7 +42,7 @@ sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configurat
 [`flake.nix`](./flake.nix) is set up to use [nixos-generators](https://github.com/nix-community/nixos-generators):
 
 ```sh
-nix build .#iso
+nix build $XDG_NIXOS_DIR/.#iso
 ```
 
 [This](https://www.reddit.com/r/NixOS/comments/18gkafh/comment/kd13m58/) also works if added to `flake.nix`:
@@ -64,7 +64,7 @@ nix build .#iso
 ```
 
 ```sh
-nix build .#nixosConfigurations.live-image.config.system.build.isoImage
+nix build $XDG_NIXOS_DIR/.#nixosConfigurations.live-image.config.system.build.isoImage
 ```
 
 ## XDG user directories
