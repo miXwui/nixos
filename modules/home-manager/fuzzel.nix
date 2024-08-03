@@ -1,8 +1,8 @@
-{ config, unstable, fuzzel, ... }:
+{ config, pkgs, fuzzel, ... }:
 
 {
   _module.args = {
-    fuzzel = unstable.fuzzel;
+    fuzzel = pkgs.unstable.fuzzel;
   };
 
   home.packages = [

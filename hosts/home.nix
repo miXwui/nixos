@@ -1,17 +1,10 @@
-{ config, pkgs, inputs, sway, sops, ... }:
-let
-  ### Unstable packages
-  unstable = import inputs.nixpkgs-unstable {
-    system = pkgs.system;
-    config.allowUnfree = true;
-  };
-in
+{ config, pkgs, sway, sops, ... }:
+
 {
   ### MODULE ARGS ###
-  # Project wide args to use e.g. `{ unstable, ... }`
+  # Project wide args to use e.g. `{ sway, ... }`
   # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
   _module.args = {
-    unstable = unstable;
     sway = sway;
     sops = sops;
   };

@@ -180,6 +180,10 @@ in
       "mwu" = import ./home.nix;
     };
     backupFileExtension = "nixbak";
+    # Pass nixpkgs/overlays from system configuration.
+    # Alternatively, this can be removed/set to false so Home Manager is isolated.
+    # https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
+    useGlobalPkgs = true;
   };
 
   ### ENVIRONMENT VARIABLES ###

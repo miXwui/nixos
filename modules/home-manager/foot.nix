@@ -1,4 +1,4 @@
-{pkgs, unstable, foot, ...}:
+{ pkgs, foot, ...}:
 
 let
   #catppuccinDrv = pkgs.fetchurl {
@@ -8,7 +8,7 @@ let
   #};
 in {
   _module.args = {
-    foot = unstable.foot;
+    foot = pkgs.unstable.foot;
   };
 
   programs.foot = {

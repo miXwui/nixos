@@ -1,4 +1,4 @@
-{ config, sway, pkgs, unstable, ... }:
+{ config, sway, pkgs, ... }:
 let
   ### gtklock modules
   gtklock-userinfo = pkgs.gtklock-userinfo-module;

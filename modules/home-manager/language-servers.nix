@@ -1,12 +1,11 @@
-{ pkgs, unstable,
   lexical,
   nil,
 ... }:
 
 {
   _module.args = {
-    lexical = unstable.lexical;
-    nil = unstable.nil;
+    lexical = pkgs.unstable.lexical;
+    nil = pkgs.unstable.nil;
   };
 
   home.packages = [
