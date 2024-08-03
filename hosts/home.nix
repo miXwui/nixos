@@ -1,4 +1,4 @@
-{ config, pkgs, sway, sops, ... }:
+{ config, pkgs, sway, sops, coreutils, ... }:
 
 {
   ### MODULE ARGS ###
@@ -6,6 +6,7 @@
   # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
   _module.args = {
     sway = sway;
+    coreutils = pkgs.coreutils;
     sops = sops;
   };
 
@@ -223,6 +224,7 @@
     snapshot
 
     # CLI utilities
+    coreutils
     htop
     jq
     wget

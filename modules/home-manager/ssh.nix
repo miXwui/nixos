@@ -1,4 +1,4 @@
-{ lib, pkgs, sops, ... }:
+{ lib, pkgs, coreutils, sops, ... }:
 let
   sshKeysExist = (sops.secrets ? ssh_private_key) && (sops.secrets ? ssh_public_key);
 in
@@ -18,11 +18,11 @@ in
       Type = "simple";
       ExecStart = "${pkgs.writeScript "write-ssh-keys" ''
         #!/run/current-system/sw/bin/bash
-        ${pkgs.coreutils}/bin/mkdir -p ~/.ssh
-        ${pkgs.coreutils}/bin/cat ${sops.secrets.ssh_private_key.path} > ~/.ssh/framenix
-        ${pkgs.coreutils}/bin/chmod 600 ~/.ssh/framenix
-        ${pkgs.coreutils}/bin/cat ${sops.secrets.ssh_public_key.path} > ~/.ssh/framenix.pub
-        ${pkgs.coreutils}/bin/chmod 644 ~/.ssh/framenix.pub
+        ${coreutils}/bin/mkdir -p ~/.ssh
+        ${coreutils}/bin/cat ${sops.secrets.ssh_private_key.path} > ~/.ssh/framenix
+        ${coreutils}/bin/chmod 600 ~/.ssh/framenix
+        ${coreutils}/bin/cat ${sops.secrets.ssh_public_key.path} > ~/.ssh/framenix.pub
+        ${coreutils}/bin/chmod 644 ~/.ssh/framenix.pub
       ''}";
     };
   };
