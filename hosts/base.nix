@@ -5,9 +5,9 @@
 { config, lib, pkgs, inputs, hardware, ... }:
 let
   ### Sway
-  sway = {
-    pkg = pkgs.unstable.swayfx; # sway or swayfx
-    swayfx.enable = true;
+  sway = rec {
+    swayfx.enable = true; # toggling this will toggle pkg below.
+    pkg = if swayfx.enable then pkgs.unstable.swayfx else pkgs.unstable.sway;
     lockCommand = "hyprlock"; # "swaylock -d" or "gtklock -d" or "hyprlock"
   };
 
