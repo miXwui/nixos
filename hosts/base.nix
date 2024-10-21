@@ -367,11 +367,10 @@ in
 
   # Ignore power button press.
   # `suspend-then-hibernate` instead of just `suspend`.
-  services.logind.extraConfig = ''
-    HandlePowerKey=ignore # ignore power
-    HandleSuspendKey=suspend-then-hibernate
-    HandleLidSwitch=suspend-then-hibernate
-  '';
+  services.logind.powerKey = "ignore";
+  services.logind.rebootKey = "ignore";
+  services.logind.suspendKey = "suspend-then-hibernate";
+  services.logind.lidSwitch = "suspend-then-hibernate";
 
   systemd.sleep.extraConfig = ''
     AllowHibernation=yes
