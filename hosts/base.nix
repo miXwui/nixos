@@ -35,6 +35,8 @@ in
     ./common/hardware_ssd.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
+    # Custom packages
+    ../modules/nixos/drm_amd.nix
   ];
 
   ### SOPS ###
@@ -328,6 +330,7 @@ in
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 
     # Utilities
+    drm_info
 
     # Enable automounting USB/drives
     udisks

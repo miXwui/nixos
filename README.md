@@ -186,6 +186,53 @@ sudo ectool fwchargelimit
 sudo ectool fwchargelimit 80
 ```
 
+### s2idle checks
+
+#### Debugging higher idle power consumption after resume from s2idle
+
+<https://community.frame.work/t/responded-higher-idle-power-consumption-after-resume-from-s2idle/50537>
+
+[Compare `/sys/kernel/debug/amd_pmf/current_power_limits` before and after](https://community.frame.work/t/responded-higher-idle-power-consumption-after-resume-from-s2idle/50537/m).
+
+[Check brightness value from sysfs](https://community.frame.work/t/responded-higher-idle-power-consumption-after-resume-from-s2idle/50537/12):
+
+```sh
+cat /sys/class/backlight/amdgpu_bl1/brightness
+cat /sys/class/backlight/amdgpu_bl1/actual_brightness
+```
+
+> [Can you compare `lspci -vv` output before and after suspend? Does L1SS change for any device? If so; it’s pointing at a kernel driver or firmware bug for that device.](https://community.frame.work/t/responded-higher-idle-power-consumption-after-resume-from-s2idle/50537/13)
+
+Useful to compare with (thanks to OP!): <https://gist.github.com/ZachLiu519/5d932675be4997f811c73870a745d6a4>
+
+#### AMD
+
+The <https://gitlab.freedesktop.org/drm/amd> repo is cloned to `$XDG_PROJECTS_DIR/git-clones/drm/amd`.
+
+Run `amd/scripts/amd_s2idle.py`.
+
+These Python packages are required:
+
+```text
+distro
+gi
+packaging
+pyudev
+systemd
+```
+
+These packages are required:
+
+```text
+acpica-tools
+```
+
+`"msr"` needs to be added to kernel modules:
+
+```nix
+boot.kernelModules = [ "msr" ];
+```
+
 ## Keyring
 
 * [`hosts/base.nix`](./hosts/base.nix)
@@ -261,6 +308,60 @@ See `modules/home-manager/ssh.nix`.
   * Systemd `geoclue-config.service` write url with API key (from `sops-nix`) to `/etc/geoclue/conf.d/90-custom-wifi.conf`.
 * ~~[Gammastep](https://gitlab.com/chinstrap/gammastep) for automatic color temperature adjustment based on location.~~ disabled for now since I think it's causing higher power consumption.
   * Currently set up to use Geoclue.
+* [amd_s2idle](packages/drm_amd) check/verify s2idle and power draw. `sudo amd_s2idle`.
+
+## Nix cookbook
+
+<https://nixos.wiki/wiki/Nix_Cookbook>
+
+* [Wrapping packages](https://nixos.wiki/wiki/Nix_Cookbook#Wrapping_packages)
+
+## Getting SRI hash
+
+```fish
+$ bass nix hash to-sri --type sha256 $(nix-prefetch-url "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=23fddba4039916caa6a96052732044ddcf514886")
+path is '/nix/store/ssa6aqvdfpsgdpd2yb6rs2n0vmr3hk1d-?id=23fddba4039916caa6a96052732044ddcf514886'
+sha256-q57T2Ko79DmJEfgKC3d+x/dY2D34wQCSieVrfWKsF5E=
+```
+
+<https://www.reddit.com/r/Nix/comments/171ijju/comment/k3rbx44/>
+
+## nix-shell
+
+E.g. for <https://gitlab.freedesktop.org/drm/amd/>:
+
+```sh
+ nix-shell --pure -p gobject-introspection fw
+upd json-glib 'python3.withPackages(ps: with ps; [ pyg
+object3 ])'
+```
+
+## Clone a Git repo to home directory
+
+This example clones a repo, then runs a command on the repo.
+
+Note that `builtins.fetchGit` saves to a read-only Nix store for users, and the directory is symlinked to it.
+
+```nix
+# For `amd_s2idle.py` script, etc.
+"projects/git-clones/drm/amd" = {
+  source = pkgs.runCommand "modified-amd-repo" {
+    src = builtins.fetchGit {
+      url = "https://gitlab.freedesktop.org/drm/amd.git";
+      rev = "449cf64fdd71ac14893e8e9fd2eeb65ac65cdd84";
+    };
+  } ''
+    cp -r $src $out
+    chmod -R u+w $out
+    find $out -type f -exec sed -i \
+    -e 's|#!/usr/bin/python3|#!/usr/bin/env python|g' \
+    -e 's|#!/usr/bin/python|#!/usr/bin/env python|g' \
+    {} +
+  '';      
+};
+```
+
+Though this is packaged up in a flake [here](packages/drm_amd.nix) and [here](modules/nixos/drm_amd.nix).
 
 ## Helix
 
