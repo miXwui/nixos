@@ -5,6 +5,10 @@
     fish = pkgs.fish;
   };
 
+  home.packages = with pkgs; [
+    fzf
+  ];
+
   programs.fish = {
     enable = true;
     package = fish;
@@ -26,9 +30,11 @@
     plugins = [
       { name = "bass"; src = pkgs.fishPlugins.bass.src; }
       { name = "done"; src = pkgs.fishPlugins.done.src; }
-      #{ name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
+      { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
       #{ name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
-      #{ name = "hydro"; src = pkgs.fishPlugins.hydro.src; }
+      { name = "hydro"; src = pkgs.fishPlugins.hydro.src; }
+
+      # Conflict with `grc` `git rebase --continue` command?
       #{ name = "grc"; src = pkgs.fishPlugins.grc.src; }
     ];
     shellAbbrs = {
