@@ -37,28 +37,30 @@
         enabled = true;
       };
 
-      # TODO: Maybe use vimdiff or helix instead?
-
       core = {
-        editor = "code --wait --new-window";
+        editor = "hx";
       };
 
       diff = {
+        # TODO: Maybe use vimdiff or helix instead?
         tool = "vscode";
         wsErrorHighlight = "all";
       };
 
       difftool = {
         vscode = {
+          # TODO: Maybe use vimdiff or helix instead?
           cmd = "code --wait --diff $LOCAL $REMOTE";
         };
       };
 
       merge = {
+        # TODO: Maybe use vimdiff or helix instead?
         tool = "vscode";
       };
 
       mergetool = {
+        # TODO: Maybe use vimdiff or helix instead?
         vscode = {
           cmd = "code --wait $MERGED";
         };

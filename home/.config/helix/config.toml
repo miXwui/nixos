@@ -1,0 +1,95 @@
+theme = "onedark-bleeding"
+
+[editor]
+mouse = false
+completion-timeout = 5
+completion-trigger-len = 0
+line-number = "relative"
+rulers = [80]
+bufferline = "multiple"
+color-modes = true
+auto-pairs = false
+end-of-line-diagnostics = "hint"
+
+[editor.statusline]
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator", "version-control"]
+right = ["diagnostics", "selections", "register", "position", "file-encoding", "position-percentage"]
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.cursor-shape]
+insert = "bar"
+normal = "block"
+select = "underline"
+
+[editor.file-picker]
+hidden = false
+
+[editor.search]
+wrap-around = false
+
+[editor.whitespace]
+render = "all"
+
+[editor.whitespace.characters]
+space = "·"
+nbsp = "⍽"
+nnbsp = "␣"
+tab = "→"
+newline = "⏎"
+tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+# NOTE: soft-wrap currently doesn't show if text extends past the ruler:
+# https://github.com/helix-editor/helix/discussions/6901
+enable = true
+
+[editor.inline-diagnostics]
+cursor-line = "warning" # show warnings and errors
+
+[keys.normal]
+C-left = "move_prev_word_end"
+C-right = "move_next_word_start"
+C-up = "goto_prev_paragraph"
+C-down = "goto_next_paragraph"
+# Move lines/selections up/down
+# https://github.com/helix-editor/helix/pull/4545#pullrequestreview-1195055143
+A-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before", "goto_line_start"]
+A-down = ["extend_to_line_bounds", "delete_selection", "paste_after", "goto_line_start"]
+X = "select_line_above"
+# https://docs.helix-editor.com/editor.html#editorsmart-tab-section
+tab = "move_parent_node_end"
+S-tab = "move_parent_node_start"
+# Remove yank behavior of `c` and `d`
+# https://github.com/helix-editor/helix/discussions/10361
+A-d = "delete_selection"
+d = "delete_selection_noyank"
+A-c = "change_selection"
+c = "change_selection_noyank"
+# Buffers
+C-tab = ":buffer-next"
+C-S-tab = ":buffer-previous"
+
+[keys.normal.space]
+q = ":buffer-close"
+"=" = ":format"
+# Waiting on https://github.com/helix-editor/helix/pull/11164
+# i = ":sh inlyne %{filename}"
+
+[keys.insert]
+C-left = "move_prev_word_end"
+C-right = "move_next_word_start"
+C-backspace = "delete_word_backward"
+C-S-backspace = "delete_word_forward"
+# https://docs.helix-editor.com/editor.html#editorsmart-tab-section
+S-tab = "move_parent_node_start"
+
+[keys.select]
+# https://docs.helix-editor.com/editor.html#editorsmart-tab-section
+tab = "extend_parent_node_end"
+S-tab = "extend_parent_node_start"

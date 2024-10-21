@@ -1,0 +1,2 @@
+theme = "Dark"
+lines-to-scroll = 100.0 # for some reason this doesn't work?

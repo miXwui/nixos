@@ -1,0 +1,132 @@
+# https://reviewdog.github.io/errorformat-playground/
+
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 1s
+
+tools:
+  # css-prettier: &css-prettier
+  #   format-command: './node_modules/.bin/prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser css'
+
+  # csv-csvlint: &csv-csvlint
+  #   lint-command: 'csvlint'
+
+  # dockerfile-hadolint: &dockerfile-hadolint
+  #   lint-command: 'hadolint'
+  #   lint-formats:
+  #     - '%f:%l %m'
+
+  # gitcommit-gitlint: &gitcommit-gitlint
+  #   lint-command: 'gitlint'
+  #   lint-stdin: true
+  #   lint-formats:
+  #     - '%l: %m: "%r"'
+  #     - '%l: %m'
+
+  # html-prettier: &html-prettier
+  #   format-command: './node_modules/.bin/prettier ${--tab-width:tabWidth} ${--single-quote:singleQuote} --parser html'
+
+  # javascript-eslint: &javascript-eslint
+  #   lint-command: 'eslint -f visualstudio --stdin --stdin-filename ${INPUT}'
+  #   lint-ignore-exit-code: true
+  #   lint-stdin: true
+  #   lint-formats:
+  #     - "%f(%l,%c): %tarning %m"
+  #     - "%f(%l,%c): %rror %m"
+
+  # json-fixjson: &json-fixjson
+  #   format-command: 'fixjson'
+
+  # json-jq: &json-jq
+  #   lint-command: 'jq .'
+
+  # json-prettier: &json-prettier
+  #   format-command: './node_modules/.bin/prettier ${--tab-width:tabWidth} --parser json'
+
+  markdown-markdownlint-cli2: &markdown-markdownlint
+    lint-command: 'markdownlint-cli2'
+    # lint-stdin: true
+    lint-formats:
+      # https://github.com/tsuyoshicho/vim-efm-langserver-settings/blob/024f1d45de2043ec8ee548a42c862f775d2b1345/config/efm-langserver/config.yaml#L140-L141
+      - '%f:%l:%c MD%n/%*[^ ] %m'
+      - '%f:%l MD%n/%*[^ ] %m'
+    format-command: 'markdownlint-cli2 --fix ${INPUT}'
+    format-stdin: false
+    commands:
+      - title: 'markdownlint fix'
+        command: markdownlint-cli2 
+        arguments:
+          - '--fix'
+          - '${INPUT}'
+
+  # mix_credo: &mix_credo
+  #   lint-command: "mix credo suggest --format=flycheck --read-from-stdin ${INPUT}"
+  #   lint-stdin: true
+  #   lint-formats:
+  #     - '%f:%l:%c: %t: %m'
+  #     - '%f:%l: %t: %m'
+  #   root-markers:
+  #     - mix.lock
+  #     - mix.exs
+
+  # python-black: &python-black
+  #   format-command: 'black --quiet -'
+  #   format-stdin: true
+
+  # sh-shellcheck: &sh-shellcheck
+  #   lint-command: 'shellcheck -f gcc -x'
+  #   lint-source: 'shellcheck'
+  #   lint-formats:
+  #     - '%f:%l:%c: %trror: %m'
+  #     - '%f:%l:%c: %tarning: %m'
+  #     - '%f:%l:%c: %tote: %m'
+
+  # sh-shfmt: &sh-shfmt
+  #   format-command: 'shfmt -ci -s -bn'
+  #   format-stdin: true
+
+  # yaml-yamllint: &yaml-yamllint
+  #   lint-command: 'yamllint -f parsable -'
+  #   lint-stdin: true
+
+languages:
+  # css:
+  #   - <<: *css-prettier
+
+  # csv:
+  #   - <<: *csv-csvlint
+
+  # dockerfile:
+  #   - <<: *dockerfile-hadolint
+
+  # elixir:
+  #   - <<: *mix_credo
+
+  # gitcommit:
+    # - <<: *gitcommit-gitlint
+
+  # html:
+    # - <<: *html-prettier
+
+  # javascript:
+  #   - <<: *javascript-eslint
+  #   - <<: *prettierd
+
+  # json:
+  #   - <<: *json-fixjson
+  #   - <<: *json-jq
+  #   # - <<: *json-prettier
+
+  markdown:
+    - <<: *markdown-markdownlint
+
+  # python:
+  #   - <<: *python-black
+
+  # sh:
+  #   - <<: *sh-shellcheck
+  #   - <<: *sh-shfmt
+
+  # yaml:
+  #   - <<: *yaml-yamllint

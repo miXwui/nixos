@@ -27,6 +27,9 @@
       # optional, not necessary for the module
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # https://github.com/nix-community/emacs-overlay/issues/396#issuecomment-2071348230
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
   outputs =
@@ -35,6 +38,7 @@
       nixpkgs,
       nixos-generators,
       nixos-hardware,
+      emacs-overlay,
       ...
     }@inputs:
     let
@@ -47,6 +51,7 @@
             config.allowUnfree = true;
           };
         })
+        emacs-overlay.overlays.default
       ];
     in
     {

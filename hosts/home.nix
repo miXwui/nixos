@@ -43,7 +43,7 @@
   #  /etc/profiles/per-user/mwu/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    # EDITOR = "emacs";
+    EDITOR = "hx";
 
     ## Enable Ozone Wayland support in Chromium and Electron based applications
     # https://nixos.wiki/wiki/Wayland#Electron_and_Chromium
@@ -82,6 +82,17 @@
     gp = "git push";
     gs = "git status";
     gt = "git tag";
+
+    # Zellij
+    zj = "zellij";
+    zjw = "zellij -l welcome";
+    zjl = "zellij -l";
+    zjll = "zellij -l layout.kdl";
+    zrf = "zellij run --floating";
+    ze = "zellij edit";
+    zri = "zellij run --in-place";
+    zpipe = "zellij pipe -p";
+    zpf = "zellij pipe -p filepicker";
 
     # Misc
     nb = "numbat";
@@ -304,11 +315,6 @@
 
     # GUI utilities
     gnome.zenity # requirement for scripts using zenity
-
-    # Editors
-    vim
-    unstable.vscode
-    unstable.helix
 
     zeal
 

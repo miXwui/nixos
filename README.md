@@ -261,3 +261,38 @@ See `modules/home-manager/ssh.nix`.
   * Systemd `geoclue-config.service` write url with API key (from `sops-nix`) to `/etc/geoclue/conf.d/90-custom-wifi.conf`.
 * ~~[Gammastep](https://gitlab.com/chinstrap/gammastep) for automatic color temperature adjustment based on location.~~ disabled for now since I think it's causing higher power consumption.
   * Currently set up to use Geoclue.
+
+## Helix
+
+Overall, really, really enjoying Helix now as my primary editor. Switched from about 10 years of VSCode, with a short but deep sting in Emacs-land.
+
+It's really amazing on power efficiency and also the quickest (from testing). And I love it's style of modal editing, with tweaks of course.
+
+Nagit is really something special and thankfully there's a standalone Rust implementation, [Gitu](https://github.com/altsem/gitu). Works well for my usecase, so far.
+
+* [To match lines that contain a substring](https://www.reddit.com/r/HelixEditor/comments/11sbk1j/how_can_i_delete_all_lines_containing_a_substring/): (`%`: `select_all`), (`s`: `select_regex`), (`x`: `extend_line_below`).
+  * [that do not contain](https://github.com/helix-editor/helix/discussions/7342): (`%`: `select_all`), (`A-s`: `split_selection_on_newline`), (`A-K`: `remove_selections`)
+* Macros are useful, (`Q`: `record_macro`) to start/stop record, and (`q`: `replay_macro`) to play.
+* [Find next occurence of selection under cursor](https://www.reddit.com/r/HelixEditor/comments/1aqif6u/find_next_occurrence_of_word_under_cursor/): `*` to yank to search register. (`n`: `search_next`) / (`p`: `search_prev`)
+
+## Emacs
+
+NOTE: I came out of the rabbit hole frustrated with the slowness/power efficiency of Emacs relative to Helix. So I switched to Helix.
+
+I was using [Meow](https://github.com/meow-edit/meow) in Emacs so the Kakoune inspired modal editing workflow is similar.
+
+I do miss some things with Emacs, but they should mostly be reproducible in Helix at some point and with the long-awaited plugin system.
+
+~~I've switched to Emacs after about 10 years of VSCode after some careful consideration among other options. Lot of effort, so many tweaks, but it's something that should hopefully last forever and I won't need to migrate. Briefly, out of the box, Emacs is horrible IMO. But everything's configurable, and even though it takes a lot of time and effort to learn and setup, tradeoffs so far seem to be worth it. A lot of things are overly complicated, but things remain possible to do and easily fixable due to its inherent configurability vs. other platforms.~~
+
+~~The reduced energy (battery) usage and entirely keyboard driven workflow, among some other features (and there are a *lot*, a metric-yacht-load!) make usage incredible, despite the initial setup pains. If anyone else is reading this as a beginner, I'd recommend using an out of the box setup like Doom Emacs to see what's possible, and continue grinding through it and figuring out how to get that thing you want. It may take writing a custom function, but there's probably a simple and clean solution that allows you to do even more than you thought possible since Emacs has a ton of widgets.~~
+
+## Zed editor needs this to install dev extensions
+
+```text
+rustc
+rustup
+gcc
+```
+
+Run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.

@@ -97,6 +97,13 @@ in
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # TODO: delete when removing SublimeText4 from editors.
+  # https://github.com/NixOS/nixpkgs/issues/239615
+  # https://github.com/sublimehq/sublime_text/issues/5984
+  nixpkgs.config.permittedInsecurePackages = [
+    "openssl-1.1.1w"
+  ];
+
   # Experimental features
   nix.settings.experimental-features = [
     "nix-command"
