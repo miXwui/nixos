@@ -73,7 +73,7 @@
 
   ### SHELL ALIASES ###
   home.shellAliases = {
-    sl = "sl -e";
+    # Git
     ga = "git add";
     gc = "git commit";
     gco = "git checkout";
@@ -82,6 +82,11 @@
     gp = "git push";
     gs = "git status";
     gt = "git tag";
+
+    # Misc
+    nb = "numbat";
+    wlc = "wl-copy";
+    sl = "sl -e";
   };
 
   ### HOME FILES ###
