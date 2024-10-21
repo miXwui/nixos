@@ -30,7 +30,8 @@ in
 
   ### SERVICES
   services.gammastep = {
-    enable = true;
+    # Still testing if this is a battery drain.
+    enable = false;
     provider = "geoclue2";
   };
 

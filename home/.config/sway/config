@@ -20,7 +20,9 @@ exec blueman-applet
 # Gammastep
 # can also setup a systemd service that gets location via IP address,
 # see: ~/.config/sway/scripts/gammastep-wrapper.sh
-exec gammastep
+# TODO: update once gammastep power efficiency is verified
+# exec gammastep # does gammastep need to be here with it being a service in
+# home manager (sway.nix module)?
 # KDE Connect
 exec kdeconnect-indicator
 # flashfocus

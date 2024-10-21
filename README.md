@@ -259,5 +259,5 @@ See `modules/home-manager/ssh.nix`.
 * [Geoclue](https://gitlab.freedesktop.org/geoclue/)
   * Uses Google geolocation API.
   * Systemd `geoclue-config.service` write url with API key (from `sops-nix`) to `/etc/geoclue/conf.d/90-custom-wifi.conf`.
-* [Gammastep](https://gitlab.com/chinstrap/gammastep) for automatic color temperature adjustment based on location.
+* ~~[Gammastep](https://gitlab.com/chinstrap/gammastep) for automatic color temperature adjustment based on location.~~ disabled for now since I think it's causing higher power consumption.
   * Currently set up to use Geoclue.
