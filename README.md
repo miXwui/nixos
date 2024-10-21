@@ -170,6 +170,22 @@ fwupdmgr get-updates
 fwupdmgr update
 ```
 
+## Power management/battery life
+
+### [fw-ectool](https://gitlab.howett.net/DHowett/ectool)
+
+#### Show charge limit
+
+```sh
+sudo ectool fwchargelimit
+```
+
+#### Set charge limit
+
+```sh
+sudo ectool fwchargelimit 80
+```
+
 ## Keyring
 
 * [`hosts/base.nix`](./hosts/base.nix)

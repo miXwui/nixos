@@ -324,6 +324,8 @@
     # Programs
     unstable.firefox
     unstable.chromium
+
+    unstable.fw-ectool
   ];
 
   home.activation = {
