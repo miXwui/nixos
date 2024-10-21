@@ -23,19 +23,31 @@ To be stored in `$XDG_NIXOS_DIR/`.
 
 <https://nixos.wiki/wiki/Storage_optimization>
 
-Remove all but the current generation with `sudo nix-collect-garbage -d`.
+Remove all but the current generation with `sudo nix-collect-garbage --delete-older-than`.
 
 Remove old entries and rebuild boot options:
 
 ```sh
-sudo nix-collect-garbage -d && sudo nixos-rebuild boot --flake $XDG_NIXOS_DIR/.#framework_13_amd_7840u
+sudo nix-collect-garbage -delete-older-than 30d && sudo nixos-rebuild boot --flake $XDG_NIXOS_DIR/.#framework_13_amd_7840u
 ```
 
 or
 
 ```sh
-sudo nix-collect-garbage -d && sudo /run/current-system/bin/switch-to-configuration boot
+sudo nix-collect-garbage -delete-older-than 30d && sudo /run/current-system/bin/switch-to-configuration boot
 ```
+
+Running with `sudo` deletes system profiles, and without deletes only current user's.
+
+Pass `--delete-old`/`-d` instead of `--delete-older-than` to delete all old generations.
+
+<https://nix.dev/manual/nix/2.18/command-ref/nix-env/delete-generations#generations-time>
+
+```sh
+nix-env --delete-generations +5 --dry-run
+```
+
+Also `(sudo) nix store gc` and `nix store optimise`.
 
 ### Build ISO
 
