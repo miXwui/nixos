@@ -1,4 +1,4 @@
-{ config, pkgs, sway, sops, coreutils, xdg-utils, ... }:
+{ config, lib, pkgs, sway, sops, coreutils, xdg-utils, ... }:
 {
   ### MODULE ARGS ###
   # Project wide args to use e.g. `{ sway, ... }`
@@ -59,6 +59,16 @@
     KERL_DOC_TARGETS = "man html pdf chunks";
     KERL_INSTALL_HTMLDOCS = "yes";
     KERL_INSTALL_MANPAGES = "yes";
+
+    # Fix for Nautilus Audio/Video Properties
+    # > Your GStreamer installation is missing a plug-in.
+    # https://github.com/NixOS/nixpkgs/issues/195936#issuecomment-1366902737
+    GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
+      gst-plugins-good
+      gst-plugins-bad
+      gst-plugins-ugly
+      gst-libav
+    ]);
   };
 
   ### SHELL ALIASES ###
