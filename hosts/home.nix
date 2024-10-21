@@ -229,6 +229,9 @@
     wget
     bc
     units
+
+    nix-search-cli
+
     # GUI utilities
     gnome.zenity # requirement for scripts using zenity
 
