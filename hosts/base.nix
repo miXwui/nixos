@@ -325,7 +325,7 @@ in
 
     # Enable automounting USB/drives
     udisks
-    udiskie
+    # udiskie # service/tray added via Home Manager
     usbutils
     # GParted
     my-gparted-with-xhost-root

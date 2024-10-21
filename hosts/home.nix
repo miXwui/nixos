@@ -1,5 +1,4 @@
-{ config, pkgs, sway, sops, coreutils, ... }:
-
+{ config, pkgs, sway, sops, coreutils, xdg-utils, ... }:
 {
   ### MODULE ARGS ###
   # Project wide args to use e.g. `{ sway, ... }`
@@ -258,6 +257,40 @@
     # Scripts to run during the activation phase.
     # createMyDir = '' '';
   };
+
+  ### SERVICES ###
+  services = {
+    udiskie = {
+      enable = true;
+      automount = false;
+      notify = true;
+      tray = "auto";
+      # NOTE: Fixes `Can't find file browser: 'xdg-open'` for `udiskie`.
+      # See: https://github.com/nix-community/home-manager/issues/632#issuecomment-2210425312
+      settings = {
+        program_options = {
+          file_manager = "${xdg-utils}/bin/xdg-open";
+          # file_manager = "${pkgs.alacritty}/bin/alacritty -e ${pkgs.yazi}/bin/yazi";
+        };
+      };
+      # /endfix
+    };
+
+    # mpd = {
+      # enable = true;
+      # musicDirectory = ;
+    # }
+  };
+
+  # NOTE: Fixes `Unit tray.target not found` for `udiskie`.
+  # See: https://github.com/nix-community/home-manager/issues/2064#issuecomment-887300055
+  systemd.user.targets.tray = {
+    Unit = {
+      Description = "Home Manager System Tray";
+      Requires = [ "graphical-session-pre.target" ];
+    };
+  };
+  # /endfix
 
   ### MISCELLANEOUS ###
   # Let Home Manager install and manage itself.
