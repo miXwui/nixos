@@ -15,10 +15,20 @@ in {
     enable = true;
     package = foot;
     settings = {
+      # https://codeberg.org/dnkl/foot/src/branch/master/foot.ini
       main = {
         #include = "${catppuccinDrv}";
 
         font = "Cascadia Mono:size=13";
+      };
+
+      scrollback = {
+        lines = 5000; # default: 1000
+      };
+
+      key-bindings = {
+        # https://codeberg.org/dnkl/foot/issues/1264#issuecomment-1839328
+        pipe-scrollback = "[sh -c 'cat> /tmp/foot-terminal-scrollback ; foot hx /tmp/foot-terminal-scrollback'] Control+Shift+s";
       };
 
       # kitty theme, but brighter colors changed pastel
