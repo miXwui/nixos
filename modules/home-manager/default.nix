@@ -18,6 +18,7 @@
     ./xdg-desktop-portals.nix
     ./editors.nix
     ./development.nix
+    ./media.nix
     ./language-servers.nix
     ./torrent.nix
   ];
