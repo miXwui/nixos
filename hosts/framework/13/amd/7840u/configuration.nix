@@ -12,6 +12,29 @@
 
   _module.args.hardware.platform = "amd_7840u";
 
+  # # amdgpu video power saving patches
+  # specialisation.drm-amdgpu-vcn = { inheritParentConfig = true; configuration =
+  #   {
+  #     boot.kernelPatches = [
+  #       # https://gitlab.freedesktop.org/drm/amd/-/issues/3195#note_2485525
+  #       {
+  #         name = "1-identify-unified-queue";
+  #         patch = (builtins.fetchurl {
+  #           url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=23fddba4039916caa6a96052732044ddcf514886";
+  #           sha256 = "sha256-q57T2Ko79DmJEfgKC3d+x/dY2D34wQCSieVrfWKsF5E=";
+  #         });
+  #       }
+  #       {
+  #         name = "2-not-pause-dpg";
+  #         patch = (builtins.fetchurl {
+  #           url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=3941fd6be7cf050225db4b699757969f8950e2ce";
+  #           sha256 = "sha256-JYOLF5ZUxDx9T9jaZCvSQtowUq38qiGPsmAMlaCi5qg=";
+  #         });
+  #       }
+  #     ];
+  #   };
+  # };
+
   # Hardware modules
   hardware_input-laptop.enable = true;
   hardware_fingerprint.enable = true;

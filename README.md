@@ -387,6 +387,40 @@ Note that `builtins.fetchGit` saves to a read-only Nix store for users, and the 
 
 Though this is packaged up in a flake [here](packages/drm_amd.nix) and [here](modules/nixos/drm_amd.nix).
 
+## Kernel
+
+### Adding kernel patches
+
+This adds a named `specialisation` with kernel patches that will appear as a separate boot entry.
+
+```nix
+  specialisation.drm-amdgpu-vcn = { inheritParentConfig = true; configuration =
+    {
+      boot.kernelPatches = [
+        # https://gitlab.freedesktop.org/drm/amd/-/issues/3195#note_2485525
+        {
+          name = "1-identify-unified-queue";
+          patch = (builtins.fetchurl {
+            url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=23fddba4039916caa6a96052732044ddcf514886";
+            sha256 = "sha256-q57T2Ko79DmJEfgKC3d+x/dY2D34wQCSieVrfWKsF5E=";
+          });
+        }
+        {
+          name = "2-not-pause-dpg";
+          patch = (builtins.fetchurl {
+            url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=3941fd6be7cf050225db4b699757969f8950e2ce";
+            sha256 = "sha256-JYOLF5ZUxDx9T9jaZCvSQtowUq38qiGPsmAMlaCi5qg=";
+          });
+        }
+      ];
+    };
+  };
+```
+
+One can also switch to a specialized configuration with `sudo /run/current-system/specialisation/fewJobsManyCores/bin/switch-to-configuration test`.\
+<https://search.nixos.org/options?&show=specialisation>
+
+Or extract `boot.kernelPatches` to apply it to the config without being under a separate `specialisation`.
 ## Helix
 
 Overall, really, really enjoying Helix now as my primary editor. Switched from about 10 years of VSCode, with a short but deep sting in Emacs-land.
