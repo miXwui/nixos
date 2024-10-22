@@ -72,7 +72,19 @@ in
 
   ### KERNEL ###
   # https://nixos.wiki/wiki/Linux_kernel
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_latest;
+  # Pin a specific kernel.
+  # Warning: This will compile the kernel and take a while.
+  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_11.override {
+    argsOverride = rec {
+      src = pkgs.fetchurl {
+            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+            sha256 = "sha256-BXJj0K/BfVJTeUr9PSObpNpKpzSyL6NsFmX0G5VEm3M=";
+      };
+      version = "6.11.3";
+      modDirVersion = "6.11.3";
+      };
+  });
   # boot.kernelPackages = pkgs.linuxPackagesFor fedoraKernel;
   # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages; # might need if latest doesn't support zfs
   boot.supportedFilesystems = [ "bcachefs" ];

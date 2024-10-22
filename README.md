@@ -422,6 +422,25 @@ One can also switch to a specialized configuration with `sudo /run/current-syste
 
 Or extract `boot.kernelPatches` to apply it to the config without being under a separate `specialisation`.
 
+### List available kernels
+
+<https://nixos.wiki/wiki/Linux_kernel#List_available_kernels>
+
+Tab complete `pkgs.linuxPackages`.
+
+```sh
+$ nix repl
+
+nix-repl> :l <nixpkgs>
+Added 12607 variables.
+
+nix-repl> pkgs.linuxPackages
+```
+
+Can also `nix-search linux` where the `linux-manual` entry shows the patch version.\
+I haven't figured out a way yet to see which patch version will be installed, but there is a way to specifically install per the wiki:\
+<https://nixos.wiki/wiki/Linux_kernel#Pinning_a_kernel_version>
+
 ### Build Fedora kernel
 
 <https://nixos.org/manual/nixos/stable/#sec-linux-config-customizing>
