@@ -1,5 +1,6 @@
 { pkgs, git, ... }:
 # [1] https://github.com/so-fancy/diff-so-fancy?tab=readme-ov-file#with-git
+# [2] https://github.com/dandavison/delta?tab=readme-ov-file#get-started
 {
   _module.args = {
     git = pkgs.git;
@@ -39,13 +40,29 @@
 
       core = {
         editor = "hx";
-        pager = "diff-so-fancy | less --tabs=4 -RF"; # [1]
+        # pager = "diff-so-fancy | less --tabs=4 -RF"; # [1]
+        pager = "delta"; # [2]
+      };
+
+      interactive = {
+        # diffFilter = "diff-so-fancy --patch"; # [1]
+        diffFilter = "delta --color-only"; # [2]
+      };
+
+      #[2]
+      delta = {
+        navigate = true; # use n and N to move between diff sections
+
+        # delta detects terminal colors automatically; set one of these to disable auto-detection
+        # dark = true
+        # light = true
       };
 
       diff = {
         # TODO: Maybe use vimdiff or helix instead?
         tool = "vscode";
         wsErrorHighlight = "all";
+        colorMoved = "default"; # [2]
       };
 
       difftool = {
@@ -55,11 +72,8 @@
         };
       };
 
-      interactive = {
-        diffFilter = "diff-so-fancy --patch"; # [1]
-      };
-      
       merge = {
+        conflictstyle = "diff3"; # [2]
         # TODO: Maybe use vimdiff or helix instead?
         tool = "vscode";
       };

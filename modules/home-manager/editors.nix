@@ -21,11 +21,12 @@
 
   meld,
   kdiff3,
-  difftastic,
   gitu,
   lazygit,
 
   diffutils,
+  delta,
+  difftastic,
   diff-so-fancy,
 
   glow,
@@ -143,11 +144,12 @@
 
     meld = pkgs.meld;
     kdiff3 = pkgs.kdiff3;
-    difftastic = pkgs.difftastic;
     gitu = pkgs.unstable.gitu;
     lazygit = pkgs.unstable.lazygit;
 
     diffutils = pkgs.diffutils;
+    delta = pkgs.delta;
+    difftastic = pkgs.difftastic;
     diff-so-fancy = pkgs.diff-so-fancy;
 
     glow = pkgs.glow;
@@ -183,13 +185,14 @@
     vscode
     zed-editor
 
-    difftastic
     meld
     kdiff3
     gitu
     lazygit
 
     diffutils # required for Emacs Ediff. BusyBox's version's outdated.
+    delta
+    difftastic
     diff-so-fancy
 
     glow
