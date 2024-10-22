@@ -24,6 +24,27 @@ let
   my-gparted-with-xhost-root = pkgs.gparted.overrideAttrs (previousAttrs: {
     configureFlags = previousAttrs.configureFlags ++ [ "--enable-xhost-root" ];
   });
+
+  # fedoraKernel = (pkgs.unstable.linuxKernel.manualConfig rec {
+  #   version = "6.9.11";
+  #   modDirVersion = version;
+  #   configfile = ./kernel-x86_64-fedora.noquotes.config;
+  #   allowImportFromDerivation = true;
+  #   src = pkgs.fetchurl {
+  #     # https://github.com/NixOS/nixpkgs/blob/28b3994c14c4b3e36aa8b6c0145e467250c8fbb8/pkgs/os-specific/linux/kernel/mainline.nix#L19
+  #     url = "https://cdn.kernel.org/pub/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.gz";
+  #     sha256 = "0f69315a144b24a72ebd346b1ca571acef10e9609356eb9aa4c70ef3574eff62";
+  #   };
+  # # https://github.com/NixOS/nixpkgs/issues/216529
+  # # https://github.com/NixOS/nixpkgs/pull/288154#pullrequestreview-1901852446
+  # }).overrideAttrs(old: {
+  #   passthru = old.passthru // {
+  #     features = {
+  #       ia32Emulation = true;
+  #       efiBootStub = true;
+  #     };
+  #   };
+  # });
 in
 {
   ### IMPORTS ###
@@ -52,6 +73,7 @@ in
   ### KERNEL ###
   # https://nixos.wiki/wiki/Linux_kernel
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  # boot.kernelPackages = pkgs.linuxPackagesFor fedoraKernel;
   # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages; # might need if latest doesn't support zfs
   boot.supportedFilesystems = [ "bcachefs" ];
 

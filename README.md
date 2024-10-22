@@ -421,6 +421,68 @@ One can also switch to a specialized configuration with `sudo /run/current-syste
 <https://search.nixos.org/options?&show=specialisation>
 
 Or extract `boot.kernelPatches` to apply it to the config without being under a separate `specialisation`.
+
+### Build Fedora kernel
+
+<https://nixos.org/manual/nixos/stable/#sec-linux-config-customizing>
+<https://nixos.org/manual/nixpkgs/stable/#sec-linux-kernel>
+<https://nixos.wiki/wiki/Linux_kernel>
+
+Useful for testing/diffing, e.g. in the case that the Fedora kernel has a lower idle power draw than the NixOS default kernel.
+
+```nix
+let
+  fedoraKernel = (pkgs.unstable.linuxKernel.manualConfig rec {
+    version = "6.9.11";
+    modDirVersion = version;
+    configfile = ./kernel-x86_64-fedora.noquotes.config;
+    allowImportFromDerivation = true;
+    src = pkgs.fetchurl {
+      # https://github.com/NixOS/nixpkgs/blob/28b3994c14c4b3e36aa8b6c0145e467250c8fbb8/pkgs/os-specific/linux/kernel/mainline.nix#L19
+      url = "https://cdn.kernel.org/pub/linux/kernel/v${lib.versions.major version}.x/linux-${version}.tar.gz";
+      sha256 = "0f69315a144b24a72ebd346b1ca571acef10e9609356eb9aa4c70ef3574eff62";
+    };
+  # https://github.com/NixOS/nixpkgs/issues/216529
+  # https://github.com/NixOS/nixpkgs/pull/288154#pullrequestreview-1901852446
+  }).overrideAttrs(old: {
+    passthru = old.passthru // {
+      features = {
+        ia32Emulation = true;
+        efiBootStub = true;
+      };
+    };
+  });
+in
+{
+  boot.kernelPackages = pkgs.linuxPackagesFor fedoraKernel;
+}
+```
+
+#### .config
+
+<https://src.fedoraproject.org/rpms/kernel>
+<https://src.fedoraproject.org/rpms/kernel/raw/f40/f/kernel-x86_64-fedora.config>
+
+> You can see the configuration of your current kernel with the following command:
+
+  ```sh
+  zcat /proc/config.gz
+  ```
+
+#### Kernel source
+
+<https://cdn.kernel.org/pub/linux/kernel/v6.x/>
+<https://cdn.kernel.org/pub/linux/kernel/v6.x/sha256sums.asc>
+
+#### Misc
+
+```text
+root module: pcips2
+modprobe: FATAL: Module pcips2 not found in directory /nix/store/9ngpgsnvky7fqbc28hvdi3ccpn5p3h0n-linux-6.9.11-modules/lib/modules/6.9.11
+```
+
+Apparently copying some options from config fixed the issue, but I didn't record it, so *shrugs*.
+
 ## Helix
 
 Overall, really, really enjoying Helix now as my primary editor. Switched from about 10 years of VSCode, with a short but deep sting in Emacs-land.
