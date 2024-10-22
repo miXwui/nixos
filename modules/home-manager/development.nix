@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  filezilla,
   zellij,
   ...
 }:
@@ -28,12 +29,14 @@ let
 in
 {
   _module.args = {
+    filezilla = pkgs.filezilla;
     # zellij = pkgs.zellij;
     zellij = zellij-unreleased;
 
   };
 
   home.packages = [
+    filezilla
     zellij
   ];
 
@@ -43,5 +46,4 @@ in
       recursive = true;
     };
   };
-
 }
