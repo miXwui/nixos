@@ -37,6 +37,7 @@ in
     inputs.sops-nix.nixosModules.sops
     # Custom packages
     ../modules/nixos/drm_amd.nix
+    ../modules/nixos/vpn.nix
   ];
 
   ### SOPS ###

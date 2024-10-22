@@ -298,6 +298,30 @@ Systemd `ssh-config.service` defined in `hosts/base.nix` will automatically set 
 
 See `modules/home-manager/ssh.nix`.
 
+### Adding new secrets
+
+`sops $XDG_NIXOS_DIR/secrets/secrets.yaml` which will decrypt and open the file for editing.
+
+### Passing secrets to other processes
+
+ <https://github.com/getsops/sops?tab=readme-ov-file#passing-secrets-to-other-processes>
+
+`sops exec-env secrets.yaml 'echo secret: $some_secret; ./some-script`
+
+## VPN
+
+Packaged [PIA manual-connections](https://github.com/pia-foss/manual-connections) in `packages/pia_manual-connections`.
+
+Installed via `modules/nixos/vpn.nix`.
+
+It uses `sops` to decrypt the username/password and pass as variables into the startup script.
+
+`pia-connect`/`pia-disconnect` to, well, connect and disconnect.
+
+There are a few useful args that can be changed for `pia-connect`.
+
+IPv6 will be disabled (since apparently it's not supported by PIA). The disconnect script will re-enable it.
+
 ## Notable programs
 
 * [Sway](https://github.com/swaywm/sway) (with [SwayFX](https://github.com/WillPower3309/swayfx) toggle)
