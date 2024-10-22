@@ -1,0 +1,32 @@
+// default_layout "default"
+
+// https://github.com/zellij-org/zellij/issues/3127 
+// session_serialization false
+
+// TODO: configure leader key?
+// https://github.com/zellij-org/zellij/issues/2890
+
+// TODO: doesn't resurrect some things like `hx .` on NixOS.
+// https://github.com/zellij-org/zellij/issues/2925
+
+// Unbind C-q and bind to C-o-q to prevent accidental quits.
+// https://github.com/zellij-org/zellij/issues/1229#issuecomment-1887186692
+// Maybe use the quit popup plugin:
+// https://github.com/cristiand391/zj-quit
+// keybinds {
+//    unbind "Ctrl q";
+
+// 	session {
+// 		bind "q" { Quit; }
+// 	}
+
+//   shared_except "locked" {
+//   // ...
+//       bind "Alt f" {
+//           LaunchPlugin "filepicker" {
+//               floating true
+//               close_on_selection true
+//           };
+//       }
+//   }
+// }

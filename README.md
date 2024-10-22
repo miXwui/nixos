@@ -296,3 +296,152 @@ gcc
 ```
 
 Run 'rustup default stable' to download the latest stable release of Rust and set it as your default toolchain.
+
+## Zellij
+
+<https://zellij.dev/screencasts/>
+
+### [Basic develoment with Zellij](https://zellij.dev/tutorials/basic-functionality/)
+
+1. `cd` into project dir.
+2. `hx .`
+3. `C-p` for `pane` mode.
+4. `d` to split down.
+5. `A-n` opens new pane.
+6. `C-p-e` for floating pane (Ctrl-pane-eject).
+7. `C-p-w` to toggle it on/off.
+8. Prepend `zellij run --floating` (aliased to `zrf`) to a command to run it in it's own window.
+   Pressing `enter` on the window can re-run it (although it doesn't keep `sudo` context since it seems to run a new instance each time).
+9. `C-s-e` (Ctrl-scrollback-edit) to edit the scrollback in your default editor.
+
+`A-[`/`]` to change pane layout. It's also useful for floating panes.
+
+`A-+`/`-` to increase/decrease pane size.
+
+### [Using layouts for personal automation](https://zellij.dev/tutorials/layouts/)
+
+See this repo's [Zellij `default-layout.kdl`](default-layout.kdl).\
+More examples: <https://zellij.dev/documentation/layout-examples>.
+
+Easiest way I've found so far is to manually create the layout, then run:
+
+```sh
+zellij action dump-layout
+```
+
+New Zellij session:
+
+```sh
+zellij -l /path/to/layout.kdl
+```
+
+Inside an existing session:
+
+```sh
+zellij action new-tab -l /path/to/layout.kdl
+```
+
+### [Session management with Zellij](https://zellij.dev/tutorials/session-management/)
+
+`zjw` is aliased for `zellij -l welcome`.
+
+### [The Zellij filepicker](https://zellij.dev/tutorials/filepicker/)
+
+```kdl
+keybinds {
+  shared_except "locked" {
+  // ...
+    bind "Alt f" {
+      LaunchPlugin "filepicker" {
+        // floating true // uncomment this to have the filepicker opened in a floating window
+        close_on_selection true // comment this out to have the filepicker remain open even after selecting a file
+      };
+    }
+  }
+}
+```
+
+`C-e` to toggle hidden files/folders.
+
+`zellij plugin -- filepicker` from command line.
+
+`zellij -l strider` layout for "IDE-like" experience.
+
+`zellij action new-tab -l strider` in an existing session.
+
+`zpipe` alias for `zellij pipe -p`.
+
+`zpipe filepicker` or `zpf` for `zellij pipe -p filepicker` to pipe its output to `STDOUT`.
+
+E.g. to open the filepicker to select a file to copy to `path/some-file`:
+
+```sh
+zpf | xargs -i cp {} path/some-file
+```
+
+#### Run multiple commands with `sudo`
+
+```kdl
+pane command="sudo" {
+  start_suspended true
+  cwd "$XDG_NIXOS_DIR"
+  args "sh" "-c" "nix-collect-garbage --delete-older-than 30d && nixos-rebuild boot --flake .#framework_13_amd_7840u"
+}
+```
+
+Also see: <https://github.com/zellij-org/zellij/discussions/3459>
+
+#### `compact-bar` pane
+
+To add, run this in a floating window in a layout that has the `compact-bar`:
+
+```sh
+zellij setup --dump-layout compact
+```
+
+Which has this relevant part:
+
+```kdl
+pane size=1 borderless=true {
+  plugin location="compact-bar"
+}
+```
+
+Paste that into your layout.
+
+#### Command pane repetition
+
+Example:
+
+```kdl
+pane split_direction="horizontal" {
+  cargo { args "run"; }
+  cargo { args "test"; }
+  cargo { args "check"; }
+}
+pane_template_name name="cargo" {
+  command "cargo"
+  start_suspended true
+}
+```
+
+## Rust
+
+### Build older version from crate
+
+```nix
+zellij_0-38 = pkgs.unstable.zellij.overrideAttrs (old: rec {
+  version = "0.38.2";
+  src = pkgs.fetchFromGitHub {
+   owner = "zellij-org";
+   repo = "zellij";
+   rev = "eb18af029e6ddc692baacf49666354694e416d53";
+   hash = "sha256-rq7M4g+s44j9jh5GzOjOCBr7VK3m/EQej/Qcnp67NhY=";
+  };
+  cargoDeps = pkgs.rustPlatform.fetchCargoTarball {
+    inherit src;
+    name = "${old.pname}-${version}";
+    hash = "sha256-xK7lLgjVFUISo4stF6MgfgI4mT5qHuph70cyYaLYZ30=";
+  };
+});
+```

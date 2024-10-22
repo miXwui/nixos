@@ -1,0 +1,21 @@
+layout {
+  pane size=1 borderless=true {
+      plugin location="tab-bar"
+  }
+  pane split_direction="vertical" {
+    pane edit="."
+    pane split_direction="horizontal" {
+      pane command="sudo" {
+        start_suspended true
+        args "nixos-rebuild" "switch" "--flake" ".#framework_13_amd_7840u" "--show-trace"
+      }
+      pane command="sudo" {
+        start_suspended true
+        args "sh" "-c" "nix-collect-garbage --delete-older-than 30d && nixos-rebuild boot --flake .#framework_13_amd_7840u"
+      }
+    }
+  }
+  pane size=2 borderless=true {
+      plugin location="status-bar"
+  }
+}

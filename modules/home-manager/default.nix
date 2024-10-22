@@ -17,6 +17,7 @@
     ./wlay.nix
     ./xdg-desktop-portals.nix
     ./editors.nix
+    ./development.nix
     ./language-servers.nix
   ];
 }
