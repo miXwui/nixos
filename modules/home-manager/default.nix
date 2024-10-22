@@ -19,5 +19,6 @@
     ./editors.nix
     ./development.nix
     ./language-servers.nix
+    ./torrent.nix
   ];
 }
