@@ -482,9 +482,10 @@ bindsym Ctrl+Print exec ~/.config/sway/scripts/screenshot-current-display.sh
 
 # capture all screens to clipboard
 bindsym Ctrl+Shift+Print exec ~/.config/sway/scripts/screenshot-all-displays.sh
-####
+###
 
 # Floating Windows
+# `swaymsg -t get_tree`
 for_window [app_id="gnome-calculator"] floating enable
 for_window [app_id="org.gnome.Calculator"] floating enable
 for_window [app_id="gnome-calendar"] floating enable
@@ -494,8 +495,9 @@ for_window [app_id="org.gnome.Nautilus"] floating enable
 for_window [app_id="gnome-font-viewer"] floating enable
 for_window [app_id="com.rafaelmardojai.Blanket"] floating enable
 
+for_window [app_id="nm-connection-editor"] floating enable
 for_window [app_id="blueman-manager"] floating enable
-for_window [app_id="pavucontrol"] floating enable, move position cursor, move down 250
+for_window [app_id="pavucontrol"] floating enable
 
 for_window [class="privateinternetaccess"] floating enable, move position cursor, move left 150, move down 250
 
@@ -507,6 +509,18 @@ for_window [app_id="gcolor3"] floating enable
 for_window [app_id="zenity"] floating enable
 
 for_window [title="Firefox — Sharing Indicator"] floating enable
+
+# firefox sharing popup
+for_window [title="Firefox.*Sharing Indicator"] floating enable, move position 1600 0, border none, nofocus
+for_window [title="Password Required.*"] floating enable
+for_window [title="meet.google.com is sharing your screen."] floating enable, move position 1600 0, border none, nofocus
+for_window [title="^Library$" app_id="firefox.*"] floating enable
+for_window [title=".*Picture+in+Picture.*"] floating enable, fullscreen on
+for_window [urgent="latest" app_id="firefox.*"] focus
+
+# xdg-desktop-portal file dialog
+for_window [app_id="xdg-desktop-portal-gtk" title=".*"] floating enable
+
 ###
 
 # Overrides: fonts, borders, and gaps, etc.
