@@ -26,6 +26,7 @@
   lazygit,
 
   diffutils,
+  diff-so-fancy,
 
   glow,
   inlyne,
@@ -147,6 +148,7 @@
     lazygit = pkgs.unstable.lazygit;
 
     diffutils = pkgs.diffutils;
+    diff-so-fancy = pkgs.diff-so-fancy;
 
     glow = pkgs.glow;
     # Fonts can appear faint / low contrast
@@ -188,6 +190,7 @@
     lazygit
 
     diffutils # required for Emacs Ediff. BusyBox's version's outdated.
+    diff-so-fancy
 
     glow
     inlyne

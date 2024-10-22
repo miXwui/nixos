@@ -95,6 +95,7 @@
     zpf = "zellij pipe -p filepicker";
 
     # Misc
+    dfs = "$XDG_SCRIPTS_DIR/diff-so-fancy.sh";
     nb = "numbat";
     wlc = "wl-copy";
     sl = "sl -e";
@@ -114,6 +115,12 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # XDG_SCRIPTS_DIR
+    "${config.xdg.userDirs.extraConfig.XDG_SCRIPTS_DIR}" = {
+      source = ../home/projects/scripts;
+      recursive = true;
+    };
 
     # Wireshark
     "${config.xdg.configHome}/wireshark" = {

@@ -1,5 +1,5 @@
 { pkgs, git, ... }:
-
+# [1] https://github.com/so-fancy/diff-so-fancy?tab=readme-ov-file#with-git
 {
   _module.args = {
     git = pkgs.git;
@@ -39,6 +39,7 @@
 
       core = {
         editor = "hx";
+        pager = "diff-so-fancy | less --tabs=4 -RF"; # [1]
       };
 
       diff = {
@@ -54,6 +55,10 @@
         };
       };
 
+      interactive = {
+        diffFilter = "diff-so-fancy --patch"; # [1]
+      };
+      
       merge = {
         # TODO: Maybe use vimdiff or helix instead?
         tool = "vscode";
