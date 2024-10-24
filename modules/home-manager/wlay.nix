@@ -11,7 +11,7 @@ let
 in
 {
   _module.args = {
-    wlay = pkgs.unstable.wlay;
+    wlay = pkgs.wlay;
   };
 
   home.packages = [

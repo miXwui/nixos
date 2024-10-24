@@ -88,19 +88,19 @@
       (builtins.getFlake "github:helix-editor/helix/0a4432b104099534f7a25b8ea4148234db146ab6")
       .packages.${pkgs.system}.default;
 
-    emacs = pkgs.unstable.emacs29-pgtk; # can uncomment/use emacs-30-pgtk above
-    emacs-lsp-booster = pkgs.unstable.emacs-lsp-booster;
+    emacs = pkgs.emacs29-pgtk; # can uncomment/use emacs-30-pgtk above
+    emacs-lsp-booster = pkgs.emacs-lsp-booster;
 
     nerdfonts = pkgs.nerdfonts;
     pandoc = pkgs.pandoc;
     shellcheck = pkgs.shellcheck;
     ispell = pkgs.ispell;
 
-    neovim = pkgs.unstable.neovim;
+    neovim = pkgs.neovim;
     vim = pkgs.vim;
-    micro = pkgs.unstable.micro;
+    micro = pkgs.micro;
     sublime = pkgs.sublime4;
-    vscode = pkgs.unstable.vscode;
+    vscode = pkgs.vscode;
 
     # - [Language server agnostic snippets](https://github.com/zed-industries/zed/issues/4611)
     # - [Add commands to select function, class, block, etc.](https://github.com/zed-industries/zed/issues/10799)
@@ -140,12 +140,12 @@
     #       }
     #     }
     #   }
-    zed-editor = pkgs.unstable.zed-editor;
+    zed-editor = pkgs.zed-editor;
 
     meld = pkgs.meld;
     kdiff3 = pkgs.kdiff3;
-    gitu = pkgs.unstable.gitu;
-    lazygit = pkgs.unstable.lazygit;
+    gitu = pkgs.gitu;
+    lazygit = pkgs.lazygit;
 
     diffutils = pkgs.diffutils;
     delta = pkgs.delta;

@@ -1,6 +1,6 @@
 { pkgs, ... }:
 let
-  contour-pkg = pkgs.unstable.contour;
+  contour-pkg = pkgs.contour;
 
   # https://github.com/NixOS/nixpkgs/issues/305959#issuecomment-2071263520
   # QT_STYLE_OVERRIDE= fixes `QQmlApplicationEngine failed to load component` error.

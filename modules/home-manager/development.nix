@@ -7,7 +7,7 @@
 }:
 let
   # Build latest unreleased Zellij that uses `rustPlatform.buildRustPackage`.
-  zellij-unreleased = pkgs.unstable.zellij.overrideAttrs (old: {
+  zellij-unreleased = pkgs.zellij.overrideAttrs (old: {
     # Fetch latest `Cargo.lock` from the main branch.
     # `url` can be pinned to another branch/ref/tag
     # See: TODO.

@@ -140,7 +140,7 @@
     enable = true;
     theme = {
       name = "Adwaita-dark";
-      package = pkgs.gnome.gnome-themes-extra;
+      package = pkgs.gnome-themes-extra;
     };
   };
 
@@ -247,7 +247,7 @@
     btrfs-progs
     compsize
     # fuse3
-    unstable.gnome-disk-utility
+    gnome-disk-utility
     parted
 
     gnumake
@@ -256,8 +256,8 @@
     rustup
     gcc
 
-    unstable.elixir_1_17
-    unstable.erlang_27
+    elixir_1_17
+    erlang_27
 
     # python3
     (python3.withPackages(ps: with ps; [
@@ -270,22 +270,22 @@
     blueman
 
     # File managers
-    gnome.nautilus
-    cinnamon.nemo-with-extensions
+    nautilus
+    nemo-with-extensions
     kdePackages.dolphin
     xfce.thunar
     spacedrive
     yazi
 
-    gnome.file-roller
-    gnome.sushi
-    gnome.gnome-font-viewer
+    file-roller
+    sushi
+    gnome-font-viewer
 
     # smile
     emote
 
     ollama
-    # unstable.open-webui # commented out for now, not in 24.05 and the unstable version keeps preventing builds.
+    # open-webui # commented because it fails/prevents build
 
     # Camera
     snapshot
@@ -321,7 +321,7 @@
     speedtest-cli
 
     # GUI utilities
-    gnome.zenity # requirement for scripts using zenity
+    zenity # requirement for scripts using zenity
 
     zeal
 
@@ -335,10 +335,10 @@
     powerstat
 
     # Programs
-    unstable.firefox
-    unstable.chromium
+    firefox
+    chromium
 
-    unstable.fw-ectool
+    fw-ectool
   ];
 
   home.activation = {

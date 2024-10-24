@@ -1,35 +1,56 @@
 {
   description = "NixOS and home-manager configuration";
 
+  # For stable with unstable packages [1]
+  # For totally unstable packages [2]
+
+  # Useful to show `follows`: `nix flake metadata`.
+  # However, we're not manually setting any `follows`.
+  # This is to avoid the possible headache of build conflicts, trading for
+  # larger download sizes and disk space usage.
+  
   inputs = {
+    # [1]
     # Nix packages and unstable
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    # nixpkgs-unstable.url = "nixpkgs/nixos-unstable";
+
+    # [2]
+    # Switched totally to unstable (because of issues like Mesa mismatch:
+    # https://github.com/NixOS/nixpkgs/issues/343806).
+    # Should be reliable. If an update breaks, wait until the issue's fixed.
+    nixpkgs.url = "nixpkgs/nixos-unstable";
 
     # nixos-generators
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Home Manager
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # url = "github:nix-community/home-manager/release-24.05"; # [1]
+      url = "github:nix-community/home-manager"; # [2]
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # Nix hardware
-    nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # sops-nix
     sops-nix = {
-      url = "github:Mic92/sops-nix";
-      # optional, not necessary for the module
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:Mic92/sops-nix/";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # https://github.com/nix-community/emacs-overlay/issues/396#issuecomment-2071348230
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
+    emacs-overlay = {
+      url = "github:nix-community/emacs-overlay";
+      # inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -43,12 +64,13 @@
     }@inputs:
     let
       overlays = [
-        (final: prev: {
-          unstable = import inputs.nixpkgs-unstable {
-            system = final.system;
-            config.allowUnfree = true;
-          };
-        })
+        # # [1]
+        # (final: prev: {
+        #   unstable = import inputs.nixpkgs-unstable {
+        #     system = final.system;
+        #     config.allowUnfree = true;
+        #   };
+        # })
         emacs-overlay.overlays.default
       ];
     in

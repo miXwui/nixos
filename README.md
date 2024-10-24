@@ -451,7 +451,7 @@ Useful for testing/diffing, e.g. in the case that the Fedora kernel has a lower 
 
 ```nix
 let
-  fedoraKernel = (pkgs.unstable.linuxKernel.manualConfig rec {
+  fedoraKernel = (pkgs.linuxKernel.manualConfig rec {
     version = "6.9.11";
     modDirVersion = version;
     configfile = ./kernel-x86_64-fedora.noquotes.config;
@@ -670,7 +670,7 @@ pane_template_name name="cargo" {
 ### Build older version from crate
 
 ```nix
-zellij_0-38 = pkgs.unstable.zellij.overrideAttrs (old: rec {
+zellij_0-38 = pkgs.zellij.overrideAttrs (old: rec {
   version = "0.38.2";
   src = pkgs.fetchFromGitHub {
    owner = "zellij-org";

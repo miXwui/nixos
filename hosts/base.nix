@@ -9,7 +9,7 @@ let
   ### Sway
   sway = rec {
     swayfx.enable = true; # toggling this will toggle pkg below.
-    pkg = if swayfx.enable then pkgs.unstable.swayfx else pkgs.unstable.sway;
+    pkg = if swayfx.enable then pkgs.swayfx else pkgs.sway;
     lockCommand = "hyprlock"; # "swaylock -d" or "gtklock -d" or "hyprlock"
   };
 
@@ -27,7 +27,7 @@ let
     configureFlags = previousAttrs.configureFlags ++ [ "--enable-xhost-root" ];
   });
 
-  # fedoraKernel = (pkgs.unstable.linuxKernel.manualConfig rec {
+  # fedoraKernel = (pkgs.linuxKernel.manualConfig rec {
   #   version = "6.9.11";
   #   modDirVersion = version;
   #   configfile = ./kernel-x86_64-fedora.noquotes.config;

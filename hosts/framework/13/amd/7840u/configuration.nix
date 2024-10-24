@@ -68,20 +68,24 @@
   ##### `../../../common/gpu/amd` https://github.com/NixOS/nixos-hardware/blob/master/common/gpu/amd/default.nix
   services.xserver.videoDrivers = [ "modesetting" ];
 
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+  # https://wiki.nixos.org/wiki/AMD_GPU
+  # https://wiki.nixos.org/wiki/Graphics
+  # https://www.reddit.com/r/NixOS/comments/1dmkim8/comment/l9zaz75/
+  # > Side note: you don't need to enable amdvlk unless you have a very specific reason to. Mesa has radv by default which is better for vulkan.
+  # Also apparently do not need `libvdpau-va-gl` or `libvdpau` since `amdgpu`/
+  # Mesa already include support for VA-API and VDPAU...according to Perplexity.
+  hardware.graphics = {
+    enable = true; # Mesa is installed with this option.
+    enable32Bit = true;
+    # https://nixos.wiki/wiki/Accelerated_Video_Playback
+    extraPackages = with pkgs; [
+      libva
+      rocmPackages.clr.icd
+      clinfo
+    ];
   };
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-
-  hardware.opengl.extraPackages = with pkgs; [
-    mesa
-    libva
-    rocmPackages.clr
-    rocmPackages.clr.icd
-  ];
+  hardware.amdgpu.initrd.enable = true;
 
   ## Packages
   environment.systemPackages = with pkgs; [

@@ -11,7 +11,7 @@ let
 in
 {
   _module.args = {
-    fuzzel = pkgs.unstable.fuzzel;
+    fuzzel = pkgs.fuzzel;
   };
 
   home.packages = [

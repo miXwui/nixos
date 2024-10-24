@@ -33,8 +33,8 @@
       .packages.${pkgs.system}.default;
 
     # Nix
-    nil = pkgs.unstable.nil;
-    nixfmt = pkgs.unstable.nixfmt-rfc-style;
+    nil = pkgs.nil;
+    nixfmt = pkgs.nixfmt-rfc-style;
 
     deno = pkgs.deno;
     vscode-langservers-extracted = pkgs.vscode-langservers-extracted;

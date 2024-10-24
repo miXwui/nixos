@@ -11,7 +11,7 @@ in
   ### PACKAGES
   home.packages = with pkgs; [
     sway.pkg
-    unstable.waybar
+    waybar
 
     # Lock programs
     swaylock

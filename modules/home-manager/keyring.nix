@@ -26,7 +26,7 @@ in
   # https://major.io/p/use-gnome-keyring-with-sway/
 
   _module.args = {
-    seahorse = pkgs.gnome.seahorse;
+    seahorse = pkgs.seahorse;
   };
 
   home.packages = [

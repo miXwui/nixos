@@ -8,7 +8,7 @@ let
   #};
 in {
   _module.args = {
-    foot = pkgs.unstable.foot;
+    foot = pkgs.foot;
   };
 
   programs.foot = {
