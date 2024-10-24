@@ -42,8 +42,6 @@
       ...
     }@inputs:
     let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
       overlays = [
         (final: prev: {
           unstable = import inputs.nixpkgs-unstable {
