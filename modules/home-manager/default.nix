@@ -8,7 +8,7 @@
     ./dunst.nix
     ./fish.nix
     ./foot.nix
-    ./contour.nix
+    # ./contour.nix #https://github.com/NixOS/nixpkgs/issues/345752
     ./fuzzel.nix
     ./gcolor3.nix
     ./hyprpicker.nix
