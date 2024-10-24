@@ -112,6 +112,11 @@ in
   # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages; # might need if latest doesn't support zfs
   boot.supportedFilesystems = [ "bcachefs" ];
 
+  # Magic SysRq
+  boot.kernel.sysctl = {
+    "kernel.sysrq" = 254; # enable all features except nicing of all RT tasks
+  };
+
   ### NETWORK ###
   networking.hostName = "nixos"; # Define your hostname.
   # Disable wireless support via wpa_supplicant since it's enabled by default in
