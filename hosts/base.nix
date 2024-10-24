@@ -13,6 +13,20 @@
 let
   xdg_nixos_dir = "/home/${config.main-user.username}/nixos";
 
+  # Warning: specifying a version other than latest will compile the kernel and
+  # take a while.
+  linux_kernel = {
+    # Set `pin` to `false` to use the latest kernel version in nixpkgs.
+    # Set `pin  to `true` major/minor/patch below to compile a specific version.
+    # Warning: compilation will take a while since it's not pulling from a
+    # binary cache.
+    pin = false;
+    major = 6;
+    minor = 11;
+    patch = 3;
+    sha256 = "sha256-BXJj0K/BfVJTeUr9PSObpNpKpzSyL6NsFmX0G5VEm3M=";
+  };
+
   ### Sway
   sway = rec {
     swayfx.enable = true; # toggling this will toggle pkg below.
@@ -93,21 +107,30 @@ in
 
   ### KERNEL ###
   # https://nixos.wiki/wiki/Linux_kernel
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # Pin a specific kernel.
-  # Warning: This will compile the kernel and take a while.
-  boot.kernelPackages = pkgs.linuxPackagesFor (
-    pkgs.linux_6_11.override {
-      argsOverride = rec {
-        src = pkgs.fetchurl {
-          url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-          sha256 = "sha256-BXJj0K/BfVJTeUr9PSObpNpKpzSyL6NsFmX0G5VEm3M=";
-        };
-        version = "6.11.3";
-        modDirVersion = "6.11.3";
-      };
-    }
-  );
+  boot.kernelPackages =
+    if linux_kernel.pin != true then
+      pkgs.linuxPackages_latest
+    else
+      # Pin a specific kernel.
+      # Warning: This will compile the kernel and take a while.
+      let
+        major = toString linux_kernel.major;
+        minor = toString linux_kernel.minor;
+        patch = toString linux_kernel.patch;
+        sha256 = linux_kernel.sha256;
+      in
+      pkgs.linuxPackagesFor (
+        pkgs.${"linux_${major}_${minor}"}.override {
+          argsOverride = rec {
+            src = pkgs.fetchurl {
+              url = "mirror://kernel/linux/kernel/v${major}.x/linux-${version}.tar.xz";
+              sha256 = sha256;
+            };
+            version = "${major}.${minor}.${patch}";
+            modDirVersion = version;
+          };
+        }
+      );
   # boot.kernelPackages = pkgs.linuxPackagesFor fedoraKernel;
   # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages; # might need if latest doesn't support zfs
   boot.supportedFilesystems = [ "bcachefs" ];

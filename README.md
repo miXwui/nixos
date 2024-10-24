@@ -437,9 +437,34 @@ Added 12607 variables.
 nix-repl> pkgs.linuxPackages
 ```
 
-Can also `nix-search linux` where the `linux-manual` entry shows the patch version.\
-I haven't figured out a way yet to see which patch version will be installed, but there is a way to specifically install per the wiki:\
+#### See current patch version
+
+`nix-search linux-manual` seems to show the current version.
+
+This seems to as well: <https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/os-specific/linux/kernel/kernels-org.json>
+
+### Pinning a kernel version
+
 <https://nixos.wiki/wiki/Linux_kernel#Pinning_a_kernel_version>
+
+Warning: This will compile the kernel and take a while.
+
+Example (add to `base.nix` under `### KERNEL ###`):
+
+```nix
+boot.kernelPackages = pkgs.linuxPackagesFor (
+  pkgs.linux_6_11.override {
+    argsOverride = rec {
+      src = pkgs.fetchurl {
+        url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+        sha256 = "sha256-BXJj0K/BfVJTeUr9PSObpNpKpzSyL6NsFmX0G5VEm3M=";
+      };
+      version = "6.11.3";
+      modDirVersion = "6.11.3";
+    };
+  }
+);
+```
 
 ### Build Fedora kernel
 
