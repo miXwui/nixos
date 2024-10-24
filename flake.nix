@@ -10,11 +10,14 @@
   # larger download sizes and disk space usage.~~
   #
   # Actually, this error with `sops-nix` still occurred without `follows`:
+  #
   # ```
   # error: builder for '/nix/store/a3gfziqmfsydr5mfv087y9q95r7kn0zd-manifest.json.drv' failed with exit code 127;
   #     last 1 log lines:
   #     > /build/.attr-0l2nkwhif96f51f4amnlf414lhl4rv9vh8iffyp431v6s28gsr90: line 14: /nix/store/2ay4jk44gqvwxikdhaspz4f9fhldxzgj-sops-install-secrets-0.0.1/bin/sops-install-secrets: No such file or directory
   # ```
+  #
+  # Caused by: https://github.com/Mic92/sops-nix/issues/640
 
   inputs = {
     # [1]
@@ -54,8 +57,9 @@
 
     # sops-nix
     sops-nix = {
-      url = "github:Mic92/sops-nix/";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      # TODO: unpin after this is resolved:
+      # https://github.com/Mic92/sops-nix/issues/640
+      url = "github:Mic92/sops-nix/26642e8f193f547e72d38cd4c0c4e45b49236d27";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
