@@ -1,4 +1,4 @@
-{ config, lib, pkgs, sway, sops, coreutils, xdg-utils, ... }:
+{ config, lib, pkgs, xdg_nixos_dir, sway, sops, coreutils, xdg-utils, ... }:
 {
   ### MODULE ARGS ###
   # Project wide args to use e.g. `{ sway, ... }`
@@ -169,7 +169,7 @@
       templates = "${config.home.homeDirectory}/templates";
       publicShare = "${config.home.homeDirectory}/public";
       extraConfig = {
-        XDG_NIXOS_DIR = "${config.home.homeDirectory}/nixos";
+        XDG_NIXOS_DIR = "${xdg_nixos_dir}";
         # Prioritize using `config.xdg.configHome` where possible.
         # This is not currently set by default in NixOS, see:
         # https://github.com/NixOS/nixpkgs/issues/224525

@@ -4,6 +4,8 @@
 
 { config, lib, pkgs, inputs, hardware, ... }:
 let
+  xdg_nixos_dir = "/home/${config.main-user.username}/nixos";
+
   ### Sway
   sway = rec {
     swayfx.enable = true; # toggling this will toggle pkg below.
@@ -47,6 +49,11 @@ let
   # });
 in
 {
+  ### MODULE ARGS ###
+  _module.args = {
+    xdg_nixos_dir = xdg_nixos_dir;
+  };
+
   ### IMPORTS ###
   imports = [
     ../modules/nixos/main-user.nix
@@ -63,11 +70,11 @@ in
 
   ### SOPS ###
   sops = {
-    defaultSopsFile = "/home/${config.main-user.username}/nixos/secrets/secrets.yaml";
+    defaultSopsFile = "${xdg_nixos_dir}/secrets/secrets.yaml";
     defaultSopsFormat = "yaml";
     validateSopsFiles = false; # to allow the file to be outside the git repo/nix store
 
-    age.keyFile = "/home/${config.main-user.username}/nixos/secrets/.config/sops/age/keys.txt";
+    age.keyFile = "${xdg_nixos_dir}/secrets/.config/sops/age/keys.txt";
   };
 
   ### KERNEL ###
@@ -217,6 +224,7 @@ in
     # also pass inputs to home-manager modules
     extraSpecialArgs = {
       inherit inputs;
+      xdg_nixos_dir = xdg_nixos_dir;
       sway = sway;
       sops = config.sops;
     };
@@ -233,7 +241,7 @@ in
   ### ENVIRONMENT VARIABLES ###
   environment.variables = {
     # https://github.com/getsops/sops/blob/3458c3534f215012d1f813d8507f531239bf1485/README.rst?plain=1#L211
-    SOPS_AGE_KEY_FILE = "/home/${config.main-user.username}/nixos/secrets/.config/sops/age/keys.txt";
+    SOPS_AGE_KEY_FILE = "${xdg_nixos_dir}/secrets/.config/sops/age/keys.txt";
   };
 
   ### SHELL ALIASES ###
