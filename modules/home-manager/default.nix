@@ -20,6 +20,7 @@
     ./development.nix
     ./media.nix
     ./language-servers.nix
+    ./security.nix
     ./torrent.nix
   ];
 }
