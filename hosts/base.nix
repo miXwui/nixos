@@ -63,11 +63,11 @@ in
 
   ### SOPS ###
   sops = {
-    defaultSopsFile = /home/${config.main-user.username}/nixos/secrets/secrets.yaml;
+    defaultSopsFile = "/home/${config.main-user.username}/nixos/secrets/secrets.yaml";
     defaultSopsFormat = "yaml";
     validateSopsFiles = false; # to allow the file to be outside the git repo/nix store
 
-    age.keyFile = /home/${config.main-user.username}/nixos/secrets/.config/sops/age/keys.txt;
+    age.keyFile = "/home/${config.main-user.username}/nixos/secrets/.config/sops/age/keys.txt";
   };
 
   ### KERNEL ###
