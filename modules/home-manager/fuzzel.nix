@@ -1,4 +1,9 @@
-{ config, pkgs, fuzzel, ... }:
+{
+  config,
+  pkgs,
+  fuzzel,
+  ...
+}:
 let
   makeDesktopItem = pkgs.makeDesktopItem;
 
@@ -6,7 +11,10 @@ let
     name = "audio-sink-next";
     exec = "${config.xdg.configHome}/sway/scripts/audio-switch-next.sh";
     desktopName = "Audio Sink: Next";
-    categories = [ "AudioVideo" "Audio" ];
+    categories = [
+      "AudioVideo"
+      "Audio"
+    ];
   };
 in
 {

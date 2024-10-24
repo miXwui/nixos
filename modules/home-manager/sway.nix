@@ -1,4 +1,9 @@
-{ config, sway, pkgs, ... }:
+{
+  config,
+  sway,
+  pkgs,
+  ...
+}:
 let
   ### gtklock modules
   gtklock-userinfo = pkgs.gtklock-userinfo-module;
@@ -57,32 +62,34 @@ in
   ### WRITE FILES
   home.file = {
     "${config.xdg.configHome}/sway" = {
-      source = builtins.filterSource
-        (path: type:
-          !(
-            # Exclude Sway `config` file since we need to specifically add conditionals
-            (type == "regular" && baseNameOf path == "config") ||
-            (type == "regular" && baseNameOf path == "config-swayfx") ||
+      source = builtins.filterSource (
+        path: type:
+        !(
+          # Exclude Sway `config` file since we need to specifically add conditionals
+          (type == "regular" && baseNameOf path == "config")
+          || (type == "regular" && baseNameOf path == "config-swayfx")
+          ||
             # Exclude so we can fill in the lock program
             (type == "regular" && baseNameOf path == "lock-screen.sh")
-          )
         )
-      ../../home/.config/sway;
+      ) ../../home/.config/sway;
       recursive = true;
     };
 
     "${config.xdg.configHome}/sway/config" = {
-      text = if sway.swayfx.enable then
-        builtins.readFile ../../home/.config/sway/config +
-        builtins.readFile ../../home/.config/sway/config-swayfx
-      else
-        builtins.readFile ../../home/.config/sway/config;
+      text =
+        if sway.swayfx.enable then
+          builtins.readFile ../../home/.config/sway/config
+          + builtins.readFile ../../home/.config/sway/config-swayfx
+        else
+          builtins.readFile ../../home/.config/sway/config;
     };
 
     # Lock screen script
     "${config.xdg.configHome}/sway/scripts/lock-screen.sh" = {
-      text = builtins.replaceStrings [ "@LOCK_COMMAND@" ] [ sway.lockCommand ]
-      (builtins.readFile ../../home/.config/sway/scripts/lock-screen.sh);
+      text = builtins.replaceStrings [ "@LOCK_COMMAND@" ] [ sway.lockCommand ] (
+        builtins.readFile ../../home/.config/sway/scripts/lock-screen.sh
+      );
       executable = true;
     };
 
@@ -94,21 +101,21 @@ in
 
     # gtklock
     "${config.xdg.configHome}/gtklock" = {
-      source = builtins.filterSource
-        (path: type:
-          !(
-            # Exclude so we can fill in modules
-            (type == "regular" && baseNameOf path == "config.ini")
-          )
+      source = builtins.filterSource (
+        path: type:
+        !(
+          # Exclude so we can fill in modules
+          (type == "regular" && baseNameOf path == "config.ini")
         )
-      ../../home/.config/gtklock;
+      ) ../../home/.config/gtklock;
       recursive = true;
     };
 
     # gtklock modules
     "${config.xdg.configHome}/gtklock/config.ini" = {
-      text = builtins.replaceStrings [ "@MODULES@" ] [ "${gtklock-userinfo}/lib/gtklock/userinfo-module.so;${gtklock-powerbar}/lib/gtklock/powerbar-module.so;${gtklock-playerctl}/lib/gtklock/playerctl-module.so" ]
-      (builtins.readFile ../../home/.config/gtklock/config.ini);
+      text = builtins.replaceStrings [ "@MODULES@" ] [
+        "${gtklock-userinfo}/lib/gtklock/userinfo-module.so;${gtklock-powerbar}/lib/gtklock/powerbar-module.so;${gtklock-playerctl}/lib/gtklock/playerctl-module.so"
+      ] (builtins.readFile ../../home/.config/gtklock/config.ini);
     };
 
     # hyprlock

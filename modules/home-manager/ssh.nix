@@ -1,4 +1,10 @@
-{ lib, pkgs, coreutils, sops, ... }:
+{
+  lib,
+  pkgs,
+  coreutils,
+  sops,
+  ...
+}:
 let
   sshKeysExist = (sops.secrets ? ssh_private_key) && (sops.secrets ? ssh_public_key);
 in

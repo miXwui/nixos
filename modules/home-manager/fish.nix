@@ -1,4 +1,8 @@
-{ pkgs, home-manager, fish, ... }:
+{
+  pkgs,
+  fish,
+  ...
+}:
 
 {
   _module.args = {
@@ -26,13 +30,28 @@
       ## asdf Fish & Git
       ## https://asdf-vm.com/guide/getting-started.html#_3-install-asdf
       #source ~/.asdf/asdf.fish
-   '';
+    '';
     plugins = [
-      { name = "bass"; src = pkgs.fishPlugins.bass.src; }
-      { name = "done"; src = pkgs.fishPlugins.done.src; }
-      { name = "fzf-fish"; src = pkgs.fishPlugins.fzf-fish.src; }
-      #{ name = "forgit"; src = pkgs.fishPlugins.forgit.src; }
-      { name = "hydro"; src = pkgs.fishPlugins.hydro.src; }
+      {
+        name = "bass";
+        src = pkgs.fishPlugins.bass.src;
+      }
+      {
+        name = "done";
+        src = pkgs.fishPlugins.done.src;
+      }
+      {
+        name = "fzf-fish";
+        src = pkgs.fishPlugins.fzf-fish.src;
+      }
+      # {
+      #   name = "forgit";
+      #   src = pkgs.fishPlugins.forgit.src;
+      # }
+      {
+        name = "hydro";
+        src = pkgs.fishPlugins.hydro.src;
+      }
 
       # Conflict with `grc` `git rebase --continue` command?
       #{ name = "grc"; src = pkgs.fishPlugins.grc.src; }

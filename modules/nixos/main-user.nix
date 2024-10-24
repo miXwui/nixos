@@ -1,12 +1,15 @@
-{ lib, config, pkgs, ... }:
-
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
 let
   cfg = config.main-user;
 in
 {
   options.main-user = {
-    enable
-      = lib.mkEnableOption "enable user module";
+    enable = lib.mkEnableOption "enable user module";
 
     username = lib.mkOption {
       default = "mainuser";
@@ -16,10 +19,10 @@ in
     };
 
     fullname = lib.mkOption {
-    default = "First Last";
-    description = ''
-      name of user
-    '';
+      default = "First Last";
+      description = ''
+        name of user
+      '';
     };
   };
 
@@ -34,7 +37,7 @@ in
         "video"
         "wireshark"
       ];
-      packages = with pkgs; [ ];
+      packages = [ ];
       shell = pkgs.fish;
     };
   };

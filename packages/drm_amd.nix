@@ -11,16 +11,17 @@
 # * https://github.com/NixOS/nixpkgs/blob/master/doc/languages-frameworks/python.section.md
 # * https://github.com/Artturin/nixpkgs/blob/581b56878481bf9066571eb734faa640d08a2ff7/pkgs/applications/audio/whipper/default.nix#L43
 
-{ lib
-, pkgs
-, python3Packages
+{
+  lib,
+  pkgs,
+  python3Packages,
 }:
 
 python3Packages.buildPythonApplication {
   pname = "amd_s2idle_check";
   version = "0.0.1";
   pyproject = false;
-  
+
   src = pkgs.fetchFromGitLab {
     domain = "gitlab.freedesktop.org";
     owner = "drm";
@@ -34,17 +35,20 @@ python3Packages.buildPythonApplication {
     gobject-introspection
   ];
 
-  dependencies = with python3Packages; [
-    distro
-    packaging
-    pygobject3
-    pyudev
-    systemd
-  ] ++ (with pkgs; [
-    acpica-tools
-    fwupd
-    json-glib
-  ]);
+  dependencies =
+    with python3Packages;
+    [
+      distro
+      packaging
+      pygobject3
+      pyudev
+      systemd
+    ]
+    ++ (with pkgs; [
+      acpica-tools
+      fwupd
+      json-glib
+    ]);
 
   installPhase = ''
     install -Dm755 scripts/amd_s2idle.py $out/bin/amd_s2idle

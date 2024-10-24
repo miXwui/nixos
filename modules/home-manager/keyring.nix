@@ -1,4 +1,9 @@
-{ pkgs, lib, seahorse, ... }:
+{
+  pkgs,
+  lib,
+  seahorse,
+  ...
+}:
 let
   ### gcr_4
   #
@@ -15,7 +20,9 @@ let
     # Enable `ssh_agent` and `systemd`:
     # https://gitlab.gnome.org/GNOME/gcr/-/blob/78e5f89016635b4c4922e63f599b8ec81ea4b923/meson.build
     # https://gitlab.gnome.org/GNOME/gcr/-/blob/78e5f89016635b4c4922e63f599b8ec81ea4b923/meson_options.txt
-    mesonFlags = lib.lists.remove "-Dssh_agent=false" previousAttrs.mesonFlags ++ [ "-Dssh_agent=true" ];
+    mesonFlags = lib.lists.remove "-Dssh_agent=false" previousAttrs.mesonFlags ++ [
+      "-Dssh_agent=true"
+    ];
   });
 in
 {
@@ -59,15 +66,15 @@ in
     };
     Service = {
       Type = "simple";
-        # Note: `${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon` doesn't work and results in
-        #`no process capabilities, insecure memory might get used` error.
-        # `/run/wrappers/bin/gnome-keyring-daemon` works and has `cap_ipc_lock=ep`.
-        # https://github.com/NixOS/nixpkgs/blob/683aa7c4e385509ca651d49eeb35e58c7a1baad6/nixos/modules/services/desktops/gnome/gnome-keyring.nix#L44-L49
-        # https://github.com/NixOS/nixpkgs/blob/683aa7c4e385509ca651d49eeb35e58c7a1baad6/pkgs/desktops/gnome/core/gnome-keyring/default.nix#L85-L93
-        #
-        # We're also using the ssh-agent from gcr instead of gnome-keyring.
-        ExecStart = "/run/wrappers/bin/gnome-keyring-daemon --start --foreground --components=\"pkcs11,secrets\" --control-directory=\"%t/keyring\"";
-        Restart = "on-abort";
+      # Note: `${pkgs.gnome.gnome-keyring}/bin/gnome-keyring-daemon` doesn't work and results in
+      #`no process capabilities, insecure memory might get used` error.
+      # `/run/wrappers/bin/gnome-keyring-daemon` works and has `cap_ipc_lock=ep`.
+      # https://github.com/NixOS/nixpkgs/blob/683aa7c4e385509ca651d49eeb35e58c7a1baad6/nixos/modules/services/desktops/gnome/gnome-keyring.nix#L44-L49
+      # https://github.com/NixOS/nixpkgs/blob/683aa7c4e385509ca651d49eeb35e58c7a1baad6/pkgs/desktops/gnome/core/gnome-keyring/default.nix#L85-L93
+      #
+      # We're also using the ssh-agent from gcr instead of gnome-keyring.
+      ExecStart = "/run/wrappers/bin/gnome-keyring-daemon --start --foreground --components=\"pkcs11,secrets\" --control-directory=\"%t/keyring\"";
+      Restart = "on-abort";
     };
   };
 
@@ -101,8 +108,8 @@ in
       Priority = 6;
       Backlog = 5;
       ListenStream = "%t/gcr/ssh";
-      ExecStartPost= "-@systemctl@ --user set-environment SSH_AUTH_SOCK=%t/gcr/ssh";
-      DirectoryMode = 0700;
+      ExecStartPost = "-@systemctl@ --user set-environment SSH_AUTH_SOCK=%t/gcr/ssh";
+      DirectoryMode = "0700";
     };
   };
 }

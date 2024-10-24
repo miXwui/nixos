@@ -2,13 +2,15 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, ... }:
 {
-  imports =
-    [
-      ./hardware-configuration.nix
-      ../base.nix
-    ];
+  ...
+}:
+
+{
+  imports = [
+    ./hardware-configuration.nix
+    ../base.nix
+  ];
 
   _module.args.hardware.platform = "qemu";
 
@@ -20,5 +22,5 @@
   networking.hostName = "nixos-qemu";
 
   ## Packages
-  environment.systemPackages = with pkgs; [];
+  environment.systemPackages = [ ];
 }

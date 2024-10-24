@@ -38,31 +38,31 @@
   ...
 }:
 # let
-  ########################################
-  # Emacs, oh Emacs.
-  #
-  # I'm glad to have met you,
-  # but I think I've found the keeper.
-  #
-  # I'll keep you here to check up on you and see how you're doing.
-  # You and your community have some of, if not the best ideas.
-  #
-  # So long, and thanks for all the memories.
-  # 
-  # https://github.com/nix-community/emacs-overlay
-  # https://github.com/nix-community/emacs-overlay/issues/299
-  # https://github.com/nix-community/emacs-overlay/blob/master/overlays/emacs.nix
-  # https://github.com/emacs-mirror/emacs/commit/9b426e15abd320f9c53692bb6f5834967e6e1a37
-  # emacs-30-pgtk = pkgs.emacs-pgtk.overrideAttrs ( old: {
-  #   src = pkgs.fetchFromGitHub {
-  #    owner = "emacs-mirror";
-  #    repo = "emacs";
-  #    rev = "9b426e15abd320f9c53692bb6f5834967e6e1a37";
-  #    sha256 = "sha256-wnEJI0pwqgqyyPkbplZC5u5aM79LEZreoAPGAAGpsU4=";
-  #   };
-  # });
-  # services.emacs.package = emacs-30-pgtk;
-  # services.emacs.enable = true; # daemon/server mode
+#   ########################################
+#   # Emacs, oh Emacs.
+#   #
+#   # I'm glad to have met you,
+#   # but I think I've found the keeper.
+#   #
+#   # I'll keep you here to check up on you and see how you're doing.
+#   # You and your community have some of, if not the best ideas.
+#   #
+#   # So long, and thanks for all the memories.
+#   # 
+#   # https://github.com/nix-community/emacs-overlay
+#   # https://github.com/nix-community/emacs-overlay/issues/299
+#   # https://github.com/nix-community/emacs-overlay/blob/master/overlays/emacs.nix
+#   # https://github.com/emacs-mirror/emacs/commit/9b426e15abd320f9c53692bb6f5834967e6e1a37
+#   emacs-30-pgtk = pkgs.emacs-pgtk.overrideAttrs (old: {
+#     src = pkgs.fetchFromGitHub {
+#       owner = "emacs-mirror";
+#       repo = "emacs";
+#       rev = "9b426e15abd320f9c53692bb6f5834967e6e1a37";
+#       sha256 = "sha256-wnEJI0pwqgqyyPkbplZC5u5aM79LEZreoAPGAAGpsU4=";
+#     };
+#   });
+#   services.emacs.package = emacs-30-pgtk;
+#   services.emacs.enable = true; # daemon/server mode
 # in
 {
   _module.args = {

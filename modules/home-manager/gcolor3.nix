@@ -1,4 +1,9 @@
-{ pkgs, config, gcolor3, ... }:
+{
+  pkgs,
+  config,
+  gcolor3,
+  ...
+}:
 
 {
   _module.args = {
@@ -9,10 +14,10 @@
     gcolor3
   ];
 
- home.file = {
-  "${config.xdg.configHome}/gcolor3" = {
-    source = ../../home/.config/gcolor3;
-    recursive = true;
+  home.file = {
+    "${config.xdg.configHome}/gcolor3" = {
+      source = ../../home/.config/gcolor3;
+      recursive = true;
+    };
   };
- };
 }

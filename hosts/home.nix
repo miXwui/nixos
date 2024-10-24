@@ -1,4 +1,15 @@
-{ config, lib, pkgs, xdg_nixos_dir, sway, sops, coreutils, xdg-utils, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  xdg_nixos_dir,
+  sway,
+  sops,
+  coreutils,
+  xdg-utils,
+  ...
+}:
+
 {
   ### MODULE ARGS ###
   # Project wide args to use e.g. `{ sway, ... }`
@@ -63,12 +74,15 @@
     # Fix for Nautilus Audio/Video Properties
     # > Your GStreamer installation is missing a plug-in.
     # https://github.com/NixOS/nixpkgs/issues/195936#issuecomment-1366902737
-    GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (with pkgs.gst_all_1; [
-      gst-plugins-good
-      gst-plugins-bad
-      gst-plugins-ugly
-      gst-libav
-    ]);
+    GST_PLUGIN_SYSTEM_PATH_1_0 = lib.makeSearchPathOutput "lib" "lib/gstreamer-1.0" (
+      with pkgs.gst_all_1;
+      [
+        gst-plugins-good
+        gst-plugins-bad
+        gst-plugins-ugly
+        gst-libav
+      ]
+    );
   };
 
   ### SHELL ALIASES ###
@@ -164,7 +178,7 @@
       documents = "${config.home.homeDirectory}/documents";
       music = "${config.home.homeDirectory}/music";
       pictures = "${config.home.homeDirectory}/pictures";
-      videos =  "${config.home.homeDirectory}/videos";
+      videos = "${config.home.homeDirectory}/videos";
       desktop = "${config.home.homeDirectory}/desktop";
       templates = "${config.home.homeDirectory}/templates";
       publicShare = "${config.home.homeDirectory}/public";
@@ -181,7 +195,7 @@
         XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
       };
     };
-  
+
     mime.enable = true;
     mimeApps = {
       enable = true;
@@ -260,9 +274,11 @@
     erlang_27
 
     # python3
-    (python3.withPackages(ps: with ps; [
-      pip
-    ]))
+    (python3.withPackages (
+      ps: with ps; [
+        pip
+      ]
+    ))
 
     # Desktop environment
     kanshi
@@ -365,8 +381,8 @@
     };
 
     # mpd = {
-      # enable = true;
-      # musicDirectory = ;
+    #   enable = true;
+    #   musicDirectory = ;
     # }
   };
 

@@ -1,7 +1,6 @@
 { pkgs, ... }:
 let
-  pia_manual-connections 
-    = pkgs.callPackage ../../packages/pia_manual-connections { };
+  pia_manual-connections = pkgs.callPackage ../../packages/pia_manual-connections { };
 in
 {
   networking.wireguard.enable = true;

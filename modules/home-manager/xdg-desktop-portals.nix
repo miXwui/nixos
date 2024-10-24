@@ -1,11 +1,16 @@
-{ config, pkgs,
+{
+  config,
+  pkgs,
   xdg-desktop-portal-wlr,
   xdg-desktop-portal-gtk,
-  dunst, slurp, fuzzel,
-... }:
+  dunst,
+  slurp,
+  fuzzel,
+  ...
+}:
 
 {
-   _module.args = {
+  _module.args = {
     xdg-desktop-portal-wlr = pkgs.xdg-desktop-portal-wlr;
     xdg-desktop-portal-gtk = pkgs.xdg-desktop-portal-gtk;
   };

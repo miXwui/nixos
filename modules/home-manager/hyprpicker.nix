@@ -6,7 +6,11 @@ let
     name = "hyprpicker";
     exec = "hyprpicker";
     desktopName = "hypr Color Picker";
-    categories = [ "Application" "Graphics" "Utility" ];
+    categories = [
+      "Application"
+      "Graphics"
+      "Utility"
+    ];
   };
 in
 {

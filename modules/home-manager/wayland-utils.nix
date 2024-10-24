@@ -1,8 +1,12 @@
-{ pkgs,
-  grim, slurp, swappy,
+{
+  pkgs,
+  grim,
+  slurp,
+  swappy,
   wl-clipboard,
   xdg-utils,
-... }:
+  ...
+}:
 
 {
   _module.args = {

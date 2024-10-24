@@ -2,7 +2,14 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, lib, pkgs, inputs, hardware, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  hardware,
+  ...
+}:
 let
   xdg_nixos_dir = "/home/${config.main-user.username}/nixos";
 
@@ -18,13 +25,15 @@ let
   };
 
   ### TLP
-  tlpConfig = {
-    "amd_7840u" = builtins.readFile ../etc/tlp.amd.7840u.conf;
-    "intel_i7-1165g7" = builtins.readFile ../etc/tlp.intel.i7-1165g7.conf;
-    "intel_i7-6700hq_and_nvidia_gtx_960m" = builtins.readFile ../etc/tlp.intel.i7-6700hq.and.nvidia.gtx-960m.conf;
-    "qemu" = builtins.readFile ../etc/tlp.qemu.conf;
-    "live-image" = builtins.readFile ../etc/tlp.live-image.conf;
-  }.${hardware.platform};
+  tlpConfig =
+    {
+      "amd_7840u" = builtins.readFile ../etc/tlp.amd.7840u.conf;
+      "intel_i7-1165g7" = builtins.readFile ../etc/tlp.intel.i7-1165g7.conf;
+      "intel_i7-6700hq_and_nvidia_gtx_960m" = builtins.readFile ../etc/tlp.intel.i7-6700hq.and.nvidia.gtx-960m.conf;
+      "qemu" = builtins.readFile ../etc/tlp.qemu.conf;
+      "live-image" = builtins.readFile ../etc/tlp.live-image.conf;
+    }
+    .${hardware.platform};
 
   ### GParted with xhost root
   my-gparted-with-xhost-root = pkgs.gparted.overrideAttrs (previousAttrs: {
@@ -51,6 +60,7 @@ let
   #     };
   #   };
   # });
+
 in
 {
   ### MODULE ARGS ###
@@ -86,16 +96,18 @@ in
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # Pin a specific kernel.
   # Warning: This will compile the kernel and take a while.
-  boot.kernelPackages = pkgs.linuxPackagesFor (pkgs.linux_6_11.override {
-    argsOverride = rec {
-      src = pkgs.fetchurl {
-            url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
-            sha256 = "sha256-BXJj0K/BfVJTeUr9PSObpNpKpzSyL6NsFmX0G5VEm3M=";
+  boot.kernelPackages = pkgs.linuxPackagesFor (
+    pkgs.linux_6_11.override {
+      argsOverride = rec {
+        src = pkgs.fetchurl {
+          url = "mirror://kernel/linux/kernel/v6.x/linux-${version}.tar.xz";
+          sha256 = "sha256-BXJj0K/BfVJTeUr9PSObpNpKpzSyL6NsFmX0G5VEm3M=";
+        };
+        version = "6.11.3";
+        modDirVersion = "6.11.3";
       };
-      version = "6.11.3";
-      modDirVersion = "6.11.3";
-      };
-  });
+    }
+  );
   # boot.kernelPackages = pkgs.linuxPackagesFor fedoraKernel;
   # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages; # might need if latest doesn't support zfs
   boot.supportedFilesystems = [ "bcachefs" ];
@@ -199,10 +211,15 @@ in
   # https://nixos.wiki/wiki/PipeWire#Bluetooth_Configuration
   services.pipewire.wireplumber.extraConfig = {
     "monitor.bluez.properties" = {
-        "bluez5.enable-sbc-xq" = true;
-        "bluez5.enable-msbc" = true;
-        "bluez5.enable-hw-volume" = true;
-        "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+      "bluez5.enable-sbc-xq" = true;
+      "bluez5.enable-msbc" = true;
+      "bluez5.enable-hw-volume" = true;
+      "bluez5.roles" = [
+        "hsp_hs"
+        "hsp_ag"
+        "hfp_hf"
+        "hfp_ag"
+      ];
     };
   };
 
@@ -249,7 +266,7 @@ in
   };
 
   ### SHELL ALIASES ###
-  environment.shellAliases = {};
+  environment.shellAliases = { };
 
   ### DISPLAY MANAGER ###
   services.displayManager = {
@@ -298,9 +315,9 @@ in
   ## PAM
   security.pam.services = {
     # https://nixos.wiki/wiki/Sway#Swaylock_cannot_be_unlocked_with_the_correct_password
-    swaylock = {};
-    gtklock = {};
-    hyprlock = {};
+    swaylock = { };
+    gtklock = { };
+    hyprlock = { };
   };
 
   ## Polkit
@@ -337,9 +354,15 @@ in
   ### SOPS ###
   sops = {
     secrets = {
-      google_api_key  = { owner = config.main-user.username; };
-      ssh_private_key = { owner = config.main-user.username; };
-      ssh_public_key  = { owner = config.main-user.username; };
+      google_api_key = {
+        owner = config.main-user.username;
+      };
+      ssh_private_key = {
+        owner = config.main-user.username;
+      };
+      ssh_public_key = {
+        owner = config.main-user.username;
+      };
     };
   };
 

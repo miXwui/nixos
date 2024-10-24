@@ -6,7 +6,11 @@ let
     name = "wlay";
     exec = "wlay";
     desktopName = "wlay";
-    categories = [ "Application" "Graphics" "Utility" ];
+    categories = [
+      "Application"
+      "Graphics"
+      "Utility"
+    ];
   };
 in
 {
