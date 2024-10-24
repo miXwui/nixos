@@ -10,7 +10,11 @@ let
   sway = rec {
     swayfx.enable = true; # toggling this will toggle pkg below.
     pkg = if swayfx.enable then pkgs.swayfx else pkgs.sway;
-    lockCommand = "hyprlock"; # "swaylock -d" or "gtklock -d" or "hyprlock"
+    # Make sure not to daemonize (like with `swaylock -f` and in
+    # `home/.swaylock/ config`) so that Dunst can properly resume after
+    # unlocking, instead of after locking.
+    # See: `home/.config/sway/scripts/lock-screen.sh`
+    lockCommand = "swaylock"; # "swaylock" or "gtklock" or "hyprlock"
   };
 
   ### TLP

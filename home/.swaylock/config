@@ -1,6 +1,18 @@
-daemonize
+# https://github.com/swaywm/swaylock/blob/master/swaylock.1.scd#L33
+
+# Don't daemonize (equivalent to `-f`) so that commands, like unpausing Dunst,
+# can run after unlocking. If daemonized, the command will run immediately
+# after locking instead of unlocking.
+# See: https://github.com/swaywm/swaylock/issues/56
+# daemonize
+
+# Should not ignore empty password to allow scanning fingerprint by pressing
+# enter on empty password, then scanning.
+# See: https://github.com/swaywm/swaylock/issues/61#issuecomment-965175390
 #ignore-empty-password
+
 color=00000000
+
 image=$XDG_WALLPAPERS_DIR/PXL_20220801_011526749.MP.jpg
 # Can set wallpaper per display like so:
 #image=eDP-1:$XDG_WALLPAPERS_DIR/lock_main.png
