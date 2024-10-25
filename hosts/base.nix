@@ -38,6 +38,11 @@ let
     lockCommand = "swaylock"; # "swaylock" or "gtklock" or "hyprlock"
   };
 
+  # Global programs
+  gProgs = {
+    coreutils = pkgs.coreutils;
+  };
+
   ### TLP
   tlpConfig =
     {
@@ -80,6 +85,7 @@ in
   ### MODULE ARGS ###
   _module.args = {
     xdg_nixos_dir = xdg_nixos_dir;
+    gProgs = gProgs;
   };
 
   ### IMPORTS ###
@@ -273,8 +279,16 @@ in
     # also pass inputs to home-manager modules
     extraSpecialArgs = {
       inherit inputs;
+      # Dirs
       xdg_nixos_dir = xdg_nixos_dir;
+
+      # Desktop environment
       sway = sway;
+
+      # Global programs
+      gProgs = gProgs;
+
+      # Configs
       sops = config.sops;
     };
     users = {
@@ -427,6 +441,8 @@ in
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 
+    # Global programs
+    coreutils
     # Utilities
     drm_info
 

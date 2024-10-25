@@ -31,7 +31,7 @@
         "org.freedesktop.impl.portal.Secret" = "gnome-keyring";
       };
     };
-    extraPortals = with pkgs; [
+    extraPortals = [
       # https://github.com/emersion/xdg-desktop-portal-wlr
 
       # This needs to be added to Sway config:

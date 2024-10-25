@@ -5,18 +5,27 @@
   xdg_nixos_dir,
   sway,
   sops,
-  coreutils,
+  gProgs,
   xdg-utils,
   ...
 }:
+let
 
+  # GProgs
+  coreutils = gProgs.coreutils;
+in
 {
   ### MODULE ARGS ###
   # Project wide args to use e.g. `{ sway, ... }`
   # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
   _module.args = {
+    # Sway
     sway = sway;
-    coreutils = pkgs.coreutils;
+
+    # Global programs
+    coreutils = coreutils;
+
+    # sops
     sops = sops;
   };
 
@@ -310,7 +319,6 @@
     loupe
 
     # CLI utilities
-    coreutils
     htop
     jq
     wget
