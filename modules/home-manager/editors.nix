@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  xdg_nixos,
 
   helix,
 
@@ -205,14 +206,8 @@
   ];
 
   home.file = {
-    "${config.xdg.configHome}/helix" = {
-      source = ../../home/.config/helix;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/helix".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/helix";
 
-    "${config.xdg.configHome}/inlyne" = {
-      source = ../../home/.config/inlyne;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/inlyne".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/inlyne";
   };
 }

@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  xdg_nixos,
   filezilla,
   zellij,
   ...
@@ -41,9 +42,6 @@ in
   ];
 
   home.file = {
-    "${config.xdg.configHome}/zellij" = {
-      source = ../../home/.config/zellij;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/zellij".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/home/.config/zellij";
   };
 }

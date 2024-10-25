@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  xdg_nixos_dir,
   fuzzel,
   ...
 }:
@@ -30,9 +31,6 @@ in
   ];
 
   home.file = {
-    "${config.xdg.configHome}/fuzzel" = {
-      source = ../../home/.config/fuzzel;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/fuzzel".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos_dir}/home/.config/fuzzel";
   };
 }

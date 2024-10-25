@@ -10,6 +10,12 @@
   ...
 }:
 let
+  # Dirs
+  xdg_nixos = rec {
+    rootDir = xdg_nixos_dir;
+    userConfigDir = "${rootDir}/home/.config";
+    scriptsDir = "${rootDir}/scripts";
+  };
 
   # GProgs
   coreutils = gProgs.coreutils;
@@ -19,6 +25,9 @@ in
   # Project wide args to use e.g. `{ sway, ... }`
   # https://nix-community.github.io/home-manager/options.xhtml#opt-_module.args
   _module.args = {
+    # Dirs
+    xdg_nixos = xdg_nixos;
+
     # Sway
     sway = sway;
 
@@ -139,17 +148,18 @@ in
     #   org.gradle.daemon.idletimeout=3600000
     # '';
 
-    # XDG_SCRIPTS_DIR
-    "${config.xdg.userDirs.extraConfig.XDG_SCRIPTS_DIR}" = {
-      source = ../home/projects/scripts;
-      recursive = true;
-    };
+    # Use `mkOutOfStoreSymlink` where possible to symlink to files/folders in
+    # this NixOS project folder. This allows editing files without needing to
+    # rebuild.
+    # See: https://github.com/nix-community/home-manager/issues/2085
+    #
+    # Some places use still need to use `home.file.<filepath>` because e.g.
+    # some string needs to be substituted in the text. And so since it requires
+    # a rebuild, there's no point to symlink to the files/folders in this NixOS
+    # folder.
 
     # Wireshark
-    "${config.xdg.configHome}/wireshark" = {
-      source = ../home/.config/wireshark;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/wireshark".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wireshark";
   };
 
   ### THEMES ###
@@ -199,7 +209,7 @@ in
         XDG_CONFIG_HOME = "${config.xdg.configHome}";
         XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
         XDG_GIT_CLONES_DIR = "${config.home.homeDirectory}/projects/git-clones";
-        XDG_SCRIPTS_DIR = "${config.home.homeDirectory}/projects/scripts";
+        XDG_SCRIPTS_DIR = "${xdg_nixos.scriptsDir}";
         XDG_TMP_DIR = "${config.home.homeDirectory}/tmp";
         XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
       };
@@ -368,6 +378,9 @@ in
   home.activation = {
     # Scripts to run during the activation phase.
     # createMyDir = '' '';
+    # removeFolder = ''
+    #   rm -rf /path/to/something
+    # '';
   };
 
   ### SERVICES ###

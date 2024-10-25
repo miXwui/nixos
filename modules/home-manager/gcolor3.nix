@@ -1,6 +1,7 @@
 {
   pkgs,
   config,
+  xdg_nixos,
   gcolor3,
   ...
 }:
@@ -15,9 +16,6 @@
   ];
 
   home.file = {
-    "${config.xdg.configHome}/gcolor3" = {
-      source = ../../home/.config/gcolor3;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/gcolor3".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/gcolor3";
   };
 }

@@ -710,3 +710,18 @@ zellij_0-38 = pkgs.zellij.overrideAttrs (old: rec {
   };
 });
 ```
+
+### Issues
+
+#### Remove/delete files/folders
+
+If a file/folder gets stuck and you can't remove it even as root, you can create a script in `home.activation` like so:
+
+```nix
+home.activation = {
+  # Scripts to run during the activation phase.
+  removeFolder = ''
+    rm -rf /home/mwu/projects/scripts
+  '';
+};
+```

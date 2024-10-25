@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  xdg_nixos,
 
   playerctl,
   
@@ -51,9 +52,6 @@
 
   home.file = {
     # mpv
-    "${config.xdg.configHome}/mpv" = {
-      source = ../../home/.config/mpv;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/mpv".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/mpv";
   };
 }

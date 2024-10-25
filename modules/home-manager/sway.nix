@@ -2,6 +2,7 @@
   config,
   sway,
   pkgs,
+  xdg_nixos,
   ...
 }:
 let
@@ -94,10 +95,7 @@ in
     };
 
     # swaylock
-    ".swaylock" = {
-      source = ../../home/.swaylock;
-      recursive = true;
-    };
+    ".swaylock".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.rootDir}/home/.swaylock";
 
     # gtklock
     "${config.xdg.configHome}/gtklock" = {
@@ -119,10 +117,7 @@ in
     };
 
     # hyprlock
-    "${config.xdg.configHome}/hypr" = {
-      source = ../../home/.config/hypr;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/hypr".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/hypr";
 
     # Wallpapers
     "${config.xdg.userDirs.extraConfig.XDG_WALLPAPERS_DIR}" = {
@@ -131,15 +126,9 @@ in
     };
 
     # Waybar
-    "${config.xdg.configHome}/waybar" = {
-      source = ../../home/.config/waybar;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/waybar".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/waybar";
 
     # wlogout
-    "${config.xdg.configHome}/wlogout" = {
-      source = ../../home/.config/wlogout;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/wlogout".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wlogout";
   };
 }

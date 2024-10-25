@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  xdg_nixos,
 
   scls,
   efm-ls,
@@ -60,9 +61,6 @@
   ];
 
   home.file = {
-    "${config.xdg.configHome}/efm-langserver" = {
-      source = ../../home/.config/efm-langserver;
-      recursive = true;
-    };
+    "${config.xdg.configHome}/efm-langserver".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/efm-langserver";
   };
 }
