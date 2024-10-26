@@ -17,6 +17,8 @@ exec systemctl start --user gcr-ssh-agent.{service, socket}
 exec nm-applet --indicator
 # Bluetooth
 exec blueman-applet
+# Enable poweralertd service
+exec systemctl start --user poweralertd.service
 # Gammastep
 # can also setup a systemd service that gets location via IP address,
 # see: ~/.config/sway/scripts/gammastep-wrapper.sh

@@ -19,6 +19,7 @@ let
 
   # GProgs
   coreutils = gProgs.coreutils;
+  logger = gProgs.logger;
 in
 {
   ### MODULE ARGS ###
@@ -33,6 +34,7 @@ in
 
     # Global programs
     coreutils = coreutils;
+    logger = logger;
 
     # sops
     sops = sops;
@@ -363,10 +365,6 @@ in
     tmux
     tree
     sl
-
-    # Power management
-    powertop
-    powerstat
 
     # Programs
     firefox

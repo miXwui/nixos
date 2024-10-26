@@ -1,6 +1,7 @@
 {
   imports = [
     ./sway.nix
+    ./power.nix
     ./wayland-utils.nix
     ./keyring.nix
     ./ssh.nix

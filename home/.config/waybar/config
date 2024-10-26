@@ -312,10 +312,10 @@
   "custom/power_profile": {
     "return-type": "json",
     "tooltip": true,
-    "exec": "~/.config/waybar/scripts/tlp.sh",
+    "exec": "~/.config/waybar/scripts/power_profile.sh",
     "interval": 60,
     "on-click": "",
-    "on-click-right": "pkexec ~/.config/waybar/scripts/tlp-bat.sh",
-    "on-click-middle": "pkexec ~/.config/waybar/scripts/tlp-ac.sh"
+    "on-click-right": "pkexec ~/.config/waybar/scripts/set-battery-profile.sh",
+    "on-click-middle": "pkexec ~/.config/waybar/scripts/set-ac-profile.sh"
   }
 }

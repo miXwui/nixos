@@ -233,6 +233,21 @@ acpica-tools
 boot.kernelModules = [ "msr" ];
 ```
 
+### Adaptive Backlight Management (ABM)
+
+Specifically for AMD.
+
+<https://community.frame.work/t/adaptive-backlight-management-abm/41055/>
+<https://docs.kernel.org/gpu/amdgpu/module-parameters.html?highlight=abmlevel>
+
+`0` is off, `1` is least reduction, `4` is max.
+
+```sh
+echo [0-4] | sudo tee /sys/class/drm/card1-eDP-1/amdgpu/panel_power_savings
+```
+
+Currently automatically set by `TLP` or `power-profiles-daemon`.
+
 ## Keyring
 
 * [`hosts/base.nix`](./hosts/base.nix)
@@ -325,7 +340,12 @@ IPv6 will be disabled (since apparently it's not supported by PIA). The disconne
 ## Notable programs
 
 * [Sway](https://github.com/swaywm/sway) (with [SwayFX](https://github.com/WillPower3309/swayfx) toggle)
-* [TLP](https://github.com/linrunner/TLP)
+* Power management
+  * Switch between:
+    * [TLP](https://github.com/linrunner/TLP)
+    * [power-profiles-daemon](https://gitlab.freedesktop.org/upower/power-profiles-daemon)
+  * [UPower](https://gitlab.freedesktop.org/upower/upower)
+  * [poweralertd](https://sr.ht/~kennylevinsen/poweralertd/)
 * [KDE Connect](https://github.com/KDE/kdeconnect-kde)
 * [Geoclue](https://gitlab.freedesktop.org/geoclue/)
   * Uses Google geolocation API.

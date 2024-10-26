@@ -7,7 +7,6 @@
   lib,
   pkgs,
   inputs,
-  hardware,
   ...
 }:
 let
@@ -41,18 +40,9 @@ let
   # Global programs
   gProgs = {
     coreutils = pkgs.coreutils;
+    logger = pkgs.logger;
+    ppd = config.software_ppd.package;
   };
-
-  ### TLP
-  tlpConfig =
-    {
-      "amd_7840u" = builtins.readFile ../etc/tlp.amd.7840u.conf;
-      "intel_i7-1165g7" = builtins.readFile ../etc/tlp.intel.i7-1165g7.conf;
-      "intel_i7-6700hq_and_nvidia_gtx_960m" = builtins.readFile ../etc/tlp.intel.i7-6700hq.and.nvidia.gtx-960m.conf;
-      "qemu" = builtins.readFile ../etc/tlp.qemu.conf;
-      "live-image" = builtins.readFile ../etc/tlp.live-image.conf;
-    }
-    .${hardware.platform};
 
   ### GParted with xhost root
   my-gparted-with-xhost-root = pkgs.gparted.overrideAttrs (previousAttrs: {
@@ -95,6 +85,7 @@ in
     ./common/hardware_fingerprint.nix
     ./common/hardware_bluetooth.nix
     ./common/hardware_ssd.nix
+    ./common/software_power_management.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     # Custom packages
@@ -326,8 +317,11 @@ in
   # so we disable automatic start up here:
   systemd.services.sshd.wantedBy = lib.mkForce [ ];
 
-  ## TLP
-  services.tlp.enable = true;
+  ## Power management
+  software_power_management = {
+    enable = true;
+    powerUtil = "tlp"; # tlp or ppd
+  };
 
   ## GeoClue
   services.geoclue2 = {
@@ -443,6 +437,8 @@ in
 
     # Global programs
     coreutils
+    logger
+
     # Utilities
     drm_info
 
@@ -465,9 +461,7 @@ in
   ];
 
   ### ETC FILES ###
-  environment = {
-    etc."tlp.conf".text = tlpConfig;
-  };
+  environment = { };
 
   ### FONTS ###
   fonts = {
