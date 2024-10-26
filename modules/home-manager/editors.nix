@@ -10,8 +10,6 @@
 
   nerdfonts,
   pandoc,
-  shellcheck,
-  ispell,
 
   neovim,
   vim,
@@ -94,8 +92,6 @@
 
     nerdfonts = pkgs.nerdfonts;
     pandoc = pkgs.pandoc;
-    shellcheck = pkgs.shellcheck;
-    ispell = pkgs.ispell;
 
     neovim = pkgs.neovim;
     vim = pkgs.vim;
@@ -176,8 +172,6 @@
 
     nerdfonts
     pandoc
-    shellcheck
-    ispell
 
     neovim
     vim

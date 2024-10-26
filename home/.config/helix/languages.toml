@@ -1,3 +1,9 @@
+# NOTE: For some reason, indenting with `tab` in a Bash file defaults to the
+# indentation used in the rest of the file. Similar to this issue:
+# https://github.com/helix-editor/helix/issues/10028#issuecomment-2024792291
+# > If you have a file that already has an indent of 2 spaces, you will have 2
+# > spaces despite your configuration.
+
 ########################################
 # simple-completion-language-server
 [language-server.scls]
@@ -37,6 +43,15 @@ command = "efm-langserver"
 config = { provideFormatter = true }
 
 ########################################
+# Bash
+
+[[language]]
+name = "bash"
+formatter = { command = "shfmt", args = ["-i", "2"] }
+language-servers = [ "bash-language-server" ]
+indent = { tab-width = 2, unit = "  " }
+
+########################################
 # Elixir
 
 [language-server.lexical]
@@ -48,7 +63,6 @@ name = "elixir"
 # auto-format = false
 language-servers = [ "lexical", "scls" ]
 indent = { tab-width = 2, unit = "  " }
-
 
 ########################################
 # Markdown

@@ -3,8 +3,14 @@
   pkgs,
   xdg_nixos,
 
+  ispell,
+
   scls,
   efm-ls,
+
+  bash-language-server,
+  shellcheck,
+  shfmt,
 
   lexical,
 
@@ -20,6 +26,9 @@
 }:
 {
   _module.args = {
+    # Spelling
+    ispell = pkgs.ispell;
+
     # simple-completion-language-server
     scls =
       (builtins.getFlake "github:estin/simple-completion-language-server/49b53f63f588765abfcebb59cfc2889170c2e42b")
@@ -27,6 +36,11 @@
 
     # efm-langserver
     efm-ls = pkgs.efm-langserver;
+
+    # Bash
+    bash-language-server = pkgs.bash-language-server;
+    shellcheck = pkgs.shellcheck;
+    shfmt = pkgs.shfmt;
 
     # Elixir
     lexical =
@@ -45,8 +59,14 @@
   };
 
   home.packages = [
+    ispell
+
     scls
     efm-ls
+
+    bash-language-server
+    shellcheck
+    shfmt
 
     lexical
 
