@@ -1,0 +1,56 @@
+feat: Add option '-I' to not send power.update category notifications.
+
+Rebased on version 0.3.0: https://git.sr.ht/~kennylevinsen/poweralertd/commit/2b54c6486b5dd73588a9626f3b211d2ace061fe8
+
+Need this because it will annoyingly send the notification repeatedly at full charge on Framework 13.
+
+diff --git a/main.c b/main.c
+index 85484c7..7b989dc 100644
+--- a/main.c
++++ b/main.c
+@@ -157,7 +157,8 @@ static const char usage[] = "usage: %s [options]\n"
+ "  -s				ignore the events at startup\n"
+ "  -i <device_type>		ignore this device type, can be use several times\n"
+ "  -S				only use the events coming from power supplies\n"
+-"  -o <percentage>		ignores events over specified battery percentage\n";
++"  -o <percentage>		ignores events over specified battery percentage\n"
++"  -I <percentage>		don't send notifications for power updates\n";
+ 
+ 
+ int main(int argc, char *argv[]) {
+@@ -165,6 +166,7 @@ int main(int argc, char *argv[]) {
+ 	int device_type = 0;
+ 	int ignore_types_mask = 0;
+ 	int ignore_over = 0;
++	bool ignore_power_update = false;
+ 	bool ignore_initial = false;
+ 	bool ignore_non_power_supplies = false;
+ 	bool initialized = false;
+@@ -175,7 +177,7 @@ int main(int argc, char *argv[]) {
+ 		return EXIT_FAILURE;
+ 	}
+ 
+-	while ((opt = getopt(argc, argv, "hvsi:So:")) != -1) {
++	while ((opt = getopt(argc, argv, "hvsi:So:I")) != -1) {
+ 		switch (opt) {
+ 		case 'i':
+ 			device_type = upower_device_type_int(optarg);
+@@ -198,6 +200,9 @@ int main(int argc, char *argv[]) {
+ 		case 'o':
+ 			ignore_over = atoi(optarg);
+ 			break;
++		case 'I':
++			ignore_power_update = true;
++			break;
+ 		case 'h':
+ 		default:
+ 			fprintf(stderr, usage, argv[0]);
+@@ -248,7 +253,7 @@ int main(int argc, char *argv[]) {
+ 
+ 			if (ignore_over == 0 || device->current.percentage < ignore_over) {
+ 				if (upower_device_has_battery(device)) {
+-					ret = send_state_update(user_bus, device);
++					ret = ignore_power_update ? 0 : send_state_update(user_bus, device);
+ 					if (ret < 0) {
+ 						fprintf(stderr, "could not send state update notification: %s\n", strerror(-ret));
+ 						goto finish;

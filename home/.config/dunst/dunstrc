@@ -357,6 +357,20 @@ frame_color = "#d3d3d3aa"
 set_transient = yes
 format = "%b\n<b><i>%s</i></b>"
 
+# Ignore notifications with category `power.update`.
+#
+# Need this because it will annoyingly send the notification repeatedly at full
+# charge on Framework 13.
+# See: https://lists.sr.ht/~kennylevinsen/poweralertd-devel/patches/43895
+#
+# Commented out since I'm using this: `packages/poweralertd/o-option.patch`
+# to not send `power.update` notifications directly from `poweralertd`.
+#
+# [poweralertd]
+# category = power.update
+# skip_display = true
+# history_ignore = true
+
 # Every section that isn't one of the above is interpreted as a rules to
 # override settings for certain messages.
 #

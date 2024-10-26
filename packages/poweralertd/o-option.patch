@@ -1,0 +1,92 @@
+feat: Add option '-o' to ignore notifications over a certain battery-level
+
+From: https://lists.sr.ht/~kennylevinsen/poweralertd-devel/patches/43895
+
+Rebased on version 0.3.0: https://git.sr.ht/~kennylevinsen/poweralertd/commit/2b54c6486b5dd73588a9626f3b211d2ace061fe8
+
+This is a solution to it annoyingly sending the notification repeatedly at full charge on Framework 13.
+Though the other `-I` flag solves it better.
+
+diff --git a/main.c b/main.c
+index 99700e3..85484c7 100644
+--- a/main.c
++++ b/main.c
+@@ -156,13 +156,15 @@ static const char usage[] = "usage: %s [options]\n"
+ "  -v				show the version number\n"
+ "  -s				ignore the events at startup\n"
+ "  -i <device_type>		ignore this device type, can be use several times\n"
+-"  -S				only use the events coming from power supplies\n";
++"  -S				only use the events coming from power supplies\n"
++"  -o <percentage>		ignores events over specified battery percentage\n";
+ 
+ 
+ int main(int argc, char *argv[]) {
+ 	int opt = 0;
+ 	int device_type = 0;
+ 	int ignore_types_mask = 0;
++	int ignore_over = 0;
+ 	bool ignore_initial = false;
+ 	bool ignore_non_power_supplies = false;
+ 	bool initialized = false;
+@@ -173,7 +175,7 @@ int main(int argc, char *argv[]) {
+ 		return EXIT_FAILURE;
+ 	}
+ 
+-	while ((opt = getopt(argc, argv, "hvsi:S")) != -1) {
++	while ((opt = getopt(argc, argv, "hvsi:So:")) != -1) {
+ 		switch (opt) {
+ 		case 'i':
+ 			device_type = upower_device_type_int(optarg);
+@@ -193,6 +195,9 @@ int main(int argc, char *argv[]) {
+ 		case 'v':
+ 			printf("poweralertd version %s\n", POWERALERTD_VERSION);
+ 			return EXIT_SUCCESS;
++		case 'o':
++			ignore_over = atoi(optarg);
++			break;
+ 		case 'h':
+ 		default:
+ 			fprintf(stderr, usage, argv[0]);
+@@ -241,23 +246,27 @@ int main(int argc, char *argv[]) {
+ 				goto next_device;
+ 			}
+ 
+-			if (upower_device_has_battery(device)) {
+-				ret = send_state_update(user_bus, device);
+-				if (ret < 0) {
+-					fprintf(stderr, "could not send state update notification: %s\n", strerror(-ret));
+-					goto finish;
+-				}
+-				ret = send_warning_update(user_bus, device);
+-				if (ret < 0) {
+-					fprintf(stderr, "could not send warning update notification: %s\n", strerror(-ret));
+-					goto finish;
++			if (ignore_over == 0 || device->current.percentage < ignore_over) {
++				if (upower_device_has_battery(device)) {
++					ret = send_state_update(user_bus, device);
++					if (ret < 0) {
++						fprintf(stderr, "could not send state update notification: %s\n", strerror(-ret));
++						goto finish;
++					}
++					ret = send_warning_update(user_bus, device);
++					if (ret < 0) {
++						fprintf(stderr, "could not send warning update notification: %s\n", strerror(-ret));
++						goto finish;
++					}
++				} else {
++					ret = send_online_update(user_bus, device);
++					if (ret < 0) {
++						fprintf(stderr, "could not send online update notification: %s\n", strerror(-ret));
++						goto finish;
++					}
+ 				}
+ 			} else {
+-				ret = send_online_update(user_bus, device);
+-				if (ret < 0) {
+-					fprintf(stderr, "could not send online update notification: %s\n", strerror(-ret));
+-					goto finish;
+-				}
++				fprintf(stderr, "Ignored because -o: %i | percentage: %f\n", ignore_over, device->current.percentage);
+ 			}
+ next_device:
+ 			device->last = device->current;
