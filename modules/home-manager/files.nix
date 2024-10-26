@@ -53,4 +53,11 @@ in
       ]
     );
   };
+
+  dconf.settings = {
+    # Disable recent files in Nautilus
+    "org/gnome/desktop/privacy" = {
+      remember-recent-files = false;
+    };
+  };
 }
