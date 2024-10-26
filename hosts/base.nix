@@ -356,6 +356,17 @@ in
     hyprlock = { };
   };
 
+  # Allow programs run by the `users` group to request real-time priority
+  # https://nixos.wiki/wiki/Sway#Inferior_performance_compared_to_other_distributions
+  security.pam.loginLimits = [
+    {
+      domain = "@users";
+      item = "rtprio";
+      type = "-";
+      value = 1;
+    }
+  ];
+
   ## Polkit
   security.polkit = {
     # https://nixos.wiki/wiki/Sway#Using_Home_Manager
