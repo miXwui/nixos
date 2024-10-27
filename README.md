@@ -733,6 +733,43 @@ zellij_0-38 = pkgs.zellij.overrideAttrs (old: rec {
 
 ### Issues
 
+#### Not applying GID change during boot
+
+I was getting this warning during boot in `NixOS Stage 2` after `running activation script`:
+
+```text
+warning: not applying GID change of group uinput (990 -> 327) in /etc/group/
+```
+
+See this: <https://github.com/NixOS/nixpkgs/issues/19599#issuecomment-254226192>
+
+To manually fix:
+Read this [answer](https://unix.stackexchange.com/a/33874) and this [comment](https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group#comment215709_33874).
+
+1. `groupmod -g NEWGID GROUPNAME`
+    1. `sudo groupmod -g 327 uinput`
+2. `sudo find / -gid OLDGID ! -type l -exec chgrp NEWGID {} \;\`
+    1. > Suggest using chgrp -h ... instead of chgrp .... Without -h, the target of any relevant symlink will have its group changed.
+    2. `sudo find / -gid 990 ! -type l -exec chgrp 327 {} \;`
+    3. Or, manually find and change.
+
+`ls -n` to see the numeric UID/GID of file.
+
+#### Diagnosing long boot times
+
+* `systemd-analyze critical-chain`
+* `systemd-analyze blame`
+* `systemd-analyze plot > boot-analysis.svg`
+* `journalctl -b -k`
+* `systemctl status --lines 1000 home-manager-mwu.service`
+
+I also have flags in `base.nix` in `boot_debug` for:
+
+* `.enable`:                  Enabling verbose boot logs
+* `.network_no_wait_online`:  Not waiting for network to be online during boot
+* `.network_no_wait_startup`: Not waiting for network startup during boot
+* `.home_manager_verbose`:    Enabling verbose Home Manager logs
+
 #### Remove/delete files/folders
 
 If a file/folder gets stuck and you can't remove it even as root, you can create a script in `home.activation` like so:

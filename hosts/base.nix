@@ -86,6 +86,7 @@ in
     ./common/hardware_bluetooth.nix
     ./common/hardware_ssd.nix
     ./common/software_power_management.nix
+    ./common/boot_debug.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     # Custom packages
@@ -131,6 +132,15 @@ in
   # boot.kernelPackages = pkgs.linuxPackagesFor fedoraKernel;
   # boot.kernelPackages = pkgs.zfs.latestCompatibleLinuxPackages; # might need if latest doesn't support zfs
   boot.supportedFilesystems = [ "bcachefs" ];
+
+  # Toggle more verbose logging for boot, etc.
+  # See `hosts/common/boot_debug.nix`
+  boot_debug = {
+    enable = false;
+    network_no_wait_online = false;
+    network_no_wait_startup = false;
+    home_manager_verbose = false;
+  };
 
   # Magic SysRq
   boot.kernel.sysctl = {
