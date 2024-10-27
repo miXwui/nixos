@@ -5,7 +5,7 @@
 # Needs to authenticate for YouTube Premium quality downloads.
 
 # `about:profiles` in Firefox to see profiles
-# 
+#
 # /usr/lib/python3.12/site-packages/yt_dlp/cookies.py
 # might need to change line to:
 # try_call(lambda: re.fullmatch(r'user-context-([^\.]+)', context['l10nId']).group())
@@ -19,24 +19,26 @@ path="$XDG_MUSIC_DIR/yt downloads/"
 
 while getopts "p:" option; do
   case $option in
-    p) path=$OPTARG;;
+  p) path=$OPTARG ;;
+  *)
+    echo "usage: $0 [-p] /download/path/" >&2
+    exit 1
+    ;;
   esac
 done
 
-echo Downloading to $path
-read -p 'Enter URL: ' yt_url
+echo Downloading to "$path"
+read -r -p 'Enter URL: ' yt_url
 # List formats
 yt-dlp --cookies-from-browser firefox::"user-context-personal" --list-formats -- "$yt_url"
-read -p 'Enter video format ID (or leave empty for best): ' vfid
-read -p 'Enter audio format ID (or leave empty for best): ' afid
+read -r -p 'Enter video format ID (or leave empty for best): ' vfid
+read -r -p 'Enter audio format ID (or leave empty for best): ' afid
 
-if [ -z "${vfid}" ]
-then
+if [ -z "${vfid}" ]; then
   vfid="bv*"
 fi
 
-if [ -z "${afid}" ]
-then
+if [ -z "${afid}" ]; then
   afid="ba"
 fi
 

@@ -17,11 +17,11 @@
 # dependencies: zenity, wl-copy
 
 if [ "$WAYLAND_DISPLAY" = "" ]; then
-    zenity --error --width 400 \
-        --title "No wayland session found." \
-        --text "This color picker must be run under a valid wayland session."
+  zenity --error --width 400 \
+    --title "No wayland session found." \
+    --text "This color picker must be run under a valid wayland session."
 
-    exit 1
+  exit 1
 fi
 
 # outputs to RGBA, nice to paste in a hex value into zenity
@@ -36,40 +36,43 @@ zenity --color-selection | wl-copy
 # sleep 1
 
 # # Store the hex color value using graphicsmagick or imagemagick.
-# if command -v /usr/bin/gm &> /dev/null; then
-#     color=$(grim -g "$position" -t png - \
-#         | /usr/bin/gm convert - -format '%[pixel:p{0,0}]' txt:- \
-#         | tail -n 1 \
-#         | rev \
-#         | cut -d ' ' -f 1 \
-#         | rev
-#     )
+# if command -v /usr/bin/gm &>/dev/null; then
+#   color=$(
+#     grim -g "$position" -t png - |
+#       /usr/bin/gm convert - -format '%[pixel:p{0,0}]' txt:- |
+#       tail -n 1 |
+#       rev |
+#       cut -d ' ' -f 1 |
+#       rev
+#   )
 # else
-#     color=$(grim -g "$position" -t png - \
-#         | convert - -format '%[pixel:p{0,0}]' txt:- \
-#         | tail -n 1 \
-#         | cut -d ' ' -f 4
-#     )
+#   color=$(
+#     grim -g "$position" -t png - |
+#       convert - -format '%[pixel:p{0,0}]' txt:- |
+#       tail -n 1 |
+#       cut -d ' ' -f 4
+#   )
 # fi
 
 # if [ "$1" == "clipboard" ]; then
-# 	echo $color | wl-copy -n
+#   echo "$color" | wl-copy -n
 # else
-# 	# Display a color picker and store the returned rgb color
-# 	rgb_color=$(zenity --color-selection \
-# 	    --title="Copy color to Clipboard" \
-# 	    --color="${color}"
-# 	)
+#   # Display a color picker and store the returned rgb color
+#   rgb_color=$(
+#     zenity --color-selection \
+#       --title="Copy color to Clipboard" \
+#       --color="${color}"
+#   )
 
-# 	# Execute if user didn't click cancel
-# 	if [ "$rgb_color" != "" ]; then
-# 	    # Convert rgb color to hex
-# 	    hex_color="#"
-# 	    for value in $(echo "${rgb_color}" | grep -E -o -m1 '[0-9]+'); do
-#        		hex_color="$hex_color$(printf "%.2x" $value)"
-# 	    done
+#   # Execute if user didn't click cancel
+#   if [ "$rgb_color" != "" ]; then
+#     # Convert rgb color to hex
+#     hex_color="#"
+#     for value in $(echo "${rgb_color}" | grep -E -o -m1 '[0-9]+'); do
+#       hex_color="$hex_color$(printf "%.2x" "$value")"
+#     done
 
-#     	# Copy user selection to clipboard
-#     	echo $hex_color | wl-copy -n
-# 	fi
+#     # Copy user selection to clipboard
+#     echo "$hex_color" | wl-copy -n
+#   fi
 # fi

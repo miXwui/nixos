@@ -43,31 +43,31 @@ case $option in
   ;;
 
 1)
-  nautilus $XDG_DOWNLOAD_DIR
+  nautilus "$XDG_DOWNLOAD_DIR"
   ;;
 
 2)
-  nautilus $XDG_DOCUMENTS_DIR
+  nautilus "$XDG_DOCUMENTS_DIR"
   ;;
 
 3)
-  nautilus $XDG_VIDEOS_DIR
+  nautilus "$XDG_VIDEOS_DIR"
   ;;
 
 4)
-  nautilus $XDG_PICTURES_DIR
+  nautilus "$XDG_PICTURES_DIR"
   ;;
 
 5)
-  nautilus $XDG_MUSIC_DIR
+  nautilus "$XDG_MUSIC_DIR"
   ;;
 
 6)
-  nautilus $XDG_WORK_DIR/desophy/ccm/ccm-website
+  nautilus "$XDG_WORK_DIR/desophy/ccm/ccm-website"
   ;;
 
 7)
-  nautilus $XDG_WORK_DIR/desophy/dsa/dsa-website
+  nautilus "$XDG_WORK_DIR/desophy/dsa/dsa-website"
   ;;
 
 100)

@@ -6,13 +6,13 @@ volume=""
 if [[ $get_volume = *"MUTED"* ]]; then
   # `Volume: 1.00 [MUTED]`
   class="muted"
-  volume=$(echo "scale = 0; ($(echo $get_volume | tr -d 'Volume: ' | tr -d '[MUTED]' | tr -d '[:space:]') * 100) / 1" | bc -l)
+  volume=$(echo "scale = 0; ($(echo "$get_volume" | sed -e 's/Volume: //' | sed -e 's/\[MUTED\]//' | tr -d '[:space:]') * 100) / 1" | bc -l)
 else
   # `Volume: 1.00`
   class="unmuted"
-  volume=$(echo "scale = 0; ($(echo $get_volume | tr -d 'Volume: ' | tr -d '[:space:]') * 100) / 1" | bc -l)
+  volume=$(echo "scale = 0; ($(echo "$get_volume" | tr -d 'Volume: ' | tr -d '[:space:]') * 100) / 1" | bc -l)
 fi
-source_description=$(wpctl inspect @DEFAULT_AUDIO_SOURCE@ | grep "* node.nick" | grep -o '"[^"]\+"' | sed 's/"//g')
+source_description=$(wpctl inspect @DEFAULT_AUDIO_SOURCE@ | grep "\* node.nick" | grep -o '"[^"]\+"' | sed 's/"//g')
 
 jq -c -r --null-input \
   --arg volume "$volume" \

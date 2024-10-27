@@ -12,7 +12,7 @@ while read -r line; do
   id="$(echo "$line" | cut -d '.' -f 1 | sed 's/^│//' | awk '{$1=$1};1')"
   source_description="$(echo "$line" | cut -d '[' -f 1 | cut -d '.' -f 2 | sed 's/^ *//g')"
 
-  if echo "$id" | grep -q '*'; then
+  if echo "$id" | grep -q '\*'; then
     default_source_index=$counter
     default_id="$(echo "$id" | cut -d "*" -f 2 | sed 's/^ *//g')"
     source_ids+=("$default_id")
@@ -22,7 +22,7 @@ while read -r line; do
     source_descriptions+=("$source_description")
   fi
 
-  let counter+=1
+  ((counter += 1))
 
   # Example of grep result fed to the while loop:
   # ```text
@@ -31,8 +31,8 @@ while read -r line; do
   # ```
 done < <(wpctl status --nick | grep -ozP '(?s)Sources:\K.*?(?=Filters:)' | xargs --null | grep '\.')
 
-let source_id_to_set=default_source_index+1
-if (($source_id_to_set >= ${#source_ids[@]})); then source_id_to_set=0; fi
+((source_id_to_set = default_source_index + 1))
+if ((source_id_to_set >= ${#source_ids[@]})); then source_id_to_set=0; fi
 
-wpctl set-default ${source_ids[$source_id_to_set]} &&
+wpctl set-default "${source_ids[$source_id_to_set]}" &&
   notify-send -h string:desktop-entry:audio -h string:x-dunst-stack-tag:audio "Set default source" "${source_descriptions[$source_id_to_set]}"
