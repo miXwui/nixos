@@ -118,6 +118,8 @@ in
     dfs = "$XDG_SCRIPTS_DIR/diff-so-fancy.sh";
     nb = "numbat";
     wlc = "wl-copy";
+    yidle = "${config.xdg.configHome}/sway/scripts/get-idle-inhibitors.sh";
+
     sl = "sl -e";
   };
 

@@ -233,6 +233,16 @@ acpica-tools
 boot.kernelModules = [ "msr" ];
 ```
 
+### Check if anything is inhibiting idle
+
+There is a `yidle` alias/command that runs `.config/sway/scripts/get-idle-inhibitors`.
+
+Its foundation:
+
+```sh
+swaymsg -t get_tree -r | jq -C '..|select(objects) | select(.inhibit_idle == true) | {pid, app_id, inhibit_idle, name}'
+```
+
 ### Adaptive Backlight Management (ABM)
 
 Specifically for AMD.
