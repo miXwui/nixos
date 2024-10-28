@@ -57,9 +57,7 @@
 
     # sops-nix
     sops-nix = {
-      # TODO: unpin after this is resolved:
-      # https://github.com/Mic92/sops-nix/issues/640
-      url = "github:Mic92/sops-nix/26642e8f193f547e72d38cd4c0c4e45b49236d27";
+      url = "github:Mic92/sops-nix/";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
