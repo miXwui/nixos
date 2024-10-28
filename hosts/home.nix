@@ -19,6 +19,7 @@ let
   # GProgs
   coreutils = gProgs.coreutils;
   logger = gProgs.logger;
+  playerctl = gProgs.playerctl;
 in
 {
   ### MODULE ARGS ###
@@ -34,6 +35,7 @@ in
     # Global programs
     coreutils = coreutils;
     logger = logger;
+    playerctl = playerctl;
 
     # sops
     sops = sops;

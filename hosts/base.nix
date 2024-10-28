@@ -42,6 +42,7 @@ let
     coreutils = pkgs.coreutils;
     logger = pkgs.logger;
     ppd = config.software_ppd.package;
+    playerctl = pkgs.playerctl;
   };
 
   ### GParted with xhost root
@@ -87,6 +88,7 @@ in
     ./common/hardware_ssd.nix
     ./common/software_power_management.nix
     ./common/boot_debug.nix
+    ./common/suspend-then-hibernate.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     # Custom packages

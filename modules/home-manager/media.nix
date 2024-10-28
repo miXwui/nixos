@@ -17,8 +17,6 @@
 
 {
   _module.args = {
-    playerctl = pkgs.playerctl;
-
     asciinema = pkgs.asciinema;
     ffmpeg = pkgs.ffmpeg;
     handbrake = pkgs.handbrake;
