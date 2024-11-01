@@ -12,6 +12,7 @@
     # ./contour.nix #https://github.com/NixOS/nixpkgs/issues/345752
     ./fuzzel.nix
     ./files.nix
+    ./mime.nix
     ./gcolor3.nix
     ./hyprpicker.nix
     ./git.nix
