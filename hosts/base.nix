@@ -87,6 +87,7 @@ in
     ./common/hardware_bluetooth.nix
     ./common/hardware_ssd.nix
     ./common/software_power_management.nix
+    ./common/software_sddm.nix
     ./common/boot_debug.nix
     ./common/suspend-then-hibernate.nix
     inputs.home-manager.nixosModules.default
@@ -315,8 +316,7 @@ in
 
   ### DISPLAY MANAGER ###
   services.displayManager = {
-    sddm.enable = true;
-    sddm.wayland.enable = true;
+    sddm = config.software_sddm.config;
     sessionPackages = [ sway.pkg ];
   };
 
@@ -457,6 +457,11 @@ in
   ### SYSTEM PACKAGES ###
   environment.systemPackages = with pkgs; [
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
+    # SDDM theme
+    config.software_sddm.sddm-theme
+    config.software_sddm.sddm-background
+    config.software_sddm.sddm-cursors
 
     # Global programs
     coreutils
