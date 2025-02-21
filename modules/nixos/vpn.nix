@@ -9,5 +9,12 @@ in
   # For e.g.enabling PIA manual-connection scripts to set DNS configuration.
   services.resolved.enable = true;
 
-  environment.systemPackages = [ pia_manual-connections ];
+  services.mullvad-vpn.enable = true;
+
+  environment.systemPackages = with pkgs; [
+    pia_manual-connections
+    mullvad
+    mullvad-vpn
+    mullvad-browser
+  ];
 }
