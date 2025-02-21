@@ -751,6 +751,18 @@ zellij_0-38 = pkgs.zellij.overrideAttrs (old: rec {
 });
 ```
 
+## Music
+
+Using [mpd](https://www.musicpd.org/) with [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)
+
+[mpc](https://www.musicpd.org/clients/mpc/) is also installed.
+
+Has a lot of useful commands like `mpc stats`, `update`.
+
+### ncmpcpp cheatsheet
+
+<https://pkgbuild.com/~jelle/ncmpcpp/>
+
 ### Issues
 
 #### Not applying GID change during boot
