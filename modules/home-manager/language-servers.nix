@@ -44,7 +44,7 @@
 
     # Elixir
     lexical =
-      (builtins.getFlake "github:lexical-lsp/lexical/6e189c807cc1ff0f5c1ceec2990b541364bccb4a")
+      (builtins.getFlake "github:lexical-lsp/lexical/477e8b418b27960710109d0014167bb371b0cade")
       .packages.${pkgs.system}.default;
 
     # Nix

@@ -247,7 +247,7 @@ in
     rustup
     gcc
 
-    elixir_1_17
+    elixir_1_18
     erlang_27
 
     # python3
