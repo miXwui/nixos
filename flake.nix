@@ -18,6 +18,9 @@
   # ```
   #
   # Caused by: https://github.com/Mic92/sops-nix/issues/640
+  #
+  # It can also happen due to other reasons. To fix, delete the store directory:
+  # `sudo nix store delete /nix/store/kwjh1v5056dg14sfs9jsxj3fqvxhyqx3-sops-install-secrets-0.0.1`
 
   inputs = {
     # [1]

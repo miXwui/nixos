@@ -25,16 +25,22 @@ To be stored in `$XDG_NIXOS_DIR/`.
 
 Remove all but the current generation with `sudo nix-collect-garbage --delete-older-than`.
 
+Also should run without `sudo`, as:
+
+> nix-collect-garbage is per user, so you need to execute it per each user that might have store paths that need cleaning up
+
+<https://discourse.nixos.org/t/no-free-disk-space-and-a-lot-of-duplicates-in-nix-store/47515/4>
+
 Remove old entries and rebuild boot options:
 
 ```sh
-sudo nix-collect-garbage -delete-older-than 30d && sudo nixos-rebuild boot --flake $XDG_NIXOS_DIR/.#framework_13_amd_7840u
+sudo nix-collect-garbage --delete-older-than 30d && nix-collect-garbage --delete-older-than 30d && sudo nixos-rebuild boot --flake $XDG_NIXOS_DIR/.#framework_13_amd_7840u
 ```
 
 or
 
 ```sh
-sudo nix-collect-garbage -delete-older-than 30d && sudo /run/current-system/bin/switch-to-configuration boot
+sudo nix-collect-garbage --delete-older-than 30d && nix-collect-garbage --delete-older-than 30d && sudo /run/current-system/bin/switch-to-configuration boot
 ```
 
 Running with `sudo` deletes system profiles, and without deletes only current user's.
@@ -48,6 +54,10 @@ nix-env --delete-generations +5 --dry-run
 ```
 
 Also `(sudo) nix store gc` and `nix store optimise`.
+
+### Remove a directory in Nix store
+
+`nix store delete /nix/store/path`
 
 ### Build ISO
 
