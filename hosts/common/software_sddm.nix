@@ -123,6 +123,8 @@ in
           #   # Needed to fix this error (but not needed for `sddm-astronaut`:
           #   # The theme at "/run/current-system/sw/share/sddm/themes/Elegant" requires missing "/nix/store/nrdwzbzy7rgyqbhb76h2zlcac6zvwa8x-sddm-wrapped/bin/sddm-greeter" . Using fallback theme.
           #   libsForQt5.sddm
+          # Needed to fix `module QtMultimedia is not installed` 
+          kdePackages.qtmultimedia
         ];
         wayland.enable = true;
         theme = "sddm-astronaut-theme";
