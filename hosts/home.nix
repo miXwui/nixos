@@ -54,8 +54,6 @@ in
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
 
-  nixpkgs.config.allowUnfree = true;
-
   ### USER ###
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
