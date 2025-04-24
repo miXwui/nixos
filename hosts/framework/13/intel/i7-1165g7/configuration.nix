@@ -7,7 +7,7 @@
 {
   imports = [
     ./hardware-configuration.nix
-    ../../../base.nix
+    ../../../../base.nix
   ];
 
   _module.args.hardware.platform = "intel_i7-1165g7";
