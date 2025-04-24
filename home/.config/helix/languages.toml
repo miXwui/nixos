@@ -1,3 +1,5 @@
+# https://github.com/helix-editor/helix/wiki/Language-Server-Configurations
+
 # NOTE: For some reason, indenting with `tab` in a Bash file defaults to the
 # indentation used in the rest of the file. Similar to this issue:
 # https://github.com/helix-editor/helix/issues/10028#issuecomment-2024792291
@@ -99,3 +101,25 @@ language-servers = [
   { name = "typescript-language-server", except-features = [ "format" ] }
 ]
 indent = { tab-width = 2, unit = "  " }
+
+########################################
+# YAML
+
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+language-servers = [ "yaml-language-server" ]
+formatter = { command = "yamlfmt", args = ["-"] }
+
+[language-server.yaml-language-server.config.yaml]
+# https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
+completion = true
+validate = true # TODO: for some reason validation doesn't work?
+hover = true
+schemaStore.enable = true
+format.enable = true # for some reason doesn't work, so using `ymlfmt`
+
+[language-server.yaml-language-server.config.yaml.schemas]
+"https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
+"https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json" = "roles/{tasks,handlers}/*.{yml,yaml}"
+"https://garnix.io/api/garnix-config-schema.json" = "garnix.yaml"

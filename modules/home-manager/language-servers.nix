@@ -22,6 +22,10 @@
   marksman,
   markdownlint-cli2,
   markdownlint-cli,
+
+  yaml-language-server,
+  yamlfmt,
+
   ...
 }:
 {
@@ -56,6 +60,10 @@
     marksman = pkgs.marksman;
     markdownlint-cli2 = pkgs.markdownlint-cli2;
     markdownlint-cli = pkgs.markdownlint-cli;
+
+    # YAML
+    yaml-language-server = pkgs.yaml-language-server;
+    yamlfmt = pkgs.yamlfmt;
   };
 
   home.packages = [
@@ -78,6 +86,9 @@
     marksman
     markdownlint-cli2
     markdownlint-cli
+
+    yaml-language-server
+    yamlfmt
   ];
 
   home.file = {
