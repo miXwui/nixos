@@ -31,9 +31,8 @@ in
 {
   _module.args = {
     filezilla = pkgs.filezilla;
-    # zellij = pkgs.zellij;
-    zellij = zellij-unreleased;
-
+    zellij = pkgs.zellij;
+    # zellij = zellij-unreleased;
   };
 
   home.packages = [
@@ -42,6 +41,7 @@ in
   ];
 
   home.file = {
-    "${config.xdg.configHome}/zellij".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/home/.config/zellij";
+    "${config.xdg.configHome}/zellij".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/home/.config/zellij";
   };
 }
