@@ -151,7 +151,7 @@ in
   };
 
   ### NETWORK ###
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = lib.mkDefault "nixos"; # Define your hostname.
   # Disable wireless support via wpa_supplicant since it's enabled by default in
   # `/nixos/modules/installer/cd-dvd/installation-cd-minimal.nix`:
   # https://github.com/NixOS/nixpkgs/blob/0bf03b32dcb0a80013b0ad3eb2446947027cfc4d/nixos/modules/profiles/installation-device.nix#L82

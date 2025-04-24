@@ -30,6 +30,7 @@
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp1s0.useDHCP = lib.mkDefault true;
+  networking.hostName = "nixos-qemu";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 }

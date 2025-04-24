@@ -68,6 +68,7 @@
   networking.useDHCP = lib.mkDefault true;
   # networking.interfaces.enp62s0u1u6.useDHCP = lib.mkDefault true;
   # networking.interfaces.wlp2s0.useDHCP = lib.mkDefault true;
+  networking.hostName = "nixos-dell-xps-15-9550-intel-i7-6700hq-nvidia-gtx-960m";
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
