@@ -8,7 +8,7 @@
   emacs,
   emacs-lsp-booster,
 
-  nerdfonts,
+  nerd-fonts,
   pandoc,
 
   neovim,
@@ -90,7 +90,7 @@
     emacs = pkgs.emacs29-pgtk; # can uncomment/use emacs-30-pgtk above
     emacs-lsp-booster = pkgs.emacs-lsp-booster;
 
-    nerdfonts = pkgs.nerdfonts;
+    nerd-fonts = pkgs.nerd-fonts.jetbrains-mono;
     pandoc = pkgs.pandoc;
 
     neovim = pkgs.neovim;
@@ -170,7 +170,7 @@
     #   epc orjson sexpdata six setuptools paramiko rapidfuzz
     # ]))
 
-    nerdfonts
+    nerd-fonts
     pandoc
 
     neovim
