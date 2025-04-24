@@ -87,7 +87,7 @@
       (builtins.getFlake "github:helix-editor/helix/0a4432b104099534f7a25b8ea4148234db146ab6")
       .packages.${pkgs.system}.default;
 
-    emacs = pkgs.emacs29-pgtk; # can uncomment/use emacs-30-pgtk above
+    emacs = pkgs.emacs30-pgtk; # can uncomment/use emacs-30-pgtk above
     emacs-lsp-booster = pkgs.emacs-lsp-booster;
 
     nerd-fonts = pkgs.nerd-fonts.jetbrains-mono;
