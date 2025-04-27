@@ -1,0 +1,9 @@
+# https://garnix.io/docs/yaml_config
+builds:
+  exclude: []
+  include:
+    - nixosConfigurations.framework_13_amd_7840u
+    # - nixosConfigurations.framework_13_intel_i7-1165g7
+    # - nixosConfigurations.dell_xps_15_9550_intel_i7-6700hq_and_nvidia_gtx-960m
+    # - nixosConfigurations.qemu
+    # - packages.x86_64-linux.iso
