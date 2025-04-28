@@ -3,6 +3,7 @@
   grim,
   slurp,
   swappy,
+  wf-recorder,
   wl-clipboard,
   xdg-utils,
   ...
@@ -13,6 +14,7 @@
     grim = pkgs.grim;
     slurp = pkgs.slurp;
     swappy = pkgs.swappy;
+    wf-recorder = pkgs.wf-recorder;
     wl-clipboard = pkgs.wl-clipboard;
     xdg-utils = pkgs.xdg-utils;
   };
@@ -21,6 +23,7 @@
     grim
     slurp
     swappy
+    wf-recorder
     wl-clipboard
     # TODO: clipboard history
     xdg-utils
