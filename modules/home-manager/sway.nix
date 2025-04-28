@@ -34,6 +34,13 @@ in
     polkit_gnome
   ];
 
+  # Fixes nixos/services.gvfs: 'pkexec not found' when nautilus uses
+  # gvfsd-admin, e.g. when using `admin:/`.
+  # https://github.com/NixOS/nixpkgs/issues/373718#issuecomment-2591919755
+  systemd.user.settings.Manager.DefaultEnvironment = {
+    PATH = "/run/wrappers/bin:/etc/profiles/per-user/%u/bin:/nix/var/nix/profiles/default/bin:/run/current-system/sw/bin:$PATH";
+  };
+
   ### SERVICES
   services.gammastep = {
     # Still testing if this is a battery drain.
