@@ -1,6 +1,20 @@
 {
   description = "NixOS and home-manager configuration";
 
+  # Caches
+  nixConfig = {
+    extra-substituters = [
+      "https://cache.garnix.io"
+      "https://nix-community.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      # https://garnix.io/docs/caching
+      "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+      # https://app.cachix.org/cache/nix-community
+      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+    ];
+  };
+
   # For stable with unstable packages [1]
   # For totally unstable packages [2]
 

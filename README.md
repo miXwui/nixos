@@ -8,6 +8,37 @@ To be stored in `$XDG_NIXOS_DIR/`.
 
 ## Building
 
+### Garnix
+
+We're using [Garnix](https://garnix.io/) to build and cache remotely, in the \~C L O U D\~.
+
+[Cachix](https://www.cachix.org) is also used.
+In `flake.nix`:
+
+```nix
+# Caches
+nixConfig = {
+  extra-substituters = [
+    "https://cache.garnix.io"
+    "https://nix-community.cachix.org"
+  ];
+  extra-trusted-public-keys = [
+    # https://garnix.io/docs/caching
+    "cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g="
+    # https://app.cachix.org/cache/nix-community
+    "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+  ];
+};
+```
+
+So builds can pull from the Garnix/Cachix caches.
+
+Note that it stores a single nix store and cache among users:/
+<https://discourse.nixos.org/t/a-common-public-nix-cache/26998>/
+Unless on a paid plan, and requested to be made private.
+
+Testing, maybe switch over to GitHub Actions to [Cachix](https://www.cachix.org/).
+
 ### Rebuild
 
 `sudo nixos-rebuild switch --flake .#framework_13_amd_7840u`
@@ -54,6 +85,45 @@ nix-env --delete-generations +5 --dry-run
 ```
 
 Also `(sudo) nix store gc` and `nix store optimise`.
+
+### Rebuild/regenerate systemd-boot from another partition
+
+The relevant boot files are in `/boot/EFI/nixos` and `/boot/loader/entries`.
+
+NixOS rebuilding will wipe/regenerate the files in those folders.
+So if two NixOS partitions are on the same drive that use the same EFI partition, then they will overwrite each other.
+
+One can back up those folders and manually copy the relevant files back after each build. There should be a better solution...
+
+To build from another NixOS partition to regenerate the boot files for that installation:
+
+1. Mount your root and EFI partition:
+
+    ```bash
+    sudo mount /dev/<root-partition> /mnt
+    sudo mount /dev/<efi-partition> /mnt/boot
+    ```
+
+2. Chroot into your system:
+
+    ```bash
+    sudo nixos-enter
+    ```
+
+3. Copy `resolv.conf` to ensure DNS hostnames can be resolved:
+
+    ```bash
+    sudo cp /etc/resolv.conf /mnt/etc/resolv.conf
+    ```
+
+    <https://github.com/NixOS/nixpkgs/issues/39665#issuecomment-856233692>
+
+4. Rebuild your system, which will regenerate the files in /boot/EFI/nixos`:
+
+    ```bash
+    cd /home/mwu
+    nixos-rebuild boot --flake nixos/.#framework_13_amd_7840u
+    ```
 
 ### Remove a directory in Nix store
 
