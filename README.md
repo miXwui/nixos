@@ -268,6 +268,12 @@ echo [0-4] | sudo tee /sys/class/drm/card1-eDP-1/amdgpu/panel_power_savings
 
 Currently automatically set by `TLP` or `power-profiles-daemon`.
 
+#### Restart touchpad if clicking/moving doesn't work
+
+```sh
+sudo modprobe -r i2c_hid_acpi && sudo modprobe i2c_hid_acpi
+```
+
 ## Keyring
 
 * [`hosts/base.nix`](./hosts/base.nix)
