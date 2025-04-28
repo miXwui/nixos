@@ -198,6 +198,10 @@ in
 nix-search <package name>
 ```
 
+### Launch a Nix shell with package
+
+`nix-shell -p git`
+
 ## Keyboard
 
 The internal keyboard is disabled by default, and [`keyd`](https://github.com/rvaiya/keyd) intercepts the internal keyboard presses [remapped to a more ergonomic "split" layout with thumb modifiers](https://community.frame.work/t/guide-a-more-ergonomic-keyboard-layout-symmetric-staggered-qwerty-us-ansi-framework-13/45150).
