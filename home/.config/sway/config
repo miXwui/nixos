@@ -408,7 +408,7 @@ bindsym --locked XF86MonBrightnessUp exec ~/.config/sway/scripts/brightness.sh u
 bindsym --locked XF86MonBrightnessDown exec ~/.config/sway/scripts/brightness.sh down
 
 # Media keys
-bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioPlay exec ~/.config/sway/scripts/play-pause.sh
 bindsym --locked XF86AudioNext exec playerctl next
 bindsym --locked XF86AudioPrev exec playerctl previous
 
