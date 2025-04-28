@@ -95,6 +95,7 @@ in
   home.shellAliases = {
     # Git
     ga = "git add";
+    gb = "git branch";
     gc = "git commit";
     gco = "git checkout";
     gcp = "git cherry-pick";
