@@ -86,6 +86,45 @@ nix-env --delete-generations +5 --dry-run
 
 Also `(sudo) nix store gc` and `nix store optimise`.
 
+### Rebuild/regenerate systemd-boot from another partition
+
+The relevant boot files are in `/boot/EFI/nixos` and `/boot/loader/entries`.
+
+NixOS rebuilding will wipe/regenerate the files in those folders.
+So if two NixOS partitions are on the same drive that use the same EFI partition, then they will overwrite each other.
+
+One can back up those folders and manually copy the relevant files back after each build. There should be a better solution...
+
+To build from another NixOS partition to regenerate the boot files for that installation:
+
+1. Mount your root and EFI partition:
+
+    ```bash
+    sudo mount /dev/<root-partition> /mnt
+    sudo mount /dev/<efi-partition> /mnt/boot
+    ```
+
+2. Chroot into your system:
+
+    ```bash
+    sudo nixos-enter
+    ```
+
+3. Copy `resolv.conf` to ensure DNS hostnames can be resolved:
+
+    ```bash
+    sudo cp /etc/resolv.conf /mnt/etc/resolv.conf
+    ```
+
+    <https://github.com/NixOS/nixpkgs/issues/39665#issuecomment-856233692>
+
+4. Rebuild your system, which will regenerate the files in /boot/EFI/nixos`:
+
+    ```bash
+    cd /home/mwu
+    nixos-rebuild boot --flake nixos/.#framework_13_amd_7840u
+    ```
+
 ### Remove a directory in Nix store
 
 `nix store delete /nix/store/path`
