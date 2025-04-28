@@ -2,6 +2,7 @@
   config,
   pkgs,
   xdg_nixos,
+  devenv,
   filezilla,
   zellij,
   ...
@@ -30,12 +31,14 @@ let
 in
 {
   _module.args = {
+    devenv = pkgs.devenv;
     filezilla = pkgs.filezilla;
     zellij = pkgs.zellij;
     # zellij = zellij-unreleased;
   };
 
   home.packages = [
+    devenv
     filezilla
     zellij
   ];
