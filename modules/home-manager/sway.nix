@@ -118,13 +118,18 @@ in
 
     # gtklock modules
     "${config.xdg.configHome}/gtklock/config.ini" = {
-      text = builtins.replaceStrings [ "@MODULES@" ] [
-        "${gtklock-userinfo}/lib/gtklock/userinfo-module.so;${gtklock-powerbar}/lib/gtklock/powerbar-module.so;${gtklock-playerctl}/lib/gtklock/playerctl-module.so"
-      ] (builtins.readFile ../../home/.config/gtklock/config.ini);
+      text =
+        builtins.replaceStrings
+          [ "@MODULES@" ]
+          [
+            "${gtklock-userinfo}/lib/gtklock/userinfo-module.so;${gtklock-powerbar}/lib/gtklock/powerbar-module.so;${gtklock-playerctl}/lib/gtklock/playerctl-module.so"
+          ]
+          (builtins.readFile ../../home/.config/gtklock/config.ini);
     };
 
     # hyprlock
-    "${config.xdg.configHome}/hypr".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/hypr";
+    "${config.xdg.configHome}/hypr".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/hypr";
 
     # Wallpapers
     "${config.xdg.userDirs.extraConfig.XDG_WALLPAPERS_DIR}" = {
@@ -133,9 +138,11 @@ in
     };
 
     # Waybar
-    "${config.xdg.configHome}/waybar".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/waybar";
+    "${config.xdg.configHome}/waybar".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/waybar";
 
     # wlogout
-    "${config.xdg.configHome}/wlogout".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wlogout";
+    "${config.xdg.configHome}/wlogout".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wlogout";
   };
 }
