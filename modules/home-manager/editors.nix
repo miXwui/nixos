@@ -84,8 +84,8 @@
     # - https://github.com/helix-editor/helix/issues/3134
     # - https://github.com/helix-editor/helix/pull/11164
     helix =
-      (builtins.getFlake "github:helix-editor/helix/0a4432b104099534f7a25b8ea4148234db146ab6")
-      .packages.${pkgs.system}.default;
+      (builtins.getFlake "github:helix-editor/helix/e7ac2fcdecfdbf43a4f772e7f7c163b43b3d0b9b")
+      .packages.${pkgs.system}.default; # 25.01.1
 
     emacs = pkgs.emacs30-pgtk; # can uncomment/use emacs-30-pgtk above
     emacs-lsp-booster = pkgs.emacs-lsp-booster;
