@@ -332,7 +332,7 @@ in
   ## Power management
   software_power_management = {
     enable = true;
-    powerUtil = "tlp"; # tlp or ppd
+    powerUtil = "ppd"; # tlp or ppd
   };
 
   ## GeoClue
