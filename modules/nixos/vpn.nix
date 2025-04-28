@@ -13,6 +13,8 @@ in
 
   environment.systemPackages = with pkgs; [
     pia_manual-connections
+    wireguard-tools # required for pia_manual-connections
+    
     mullvad
     mullvad-vpn
     mullvad-browser
