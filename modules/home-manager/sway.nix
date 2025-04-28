@@ -18,6 +18,7 @@ in
   home.packages = with pkgs; [
     sway.pkg
     waybar
+    yambar
 
     # Lock programs
     swaylock
@@ -140,6 +141,10 @@ in
     # Waybar
     "${config.xdg.configHome}/waybar".source =
       config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/waybar";
+
+    # yambar
+    "${config.xdg.configHome}/yambar".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/yambar";
 
     # wlogout
     "${config.xdg.configHome}/wlogout".source =
