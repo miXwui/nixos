@@ -40,6 +40,7 @@ let
   # Global programs
   gProgs = {
     coreutils = pkgs.coreutils;
+    libnotify = pkgs.libnotify;
     logger = pkgs.logger;
     ppd = config.software_ppd.package;
     playerctl = pkgs.playerctl;
@@ -464,6 +465,7 @@ in
 
     # Global programs
     coreutils
+    libnotify
     logger
 
     # Utilities

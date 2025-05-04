@@ -18,6 +18,7 @@ let
 
   # GProgs
   coreutils = gProgs.coreutils;
+  libnotify = gProgs.libnotify;
   logger = gProgs.logger;
   playerctl = gProgs.playerctl;
 in
@@ -34,6 +35,7 @@ in
 
     # Global programs
     coreutils = coreutils;
+    libnotify = libnotify;
     logger = logger;
     playerctl = playerctl;
   };
