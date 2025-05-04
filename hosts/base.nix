@@ -91,6 +91,7 @@ in
     ./common/software_sddm.nix
     ./common/boot_debug.nix
     ./common/suspend-then-hibernate.nix
+    ./common/backup.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     # Custom packages
@@ -418,8 +419,28 @@ in
       google_api_key = {
         owner = config.main-user.username;
       };
+      hetzner_storage_box_server = {
         owner = config.main-user.username;
       };
+      hetzner_storage_box_account = {
+        owner = config.main-user.username;
+      };
+      hetzner_storage_box_account_password = {
+        owner = config.main-user.username;
+      };
+      hetzner_storage_box_sub_account = {
+        owner = config.main-user.username;
+      };
+      hetzner_storage_box_sub_account_password = {
+        owner = config.main-user.username;
+      };
+      hetzner_storage_box_sub_account_password_rclone_obscured = {
+        owner = config.main-user.username;
+      };
+      hetzner_storage_box_restic_repo = {
+        owner = config.main-user.username;
+      };
+      hetzner_storage_box_restic_repo_framework13_password = {
         owner = config.main-user.username;
       };
     };

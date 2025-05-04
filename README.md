@@ -894,3 +894,140 @@ home.activation = {
   '';
 };
 ```
+
+## 3-2-1 Backup
+
+### [Restic](https://restic.net/) with [Hetzner Storage Box](https://www.hetzner.com/storage/storage-box/)
+
+Modules are in `hosts/common/backup.nix` and `modules/home-manager/backup.nix`.
+
+Requires a rebuild since secrets are pulled from `sops-nix` and files need to be updated/regenerated.
+
+Since NixOS 23.11, the restic service creates wrapper scripts for each job. The script is name `restic-$job`:
+<https://www.arthurkoziel.com/restic-backups-b2-nixos/> — thanks!
+
+Check current snapshots on remote:
+
+```sh
+sudo restic-hetzner-storage-box snapshots
+```
+
+Or run other `restic` commands:
+
+```sh
+sudo restic-hetzner-storage-box <command>
+```
+
+E.g. updating the password:
+
+<https://restic.readthedocs.io/en/stable/070_encryption.html>
+
+```sh
+sudo restic-hetzner-storage-box key <list|add|remove|passwd>
+```
+
+#### Connect with SFTP
+
+```sh
+sftp -P <22 or 23> <username>@<username>.<server>
+```
+
+1. Setup storage box with main account and save credentials.
+2. SFTP into box and create a folder.
+3. Create a sub-account
+4. Enable these options in sub-account:
+
+* [x] Allow SSH
+* [x] External reachability
+
+<https://docs.hetzner.com/storage/storage-box/backup-space-ssh-keys/>
+
+Use port 23 for better performance, apparently.
+
+Copy public key over to storage box:
+
+```sh
+cat ~/.ssh/id_rsa.pub | ssh -p23 <account>@<account>.<server> install-ssh-key
+```
+
+[Preparing a new repo - SFTP](https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html#sftp)
+
+```sh
+restic -r sftp:user@host:/path/to/restic-repo init
+```
+
+##### Backing up
+
+Use port 23 which is apparently faster on Hetzner.
+
+<https://restic.readthedocs.io/en/stable/030_preparing_a_new_repo.html>
+
+```sh
+restic -r sftp://user@host:23/path/to/restic-repo --verbose backup ~/work
+```
+
+#### Using Rclone
+
+On Hetzner Storage Box:
+
+* If using a sub-account, ensure the sub-account URL is used.
+* Below is for WebDAV. If using, ensure that WebDAV is enabled on the box.
+
+##### Example Rclone config file
+
+```text
+rclone config create hetzner_webdav \
+        webdav \
+        url https://<sub-account>.<server> \
+        user <sub-account> \
+        vendor other \
+        pass $(rclone obscure <repo password>)
+```
+
+###### Init repo
+
+Will init if it doesn't exist, else no-op.
+
+```sh
+restic -r rclone:hetzner_webdav:/srv/restic-repo init
+```
+
+###### Backup a directory
+
+```sh
+restic -r rclone:hetzner_webdav:/srv/restic-repo --verbose backup ~/
+```
+
+##### Connect with bare config
+
+Where Rclone config is just:
+
+```text
+[hetzner_storage_box]
+type = webdav
+```
+
+Command:
+
+```sh
+RESTIC_PASSWORD="REPO-PASSWORD" restic --password-command "cat /path/to/password/file" -o rclone.args="serve restic --stdio --webdav-url=https://<sub-account>.<server> --webdav-user=<sub-account> --webdav-vendor=other --webdav-pass=<sub-account password with `rclone obscure`> --verbose" -r rclone:hetzner_storage_box:/path/to/restic-repo backup ~/
+
+restic --password-command "cat /path/to/password/file" -o rclone.args="serve restic --stdio --webdav-url=https://$(cat /path/to/sub-account/file).$(cat /path/to/server/file) --webdav-user=$(cat /path/to/sub-account/file) --webdav-vendor=other --webdav-pass="$(rclone obscure $(cat /path/to/sub-account/password))" --verbose" -r rclone:hetzner_storage_box:/path/to/restic-repo backup ~/
+```
+
+#### Restoring
+
+##### Restic mount
+
+```sh
+mkdir /mnt/restic
+restic -r sftp:user@host:/path/to/restic-repo mount /mnt/restic
+```
+
+##### Restore entire repo/backup
+
+Restore the latest snapshot to root `/`, which restores directories such as `/var/lib` and `/home/<main-user>`.
+
+```sh
+sudo restic-hetzner-storage-box restore --target / latest
+```
