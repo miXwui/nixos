@@ -291,9 +291,6 @@ in
 
       # Global programs
       gProgs = gProgs;
-
-      # Configs
-      sops = config.sops;
     };
     users = {
       "mwu" = import ./home.nix;
@@ -303,6 +300,10 @@ in
     # Alternatively, this can be removed/set to false so Home Manager is isolated.
     # https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
     useGlobalPkgs = true;
+
+    sharedModules = [
+      inputs.sops-nix.homeManagerModules.sops
+    ];
   };
 
   ### ENVIRONMENT VARIABLES ###
@@ -416,10 +417,8 @@ in
       google_api_key = {
         owner = config.main-user.username;
       };
-      ssh_private_key = {
         owner = config.main-user.username;
       };
-      ssh_public_key = {
         owner = config.main-user.username;
       };
     };
