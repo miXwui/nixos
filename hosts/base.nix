@@ -419,28 +419,49 @@ in
       google_api_key = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_server = {
+
+      # Hetzner Storage Box main account
+      hetzner-storage-box_server = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_account = {
+      hetzner-storage-box_account = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_account_password = {
+      hetzner-storage-box_account-password = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_sub_account = {
+
+      # Framework 13
+      hetzner-storage-box_framework-13_sub-account = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_sub_account_password = {
+      hetzner-storage-box_framework-13_sub-account-password = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_sub_account_password_rclone_obscured = {
+      hetzner-storage-box_framework-13_sub-account-password-rclone-obscured = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_restic_repo = {
+      hetzner-storage-box_framework-13_restic-repo = {
         owner = config.main-user.username;
       };
-      hetzner_storage_box_restic_repo_framework13_password = {
+      hetzner-storage-box_framework-13_restic-repo-password = {
+        owner = config.main-user.username;
+      };
+
+      # Sandisk Portable SSD 2TB
+      hetzner-storage-box_sandisk-portable-ssd-2tb_sub-account = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_sub-account-password = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_sub-account-password-rclone-obscured = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_restic-repo = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_restic-repo-password = {
         owner = config.main-user.username;
       };
     };

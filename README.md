@@ -1021,6 +1021,19 @@ restic --password-command "cat /path/to/password/file" -o rclone.args="serve res
 
 ```sh
 mkdir /mnt/restic
+```
+
+###### Mount using NixOS generated wrapper script
+
+Use `--allow-other` to be able to let other users and GUI apps like Nautilus to access the FUSE mount.
+
+```sh
+sudo restic-hetzner-storage-box mount --allow-other /mnt/restic
+```
+
+###### Over SFTP
+
+```sh
 restic -r sftp:user@host:/path/to/restic-repo mount /mnt/restic
 ```
 
@@ -1030,4 +1043,35 @@ Restore the latest snapshot to root `/`, which restores directories such as `/va
 
 ```sh
 sudo restic-hetzner-storage-box restore --target / latest
+```
+
+##### Restore something specific to a folder
+
+```sh
+sudo restic-hetzner-storage-box restore <snapshot-id> --target /tmp/restore-work --include /work/foo
+```
+
+See: <https://forum.restic.net/t/performance-differences-between-restic-dump-mount-restore/3878>
+
+`restore` seems way faster than `mount` (with rsync) and `dump`.
+
+#### Removing files from snapshots
+
+```sh
+sudo restic-hetzner-storage-box rewrite --exclude=file1 --exclude=file2 --dry-run
+```
+
+This will save new snapshots marked with `rewrite` and keep old snapshots.
+To also remove old snapshots, Use the `--forget` flag.
+And to remove unreferenced data, run `restic prune`
+(advisable to run `restic check` afterwards).
+
+See for more details: <https://restic.readthedocs.io/en/stable/045_working_with_repos.html#removing-files-from-snapshots>
+
+### Rsync
+
+Copy from source to destination:
+
+```sh
+rsync -av --info=progress2 /src/ /dest/
 ```
