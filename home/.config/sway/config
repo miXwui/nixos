@@ -394,6 +394,7 @@ mode "move" {
 }
 bindsym $mod+m mode "move"
 
+### Display
 # Toggle dpms all
 # From https://github.com/swaywm/sway/issues/2910#issuecomment-476544900
 #bindsym --locked $mod+t exec swayidle -w \
@@ -403,6 +404,9 @@ bindsym $mod+m mode "move"
 # Hotkey to toggle only the internal display off/on. Using `output * dpms toggle`
 # may result in error "Cannot apply toggle to all outputs".
 bindsym --locked $mod+t exec swaymsg 'output eDP-1 dpms toggle'
+
+# Rotate display 90 degrees clockwise
+bindsym --locked $mod+Shift+r exec swaymsg 'output eDP-1 transform 90 clockwise'
 
 #
 ## Function Keys:
