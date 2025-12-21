@@ -371,15 +371,6 @@ in
     # }
   };
 
-  # NOTE: Fixes `Unit tray.target not found` for `udiskie`.
-  # See: https://github.com/nix-community/home-manager/issues/2064#issuecomment-887300055
-  systemd.user.targets.tray = {
-    Unit = {
-      Description = "Home Manager System Tray";
-      Requires = [ "graphical-session-pre.target" ];
-    };
-  };
-  # /endfix
 
   ### MISCELLANEOUS ###
   # Let Home Manager install and manage itself.
