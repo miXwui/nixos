@@ -216,7 +216,7 @@ This is taken care of in [hardware_input-laptop.nix](common/hardware_input-lapto
 
 Here is a breakdown of the manual steps:
 
-1. Install `libinput` (`services.libinput.enable = true`).
+1. Install `libinput`.
 2. Find the input device paths from `libinput list-devices`.
 
 or
