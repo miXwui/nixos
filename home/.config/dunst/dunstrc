@@ -313,6 +313,24 @@
     # Icon for notifications with critical urgency, uncomment to enable
     #default_icon = /path/to/icon
 
+[restic_backup_normal]
+desktop_entry = restic_backup
+background = "#629000aa"
+foreground = "#d3d3d3"
+frame_color = "#d3d3d3aa"
+timeout = 0
+set_transient = no
+msg_urgency = normal
+
+[restic_backup_critical]
+desktop_entry = restic_backup
+background = "#900000aa"
+foreground = "#d3d3d3"
+frame_color = "#d3d3d3aa"
+timeout = 0
+set_transient = no
+msg_urgency = critical
+
 [low_battery]
 desktop_entry = low_battery
 background = "#e93002aa"

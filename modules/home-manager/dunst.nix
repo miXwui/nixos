@@ -2,7 +2,6 @@
   config,
   pkgs,
   dunst,
-  libnotify,
   fuzzel,
   xdg-utils,
   ...
@@ -11,12 +10,10 @@
 {
   _module.args = {
     dunst = pkgs.dunst;
-    libnotify = pkgs.libnotify; # for notify-send
   };
 
   home.packages = [
     dunst
-    libnotify
   ];
 
   home.file = {

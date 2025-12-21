@@ -1,9 +1,9 @@
 {
   config,
   pkgs,
+  inputs,
   xdg_nixos_dir,
   sway,
-  sops,
   gProgs,
   xdg-utils,
   ...
@@ -18,6 +18,7 @@ let
 
   # GProgs
   coreutils = gProgs.coreutils;
+  libnotify = gProgs.libnotify;
   logger = gProgs.logger;
   playerctl = gProgs.playerctl;
 in
@@ -34,15 +35,32 @@ in
 
     # Global programs
     coreutils = coreutils;
+    libnotify = libnotify;
     logger = logger;
     playerctl = playerctl;
-
-    # sops
-    sops = sops;
   };
 
   ### IMPORTS ###
-  imports = [ ../modules/home-manager ];
+  imports = [
+    ../modules/home-manager
+    inputs.sops-nix.homeManagerModules.sops
+  ];
+
+  ### SOPS ###
+  sops = {
+    defaultSopsFile = "${xdg_nixos_dir}/secrets/secrets.yaml";
+    defaultSopsFormat = "yaml";
+    validateSopsFiles = false; # to allow the file to be outside the git repo/nix store
+
+    age.keyFile = "${xdg_nixos_dir}/secrets/.config/sops/age/keys.txt";
+  };
+
+  sops = {
+    secrets = {
+      ssh_private_key = { };
+      ssh_public_key = { };
+    };
+  };
 
   ### EXTRA ###
   # This value determines the Home Manager release that your configuration is
