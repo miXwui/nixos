@@ -116,17 +116,19 @@ focus output $ultrawide
 #
 # y position remains as the height of the top monitor.
 output $ultrawide   pos 0   0    scale 1
-output $framework13 pos 968 1440 scale 1.5
+output $framework13 pos 968 1440 scale 1.25
 
 # Cycles through fractional scales for $framework13
-set $scalekey $mod+equal
-set $scalekey0 output $framework13 pos -536 1440 scale 0.5 ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 0.5";  bindsym $scalekey $$scalekey1
-set $scalekey1 output $framework13 pos 592  1440 scale 1   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1";    bindsym $scalekey $$scalekey2
-set $scalekey2 output $framework13 pos 818  1440 scale 1.25; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.25"; bindsym $scalekey $$scalekey3
-set $scalekey3 output $framework13 pos 968  1440 scale 1.5 ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.5";  bindsym $scalekey $$scalekey4
-set $scalekey4 output $framework13 pos 1156 1440 scale 2   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 2";    bindsym $scalekey $$scalekey5
-set $scalekey5 output $framework13 pos 1344 1440 scale 3   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 3";    bindsym $scalekey $$scalekey0
-bindsym $scalekey $scalekey1
+set $scalekeyUp $mod+equal
+set $scalekeyDown $mod+plus
+set $scalekey0 output $framework13 pos -536 1440 scale 0.5 ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 0.5";  bindsym $scalekeyUp $$scalekey1; bindsym $scalekeyDown $$scalekey5
+set $scalekey1 output $framework13 pos 592  1440 scale 1   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1";    bindsym $scalekeyUp $$scalekey2; bindsym $scalekeyDown $$scalekey0
+set $scalekey2 output $framework13 pos 818  1440 scale 1.25; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.25"; bindsym $scalekeyUp $$scalekey3; bindsym $scalekeyDown $$scalekey1
+set $scalekey3 output $framework13 pos 968  1440 scale 1.5 ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 1.5";  bindsym $scalekeyUp $$scalekey4; bindsym $scalekeyDown $$scalekey2
+set $scalekey4 output $framework13 pos 1156 1440 scale 2   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 2";    bindsym $scalekeyUp $$scalekey5; bindsym $scalekeyDown $$scalekey3
+set $scalekey5 output $framework13 pos 1344 1440 scale 3   ; exec dunstify -h string:x-dunst-stack-tag:frac-scale "Scaled to 3";    bindsym $scalekeyUp $$scalekey0; bindsym $scalekeyDown $$scalekey4
+bindsym $scalekeyUp $scalekey3
+bindsym $scalekeyDown $scalekey1
 ###
 
 ### Disable laptop screen and fingerprint reader on lid close
