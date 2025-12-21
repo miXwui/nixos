@@ -378,11 +378,6 @@ in
       };
       # /endfix
     };
-
-    # mpd = {
-    #   enable = true;
-    #   musicDirectory = ;
-    # }
   };
 
 

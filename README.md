@@ -833,15 +833,15 @@ zellij_0-38 = pkgs.zellij.overrideAttrs (old: rec {
 
 ## Music
 
-Using [mpd](https://www.musicpd.org/) with [ncmpcpp](https://github.com/ncmpcpp/ncmpcpp)
+Using [mpd](https://www.musicpd.org/) with [rmpc](https://github.com/mierak/rmpc)
 
 [mpc](https://www.musicpd.org/clients/mpc/) is also installed.
 
 Has a lot of useful commands like `mpc stats`, `update`.
 
-### ncmpcpp cheatsheet
+### rmpc keybinds
 
-<https://pkgbuild.com/~jelle/ncmpcpp/>
+<https://rmpc.mierak.dev/next/configuration/keybinds/>
 
 ### Issues
 

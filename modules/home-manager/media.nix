@@ -7,7 +7,8 @@
 
   mpd,
   mpc,
-  ncmpcpp,
+  # ncmpcpp,
+  rmpc,
 
   asciinema,
   ffmpeg,
@@ -27,7 +28,8 @@ in
     mpc = pkgs.mpc-cli; # TODO: change to mpc once https://nixpk.gs/pr-tracker.html?pr=353272 is pushed through.
     # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/applications/audio/ncmpcpp/default.nix
     # `visualizerSupport` is disabled by default
-    ncmpcpp = pkgs.ncmpcpp.override { visualizerSupport = enableMusicVisualization; };
+    # ncmpcpp = pkgs.ncmpcpp.override { visualizerSupport = enableMusicVisualization; };
+    rmpc = pkgs.rmpc;
 
     asciinema = pkgs.asciinema;
     ffmpeg = pkgs.ffmpeg;
@@ -45,7 +47,8 @@ in
 
     mpd
     mpc
-    ncmpcpp
+    # ncmpcpp
+    rmpc
 
     asciinema
     ffmpeg
@@ -65,8 +68,8 @@ in
   };
 
   programs.ncmpcpp = {
-    enable = true;
-    package = ncmpcpp;
+    # enable = true;
+    # package = ncmpcpp;
     settings =
       {
         connected_message_on_startup = "no";
