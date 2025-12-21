@@ -25,6 +25,12 @@ in
     ### libinput ###
     services.libinput = {
       enable = true;
+      touchpad = {
+        tappingDragLock = false;
+      };
+      mouse = {
+        tappingDragLock = false;
+      };
     };
 
     ### keyd ###

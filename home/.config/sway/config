@@ -163,6 +163,17 @@ exec swayidle -w \
 #       middle_emulation enabled
 #   }
 #
+
+### Drag lock issue start
+# Drag lock was accidentally enabled to sticky by default in Sway 1.11.
+# Reverted in 1.11.1 and this block can be removed on release.
+# https://github.com/swaywm/sway/issues/8758
+# Also disabled in hardware_input-laptop:
+# `services.libinput.touchpad.tappingDragLock = false;`
+# `services.libinput.mouse.tappingDragLock = false;`
+input type:touchpad drag_lock disable
+### /end
+
 input "2362:628:PIXA3854:00_093A:0274_Touchpad" click_method clickfinger
 
 # You can get the names of your inputs by running: swaymsg -t get_inputs
