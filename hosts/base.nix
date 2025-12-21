@@ -97,6 +97,7 @@ in
     # Custom packages
     ../modules/nixos/drm_amd.nix
     ../modules/nixos/vpn.nix
+    ../modules/nixos/utils.nix
   ];
 
   ### SOPS ###
