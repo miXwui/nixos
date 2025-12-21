@@ -134,11 +134,19 @@ in
     zpf = "zellij pipe -p filepicker";
 
     # Misc
+    ## Diffs
     dfs = "$XDG_SCRIPTS_DIR/diff-so-fancy.sh";
+
+    ## Calc
     nb = "numbat";
+
+    ## Clipboard
     wlc = "wl-copy";
+
+    ## Sway
     yidle = "${config.xdg.configHome}/sway/scripts/get-idle-inhibitors.sh";
 
+    ## Fun
     sl = "sl -e";
   };
 
@@ -168,7 +176,8 @@ in
     # folder.
 
     # Wireshark
-    "${config.xdg.configHome}/wireshark".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wireshark";
+    "${config.xdg.configHome}/wireshark".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wireshark";
   };
 
   ### THEMES ###
