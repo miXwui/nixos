@@ -9,6 +9,7 @@
     ./dunst.nix
     ./fish.nix
     ./foot.nix
+    ./wezterm.nix
     # ./contour.nix #https://github.com/NixOS/nixpkgs/issues/345752
     ./fuzzel.nix
     ./files.nix
