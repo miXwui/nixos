@@ -1,4 +1,8 @@
-{ pkgs, john, ... }:
+{
+  pkgs,
+  john,
+  ...
+}:
 let
   # Needs bsddb3, but newer berkeleydb for `bitcoin2john.py` on Python 3.12?
   # See:
@@ -19,6 +23,8 @@ let
     #   (pkgs.python3.withPackages (ps: with ps; [ berkeleydb ]))
     # ];
   });
+
+  bitwarden-desktop = pkgs.bitwarden-desktop;
 in
 {
   _module.args = {
@@ -31,15 +37,10 @@ in
     john
 
     # Bitwarden
-
-    # Still can't copy to clipboard on Sway as of version 2024.9.0.
+    # Needs `wl-clipboard-rs`. See `modules/home-manager/wayland-utils.nix`.
     bitwarden-desktop
-
+    bitwarden-cli
     # Creates a `/home/mwu/.config/Bitwarden CLI` folder
     # and `/home/mwu/.config/Bitwarden CLI/data.json` file.
-    bitwarden-cli
-
-    # goldwarden
-    # pinentry-all
   ];
 }
