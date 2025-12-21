@@ -339,6 +339,7 @@ frame_color = "#d3d3d3aa"
 history_ignore = true
 timeout = 0
 set_transient = no
+fullscreen = show
 
 [swayidle]
 desktop_entry = swayidle
@@ -354,18 +355,21 @@ foreground = "#d3d3d3"
 frame_color = "#d3d3d3aa"
 set_transient = yes
 format = "<b><i>%s</i></b>\n%b"
+fullscreen = show
 
 [volume]
 desktop_entry = volume
 highlight = "#d3d3d3"
 history_ignore = true
 set_transient = yes
+fullscreen = show
 
 [brightness]
 desktop_entry = brightness
 highlight = "#d3d3d3"
 history_ignore = true
 set_transient = yes
+fullscreen = show
 
 [wl-clipboard]
 desktop_entry = wl-paste
