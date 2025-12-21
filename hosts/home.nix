@@ -148,6 +148,9 @@ in
     ## Files
     filetypes = "$XDG_SCRIPTS_DIR/list-all-filetypes-in-dir.sh";
 
+    ## Nix
+    nix-clean = "$XDG_SCRIPTS_DIR/nix-clean.sh";
+
     ## Fun
     sl = "sl -e";
   };
