@@ -98,6 +98,7 @@ in
     ../modules/nixos/drm_amd.nix
     ../modules/nixos/vpn.nix
     ../modules/nixos/utils.nix
+    ../modules/nixos/development.nix
   ];
 
   ### SOPS ###
