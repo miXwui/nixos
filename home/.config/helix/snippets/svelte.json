@@ -1,0 +1,22 @@
+{
+  "Script Lang TS": {
+    "prefix": "script",
+    "body": ["<script lang=\"ts\">$1</script>", "$2"],
+    "description": "Add TypeScript script block"
+  },
+  "Script Module Lang TS": {
+    "prefix": "scriptm",
+    "body": ["<script context=\"module\" lang=\"ts\">$1</script>", "$2"],
+    "description": "Add Module TypeScript script block"
+  },
+  "CSS Lang PostCSS": {
+    "prefix": "style",
+    "body": ["<style lang=\"postcss\">$1</style>", "$2"],
+    "description": "Add PostCSS style block"
+  },
+  "Arrow Function": {
+    "prefix": "af",
+    "body": ["const $1 = ($2) => {$3}", "$4"],
+    "description": "Add Arrow Function"
+  }
+}

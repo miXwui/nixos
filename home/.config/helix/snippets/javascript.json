@@ -1,0 +1,7 @@
+{
+  "Arrow Function": {
+    "prefix": "af",
+    "body": ["const $1 = ($2) => {$3}", "$4"],
+    "description": "Add Arrow Function"
+  }
+}

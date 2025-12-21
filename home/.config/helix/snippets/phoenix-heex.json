@@ -1,0 +1,267 @@
+{
+  "key": {
+    "prefix": "k",
+    "body": ["$1: $1"],
+    "description": "key: key"
+  },
+  "key_string": {
+    "prefix": "ks",
+    "body": ["\"$1\" => $1"],
+    "description": "key_string => key"
+  },
+  "io_puts": {
+    "prefix": "iop",
+    "body": ["IO.puts(\"${1:}\\n\")${0}"],
+    "description": "IO.puts()"
+  },
+  "io_inspect": {
+    "prefix": "ioi",
+    "body": [
+      "IO.inspect(${1:var}, label: \"${1:text} ($TM_FILENAME:$TM_LINE_NUMBER)\\n\", syntax_colors: IO.ANSI.syntax_colors())${0}"
+    ],
+    "description": "IO.inspect()"
+  },
+  "io_inspect_pipe": {
+    "prefix": "ioip",
+    "body": [
+      "|> IO.inspect(label: \"${1:text}\\n\", limit: :infinity, printable_limit: :infinity, syntax_colors: IO.ANSI.syntax_colors())${0}"
+    ],
+    "description": "Pipe into IO.inspect()"
+  },
+  "log_inspect": {
+    "prefix": "logi",
+    "body": ["Logger.info(\"$1: #{inspect($1, pretty: true)}\")"],
+    "description": "Log inspect"
+  },
+  "iex_pry": {
+    "prefix": "pry",
+    "body": ["require IEx; IEx.pry()"],
+    "description": "Require and add IEx.pry()"
+  },
+  "dbg_fn": {
+    "prefix": "dbgfn",
+    "body": ["dbg(__ENV__.function)"],
+    "description": "Display function with dbg"
+  },
+  "lv_module": {
+    "prefix": "lv",
+    "body": [
+      "defmodule App${1}Web.Live do",
+      "  use App${1}Web, :live_view",
+      "end"
+    ],
+    "description": "LiveView module"
+  },
+  "lv_mount": {
+    "prefix": "mount",
+    "body": [
+      "@impl true",
+      "def mount(_params, _session, socket) do",
+      "  socket = assign(socket, ${1:key}: ${2:value})",
+      "  {:ok, socket}",
+      "end"
+    ],
+    "description": "LiveView mount function"
+  },
+  "lv_rend": {
+    "prefix": "rend",
+    "body": [
+      "@impl true",
+      "def render(assigns) do",
+      "  ~H\"\"\"",
+      "  ${0}",
+      "  \"\"\"",
+      "end"
+    ],
+    "description": "LiveView render function"
+  },
+  "lv_handle_event": {
+    "prefix": "he",
+    "body": [
+      "@impl true",
+      "def handle_event(${1:event}, _, socket) do",
+      "  socket = assign(socket, ${2:key}: ${3:value})",
+      "  {:noreply, socket}",
+      "end"
+    ],
+    "description": "LiveView handle_event function"
+  },
+  "lv_handle_info": {
+    "prefix": "hi",
+    "body": [
+      "@impl true",
+      "def handle_info(${1:message}, socket) do",
+      "  socket = assign(socket, ${2:key}: ${3:value})",
+      "  {:noreply, socket}",
+      "end"
+    ],
+    "description": "LiveView handle_info function"
+  },
+  "lv_handle_params": {
+    "prefix": "hp",
+    "body": [
+      "@impl true",
+      "def handle_params(${1:params}, _url, socket) do",
+      "  {:noreply, apply_action(socket, socket.assigns.live_action, params)}",
+      "end",
+      "",
+      "defp apply_action(socket, :index, %{\"id\" => id} = _params) do",
+      "socket",
+      "|> assign(:some_assign, \"\")",
+      "end"
+    ],
+    "description": "LiveView handle_info function"
+  },
+  "lv_component": {
+    "prefix": "lvc",
+    "body": ["<.live_component", "module={${1:Module}}", "id={${2:@id}} />"],
+    "description": "LiveView component"
+  },
+  "heex_component": {
+    "prefix": "tag",
+    "body": ["<.$1>", "$2", "</.$1>"],
+    "description": "HEEx component start/end tag"
+  },
+  "heex_render_block": {
+    "prefix": "et",
+    "body": ["<%= $1 %>"],
+    "description": "<%= %> render block"
+  },
+  "heex_end_tag": {
+    "prefix": "eend",
+    "body": ["<% end %>$1"],
+    "description": "<% end %> end tag"
+  },
+  "heex_render_inspect": {
+    "prefix": "eins",
+    "body": ["<%= inspect($1) %>"],
+    "description": "<%= inspect() %> render inspect block"
+  },
+  "heex_form": {
+    "prefix": "form",
+    "body": [
+      "<.form let={f} for={@changeset} id=\"${1:some}-form\" phx-change=\"validate\" phx-submit=\"${2:save}\">",
+      "  ${0}",
+      "</.form>",
+      ""
+    ],
+    "description": "HEEx form"
+  },
+  "heex_input": {
+    "prefix": "input",
+    "body": [
+      "<input type=\"text\" name=\"${1}\" value=\"${2}\"",
+      "       placeholder=\"${3}\" />"
+    ],
+    "description": "LiveView text input"
+  },
+  "for": {
+    "prefix": "efor",
+    "body": ["<%= for ${1:item} <- @$1s do %>", "  $2", "<% end %>"],
+    "description": "HEEx for"
+  },
+  "heex_if": {
+    "prefix": "eif",
+    "body": ["<%= if $1 do %>", "  $2", "<% end %>"],
+    "description": "HEEx if"
+  },
+  "heex_if_else": {
+    "prefix": "eife",
+    "body": ["<%= if $1 do %>", "  $2", "<% else %>", "  $3", "<% end %>"],
+    "description": "HEEx if else"
+  },
+  "heex_else": {
+    "prefix": "eelse",
+    "body": ["<% else %>"],
+    "description": "HEEx else"
+  },
+  "heex_case": {
+    "prefix": "ecase",
+    "body": [
+      "<%= case @${1:var} do %>",
+      "<% $2 -> %>",
+      "$3",
+      "<% $4 -> %>",
+      "$5",
+      "<% end %>"
+    ],
+    "description": "EEx case"
+  },
+  "heex_cond": {
+    "prefix": "econd",
+    "body": [
+      "<%= cond @${1:var} do %>",
+      "<% $2 -> %>",
+      "$3",
+      "<% true -> %>",
+      "$4",
+      "<% end %>"
+    ],
+    "description": "EEx cond"
+  },
+  "heex_form_for": {
+    "prefix": "eff",
+    "body": [
+      "<%= form_for @${1:changeset}, ${2:url}, ${3:[]}, fn f -> %>",
+      "  $4",
+      "<% end %>"
+    ],
+    "description": "HEEx form_for"
+  },
+  "heex_error_tag": {
+    "prefix": "eer",
+    "body": ["<%= error_tag ${1:f}, :${2:field} %>"],
+    "description": "HEEx form error tag"
+  },
+  "heex_label": {
+    "prefix": "ela",
+    "body": ["<%= label ${1:f}, :${2:field}, \"${3:Text}\" %>"],
+    "description": "HEEx form label"
+  },
+  "heex_select": {
+    "prefix": "esel",
+    "body": [
+      "<%= select ${1:f}, :${2:field}, [\"${3:option 1}\", \"${4:option 2}\"] %>"
+    ],
+    "description": "HEEx form select"
+  },
+  "heex_submit": {
+    "prefix": "esub",
+    "body": [
+      "<%= submit \"${1:Submit Text}\", phx_disable_with: \"${2:Submit Text...}\" %>"
+    ],
+    "description": "HEEx form submit"
+  },
+  "heex_submit_c": {
+    "prefix": "esubc",
+    "body": [
+      "<%= submit ${1:Text}, class: \"${2:btn btn-primary}\", phx_disable_with: \"${3:Submit Text...}\" %>"
+    ],
+    "description": "HEEx form submit with class"
+  },
+  "heex_text_input": {
+    "prefix": "eti",
+    "body": ["<%= text_input ${1:f}, :${2:field} %>"],
+    "description": "HEEx form text input"
+  },
+  "heex_hidden_input": {
+    "prefix": "ehi",
+    "body": ["<%= hidden_input ${1:f}, :${2:field} %>"],
+    "description": "HEEx form hidden input"
+  },
+  "heex_password_input": {
+    "prefix": "epi",
+    "body": ["<%= password_input ${1:f}, :${2:field} %>"],
+    "description": "HEEx form password input"
+  },
+  "heex_option": {
+    "prefix": "option",
+    "body": ["<option value=\"${1}\">${0}</option>"],
+    "description": "HEEx option"
+  },
+  "heex_datalist": {
+    "prefix": "data",
+    "body": ["<datalist id=\"${1}\">", "  ${0}", "</datalist>", ""],
+    "description": "HEEx datalist"
+  }
+}
