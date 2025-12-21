@@ -28,6 +28,12 @@ exec systemctl start --user udiskie.service
 # exec gammastep # does gammastep need to be here with it being a service in
 # home manager (sway.nix module)?
 # KDE Connect
+exec dbus-update-activation-environment PATH # Copies the Sway session's PATH
+# (including /run/current-system/sw/bin) into the D-Bus activation environment
+# used for launching services such as kdeconnect-settings.
+# Needed so D-Bus-activated programs (e.g. when pairing opens
+# kdeconnect-settings) see a PATH that includes /run/current-system/sw/bin;
+# otherwise the binary is not found.
 exec kdeconnect-indicator
 # flashfocus
 # exec_always ~/.local/bin/flashfocus
