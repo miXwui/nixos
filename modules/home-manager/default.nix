@@ -23,6 +23,7 @@
     ./development.nix
     ./media.nix
     ./language-servers.nix
+    ./backup.nix
     ./security.nix
     ./torrent.nix
   ];

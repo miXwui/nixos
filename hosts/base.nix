@@ -40,6 +40,7 @@ let
   # Global programs
   gProgs = {
     coreutils = pkgs.coreutils;
+    libnotify = pkgs.libnotify;
     logger = pkgs.logger;
     ppd = config.software_ppd.package;
     playerctl = pkgs.playerctl;
@@ -90,6 +91,7 @@ in
     ./common/software_sddm.nix
     ./common/boot_debug.nix
     ./common/suspend-then-hibernate.nix
+    ./common/backup.nix
     inputs.home-manager.nixosModules.default
     inputs.sops-nix.nixosModules.sops
     # Custom packages
@@ -291,9 +293,6 @@ in
 
       # Global programs
       gProgs = gProgs;
-
-      # Configs
-      sops = config.sops;
     };
     users = {
       "mwu" = import ./home.nix;
@@ -303,6 +302,10 @@ in
     # Alternatively, this can be removed/set to false so Home Manager is isolated.
     # https://nix-community.github.io/home-manager/index.xhtml#sec-install-nixos-module
     useGlobalPkgs = true;
+
+    sharedModules = [
+      inputs.sops-nix.homeManagerModules.sops
+    ];
   };
 
   ### ENVIRONMENT VARIABLES ###
@@ -416,10 +419,49 @@ in
       google_api_key = {
         owner = config.main-user.username;
       };
-      ssh_private_key = {
+
+      # Hetzner Storage Box main account
+      hetzner-storage-box_server = {
         owner = config.main-user.username;
       };
-      ssh_public_key = {
+      hetzner-storage-box_account = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_account-password = {
+        owner = config.main-user.username;
+      };
+
+      # Framework 13
+      hetzner-storage-box_framework-13_sub-account = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_framework-13_sub-account-password = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_framework-13_sub-account-password-rclone-obscured = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_framework-13_restic-repo = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_framework-13_restic-repo-password = {
+        owner = config.main-user.username;
+      };
+
+      # Sandisk Portable SSD 2TB
+      hetzner-storage-box_sandisk-portable-ssd-2tb_sub-account = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_sub-account-password = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_sub-account-password-rclone-obscured = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_restic-repo = {
+        owner = config.main-user.username;
+      };
+      hetzner-storage-box_sandisk-portable-ssd-2tb_restic-repo-password = {
         owner = config.main-user.username;
       };
     };
@@ -465,6 +507,7 @@ in
 
     # Global programs
     coreutils
+    libnotify
     logger
 
     # Utilities
