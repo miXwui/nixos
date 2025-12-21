@@ -59,10 +59,10 @@
 "ui.virtual.whitespace" = { fg = "light-gray" }
 "ui.virtual.ruler" = { bg = "gray" }
 "ui.virtual.inlay-hint" = { fg = "light-gray" }
-"ui.virtual.jump-label" = { fg = "light-gray", modifiers = ["bold"] }
+"ui.virtual.jump-label" = { fg = "#ff008c", modifiers = ["bold"] }
 
-"ui.cursor" = { fg = "white", modifiers = ["reversed"] }
-"ui.cursor.primary" = { fg = "white", modifiers = ["reversed"] }
+"ui.cursor" = { fg = "#ff008c", modifiers = ["reversed"] }
+"ui.cursor.primary" = { fg = "#ff008c", modifiers = ["reversed"] }
 "ui.cursor.match" = { fg = "blue", modifiers = ["underlined"]}
 
 "ui.selection" = { bg = "faint-gray" }
