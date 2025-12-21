@@ -90,7 +90,6 @@
     emacs = pkgs.emacs30-pgtk; # can uncomment/use emacs-30-pgtk above
     emacs-lsp-booster = pkgs.emacs-lsp-booster;
 
-    nerd-fonts = pkgs.nerd-fonts.jetbrains-mono;
     pandoc = pkgs.pandoc;
 
     neovim = pkgs.neovim;
@@ -170,7 +169,6 @@
     #   epc orjson sexpdata six setuptools paramiko rapidfuzz
     # ]))
 
-    nerd-fonts
     pandoc
 
     neovim

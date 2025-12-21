@@ -541,7 +541,13 @@ in
       cantarell-fonts
       cascadia-code
       font-awesome
+      # Needed for Waybar icons, using "Symbols Nerd Font" in its style.css.
+      nerd-fonts.symbols-only
     ];
+    # Install all nerd-fonts, e.g. for testing:
+    # ] ++ builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+    # Likely don't want to since the entire package is several gigabytes.
+    # List of all nerd-fonts: https://github.com/NixOS/nixpkgs/blob/master/pkgs/data/fonts/nerd-fonts/manifests/fonts.json
 
     fontconfig = {
       defaultFonts = {
