@@ -419,7 +419,7 @@ See `modules/home-manager/ssh.nix`.
 
 ### Passing secrets to other processes
 
- <https://github.com/getsops/sops?tab=readme-ov-file#passing-secrets-to-other-processes>
+<https://github.com/getsops/sops?tab=readme-ov-file#passing-secrets-to-other-processes>
 
 `sops exec-env secrets.yaml 'echo secret: $some_secret; ./some-script`
 
@@ -514,27 +514,27 @@ Though this is packaged up in a flake [here](packages/drm_amd.nix) and [here](mo
 This adds a named `specialisation` with kernel patches that will appear as a separate boot entry.
 
 ```nix
-  specialisation.drm-amdgpu-vcn = { inheritParentConfig = true; configuration =
-    {
-      boot.kernelPatches = [
-        # https://gitlab.freedesktop.org/drm/amd/-/issues/3195#note_2485525
-        {
-          name = "1-identify-unified-queue";
-          patch = (builtins.fetchurl {
-            url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=23fddba4039916caa6a96052732044ddcf514886";
-            sha256 = "sha256-q57T2Ko79DmJEfgKC3d+x/dY2D34wQCSieVrfWKsF5E=";
-          });
-        }
-        {
-          name = "2-not-pause-dpg";
-          patch = (builtins.fetchurl {
-            url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=3941fd6be7cf050225db4b699757969f8950e2ce";
-            sha256 = "sha256-JYOLF5ZUxDx9T9jaZCvSQtowUq38qiGPsmAMlaCi5qg=";
-          });
-        }
-      ];
-    };
+specialisation.drm-amdgpu-vcn = { inheritParentConfig = true; configuration =
+  {
+    boot.kernelPatches = [
+      # https://gitlab.freedesktop.org/drm/amd/-/issues/3195#note_2485525
+      {
+        name = "1-identify-unified-queue";
+        patch = (builtins.fetchurl {
+          url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=23fddba4039916caa6a96052732044ddcf514886";
+          sha256 = "sha256-q57T2Ko79DmJEfgKC3d+x/dY2D34wQCSieVrfWKsF5E=";
+        });
+      }
+      {
+        name = "2-not-pause-dpg";
+        patch = (builtins.fetchurl {
+          url = "https://git.kernel.org/pub/scm/linux/kernel/git/superm1/linux.git/patch/?id=3941fd6be7cf050225db4b699757969f8950e2ce";
+          sha256 = "sha256-JYOLF5ZUxDx9T9jaZCvSQtowUq38qiGPsmAMlaCi5qg=";
+        });
+      }
+    ];
   };
+};
 ```
 
 One can also switch to a specialized configuration with `sudo /run/current-system/specialisation/fewJobsManyCores/bin/switch-to-configuration test`.\
@@ -629,9 +629,9 @@ in
 
 > You can see the configuration of your current kernel with the following command:
 
-  ```sh
-  zcat /proc/config.gz
-  ```
+```sh
+zcat /proc/config.gz
+```
 
 #### Kernel source
 
@@ -859,11 +859,11 @@ To manually fix:
 Read this [answer](https://unix.stackexchange.com/a/33874) and this [comment](https://unix.stackexchange.com/questions/33844/change-gid-of-a-specific-group#comment215709_33874).
 
 1. `groupmod -g NEWGID GROUPNAME`
-    1. `sudo groupmod -g 327 uinput`
+   1. `sudo groupmod -g 327 uinput`
 2. `sudo find / -gid OLDGID ! -type l -exec chgrp NEWGID {} \;\`
-    1. > Suggest using chgrp -h ... instead of chgrp .... Without -h, the target of any relevant symlink will have its group changed.
-    2. `sudo find / -gid 990 ! -type l -exec chgrp 327 {} \;`
-    3. Or, manually find and change.
+   1. Suggest using chgrp -h ... instead of chgrp .... Without -h, the target of any relevant symlink will have its group changed.
+   2. `sudo find / -gid 990 ! -type l -exec chgrp 327 {} \;`
+   3. Or, manually find and change.
 
 `ls -n` to see the numeric UID/GID of file.
 
