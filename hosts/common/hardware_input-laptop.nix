@@ -6,7 +6,12 @@
 # internal keyboard from working. Useful when putting an external
 # keyboard over it to prevent accidental keypresses.
 
-{ config, lib, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 let
   keydConfig = builtins.readFile ../../etc/keyd/default.conf;
@@ -38,5 +43,8 @@ in
         ACTION!="remove", KERNELS=="input[0-9]*", SUBSYSTEMS=="input", ATTRS{id/product}=="0001", ATTRS{id/vendor}=="0001", ATTRS{id/version}=="ab83", ENV{LIBINPUT_IGNORE_DEVICE}="1"
       '';
     };
+
+    ### Packages ###
+    environment.systemPackages = with pkgs; [ libinput ];
   };
 }
