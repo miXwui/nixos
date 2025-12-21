@@ -85,14 +85,16 @@ in
       recursive = true;
     };
 
-    "${config.xdg.configHome}/sway/config" = {
-      text =
-        if sway.swayfx.enable then
+    "${config.xdg.configHome}/sway/config" =
+      let
+        swayConfig = builtins.replaceStrings [ "@LOCK_COMMAND@" ] [ sway.lockCommand ] (
           builtins.readFile ../../home/.config/sway/config
-          + builtins.readFile ../../home/.config/sway/config-swayfx
-        else
-          builtins.readFile ../../home/.config/sway/config;
-    };
+        );
+        swayFXConfig = builtins.readFile ../../home/.config/sway/config-swayfx;
+      in
+      {
+        text = if sway.swayfx.enable then swayConfig + swayFXConfig else swayConfig;
+      };
 
     # Lock screen script
     "${config.xdg.configHome}/sway/scripts/lock-screen.sh" = {
