@@ -145,6 +145,8 @@ in
 
     ## Sway
     yidle = "${config.xdg.configHome}/sway/scripts/get-idle-inhibitors.sh";
+    ## Files
+    filetypes = "$XDG_SCRIPTS_DIR/list-all-filetypes-in-dir.sh";
 
     ## Fun
     sl = "sl -e";
