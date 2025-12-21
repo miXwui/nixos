@@ -1075,3 +1075,9 @@ Copy from source to destination:
 ```sh
 rsync -av --info=progress2 /src/ /dest/
 ```
+
+## Virtual machines
+
+`modules/nixos/virtual-machines.nix`
+
+Uses `libvirtd` and `virt-manager` (Virtual Machine Manager)

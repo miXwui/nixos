@@ -99,6 +99,7 @@ in
     ../modules/nixos/vpn.nix
     ../modules/nixos/utils.nix
     ../modules/nixos/development.nix
+    ../modules/nixos/virtual-machines.nix
   ];
 
   ### SOPS ###
