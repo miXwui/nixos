@@ -468,7 +468,7 @@ IPv6 will be disabled (since apparently it's not supported by PIA). The disconne
   * [poweralertd](https://sr.ht/~kennylevinsen/poweralertd/)
 * [KDE Connect](https://github.com/KDE/kdeconnect-kde)
 * [Geoclue](https://gitlab.freedesktop.org/geoclue/)
-  * Uses Google geolocation API.
+  * Uses ~~Google geolocation~~ [beaconDB](https://api.beacondb.net/v1/geolocate) API.
   * Systemd `geoclue-config.service` write url with API key (from `sops-nix`) to `/etc/geoclue/conf.d/90-custom-wifi.conf`.
 * ~~[Gammastep](https://gitlab.com/chinstrap/gammastep) for automatic color temperature adjustment based on location.~~ disabled for now since I think it's causing higher power consumption.
   * Currently set up to use Geoclue.

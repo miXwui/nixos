@@ -181,6 +181,28 @@ in
   # Set your time zone.
   time.timeZone = "America/Chicago";
 
+  ## GeoClue
+  services.geoclue2 = {
+    enable = true;
+    # geoProviderUrl = "https://api.beacondb.net/v1/geolocate"; # default option
+  };
+
+  # # Add our own Google geolocate API key into GeoClue's [wifi] url= config since:
+  # # [nixos/geoclue2: not working because Mozilla Location Service is retiring](https://github.com/NixOS/nixpkgs/issues/321121)
+  # systemd.services.geoclue-config = lib.mkIf (config.sops.secrets ? google_api_key) {
+  #   description = "Add our own Google geolocate API key into GeoClue's [wifi] url= config.";
+  #   script = ''
+  #     mkdir -p /etc/geoclue/conf.d
+  #     echo "
+  #     [wifi]
+  #     enable=true
+  #     url=https://www.googleapis.com/geolocation/v1/geolocate?key=$(cat ${config.sops.secrets.google_api_key.path})
+  #     " > /etc/geoclue/conf.d/90-custom-wifi.conf
+  #   '';
+  #   wantedBy = [ "multi-user.target" ];
+  # };
+  environment.etc."geoclue/conf.d/90-custom-wifi.conf".text = '''';
+
   ### i18n/Internationalization ###
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -339,27 +361,6 @@ in
   software_power_management = {
     enable = true;
     powerUtil = "ppd"; # tlp or ppd
-  };
-
-  ## GeoClue
-  services.geoclue2 = {
-    enable = true;
-    # geoProviderUrl = "https://beacondb.net/v1/geolocate"; # TODO: possibly switch to this
-  };
-
-  # Add our own Google geolocate API key into GeoClue's [wifi] url= config since:
-  # [nixos/geoclue2: not working because Mozilla Location Service is retiring](https://github.com/NixOS/nixpkgs/issues/321121)
-  systemd.services.geoclue-config = lib.mkIf (config.sops.secrets ? google_api_key) {
-    description = "Add our own Google geolocate API key into GeoClue's [wifi] url= config.";
-    script = ''
-      mkdir -p /etc/geoclue/conf.d
-      echo "
-      [wifi]
-      enable=true
-      url=https://www.googleapis.com/geolocation/v1/geolocate?key=$(cat ${config.sops.secrets.google_api_key.path})
-      " > /etc/geoclue/conf.d/90-custom-wifi.conf
-    '';
-    wantedBy = [ "multi-user.target" ];
   };
 
   ## fwupd
