@@ -241,6 +241,26 @@ Then,
 
 For more info: <https://unix.stackexchange.com/questions/381944/how-to-disable-internal-keyboard-on-fedora-26-wayland/702857#702857>
 
+### Disable/enable internal laptop keyboard when bluetooth keyboard is connected/disconnected
+
+Toggle internal keyboard with bluetooth keyboard
+
+Disables or enables the internal laptop keyboard when the Lily58
+bluetooth is connected or disconnected.
+
+Uses udev rules to enable/disable the `keyd` service. However, on
+system sleep/resume, the system needs to recheck if the bluetooth
+keyboard is connected since the user can arbitrarily change the status
+of the bluetooth keyboard, so the system doesn't know if the user has
+disconnected or reconnected the bluetooth keyboard between system sleep
+and resume.
+
+So we also add a `keyd-toggle` script to
+`/etc/systemd/system-sleep/keyd-toggle` which is run on all system sleep
+types (suspend, hibernate, hybrid-sleep, suspend-then-hibernate) using
+the `toggle-internal-kb` script that will start/stop `keyd` depending on
+the bluetooth keyboard's connection status.
+
 ## Fingerprint
 
 User files are stored under `/var/lib/fprint/<user>` which can be migrated to another installation ([ref](https://community.frame.work/t/cross-distro-dualboot-and-or-reinstall-save-your-var-lib-fprint-user-files-from-the-one-that-works/12908/2)).\
