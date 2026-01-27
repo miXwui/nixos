@@ -179,7 +179,8 @@ in
 
   ### TIME ###
   # Set your time zone.
-  time.timeZone = "America/Chicago";
+  # time.timeZone = ;
+  services.automatic-timezoned.enable = true;
 
   ## GeoClue
   services.geoclue2 = {
