@@ -58,6 +58,9 @@
     ];
     shellAbbrs = {
       # Misc
+      # Yes I have a YT Premium membership, until there's a superior platform
+      # that doesn't need to run on ads and creators can be paid directly, or
+      # something.
       ytdl = "$XDG_SCRIPTS_DIR/download-yt-mix.sh";
 
       # Git
