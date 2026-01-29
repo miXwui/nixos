@@ -230,11 +230,20 @@ in
     "openssl-1.1.1w"
   ];
 
+  ### NIX SETTINGS ###
   # Experimental features
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings = {
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+    # > To let devenv set up the caches for you, add yourself to the
+    # trusted-users list in /etc/nix/nix.conf by editing configuration.nix.
+    trusted-users = [
+      "root"
+      config.main-user.username
+    ];
+  };
 
   ### DRIVES ###
   # Enable automounting USB/drives
