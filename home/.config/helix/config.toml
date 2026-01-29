@@ -1,7 +1,7 @@
 theme = "onedark-bleeding"
 
 [editor]
-mouse = false
+# mouse = false
 completion-timeout = 5
 completion-trigger-len = 0
 line-number = "relative"
