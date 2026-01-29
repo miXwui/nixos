@@ -10,6 +10,8 @@ bufferline = "multiple"
 color-modes = true
 auto-pairs = false
 end-of-line-diagnostics = "hint"
+# https://www.reddit.com/r/HelixEditor/comments/1iearpt/comment/ma6sgt8/
+# jump-label-alphabet = "jfkdls;aurieowpqnvmcxz"
 
 [editor.statusline]
 left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator", "version-control"]
@@ -53,6 +55,8 @@ enable = true
 cursor-line = "warning" # show warnings and errors
 
 [keys.normal]
+# https://www.reddit.com/r/HelixEditor/comments/1iearpt/comment/ma65r81/
+"ret" = "goto_word"
 C-left = "move_prev_word_end"
 C-right = "move_next_word_start"
 C-up = "goto_prev_paragraph"
@@ -90,6 +94,8 @@ C-S-backspace = "delete_word_forward"
 S-tab = "move_parent_node_start"
 
 [keys.select]
+# https://www.reddit.com/r/HelixEditor/comments/1iearpt/comment/maf2jl1/
+"ret" = "extend_to_word"
 # https://docs.helix-editor.com/editor.html#editorsmart-tab-section
 tab = "extend_parent_node_end"
 S-tab = "extend_parent_node_start"
