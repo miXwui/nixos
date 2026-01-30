@@ -90,7 +90,7 @@ language-servers = [ "superhtml", "emmet-lsp", "vscode-css-language-server", "sc
 
 [[language]]
 name = "markdown"
-# formatter = { command = "markdownlint", args = ["--fix", "-s"] }
+formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
 language-servers = [ "marksman", "scls", "efm"
   #{ name = "efm", only-features = [ "diagnostics", "format" ] }
   ]

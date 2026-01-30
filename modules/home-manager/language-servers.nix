@@ -3,6 +3,7 @@
   pkgs,
   xdg_nixos,
 
+  dprint,
   ispell,
 
   scls,
@@ -37,6 +38,7 @@
 {
   _module.args = {
     # Spelling
+    dprint = pkgs.dprint;
     ispell = pkgs.ispell;
 
     # simple-completion-language-server
@@ -80,6 +82,7 @@
   };
 
   home.packages = [
+    dprint
     ispell
 
     scls
