@@ -93,6 +93,15 @@ name = "lua"
 language-servers = [ "lua-language-server", "scls" ]
 
 ########################################
+# JSON
+
+[[language]]
+name = "json"
+formatter = { command = "dprint", args = ["fmt", "--stdin", "json"] }
+# language-servers = [ "marksman", "scls", "efm" ]
+# indent = { tab-width = 2, unit = "  " }
+
+########################################
 # Markdown
 
 [[language]]
