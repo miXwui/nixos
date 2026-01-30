@@ -3,25 +3,29 @@
   pkgs,
   xdg_nixos,
 
+  # General
   dprint,
   ispell,
-
-  scls,
   efm-ls,
+  scls,
 
+  # Bash
   bash-language-server,
   shellcheck,
   shfmt,
 
+  # Elixir
   expert,
 
   # HTML
   superhtml,
   emmet-language-server,
 
+  # Nix
   nil,
   nixfmt,
 
+  # JavaScript/TypeScript
   typescript-language-server,
 
   deno,
@@ -30,6 +34,7 @@
   markdownlint-cli2,
   markdownlint-cli,
 
+  # YAML
   yaml-language-server,
   yamlfmt,
 
@@ -37,17 +42,14 @@
 }:
 {
   _module.args = {
-    # Spelling
+    # General
+    efm-ls = pkgs.efm-langserver;
     dprint = pkgs.dprint;
     ispell = pkgs.ispell;
-
-    # simple-completion-language-server
     scls =
       (builtins.getFlake "github:estin/simple-completion-language-server/49b53f63f588765abfcebb59cfc2889170c2e42b")
-      .defaultPackage.${pkgs.system};
-
-    # efm-langserver
-    efm-ls = pkgs.efm-langserver;
+      .defaultPackage.${pkgs.system}; # simple-completion-language-server
+    vscode-langservers-extracted = pkgs.vscode-langservers-extracted;
 
     # Bash
     bash-language-server = pkgs.bash-language-server;
@@ -67,11 +69,12 @@
     nil = pkgs.nil;
     nixfmt = pkgs.nixfmt-rfc-style;
 
-    # TypeScript
+
+    # JavaScript/TypeScript
+    deno = pkgs.deno;
     typescript-language-server = pkgs.typescript-language-server;
 
-    deno = pkgs.deno;
-    vscode-langservers-extracted = pkgs.vscode-langservers-extracted;
+    # Markdown
     marksman = pkgs.marksman;
     markdownlint-cli2 = pkgs.markdownlint-cli2;
     markdownlint-cli = pkgs.markdownlint-cli;
@@ -82,38 +85,46 @@
   };
 
   home.packages = [
+    # General
+    efm-ls
     dprint
     ispell
-
     scls
-    efm-ls
+    vscode-langservers-extracted
 
+    # Bash
     bash-language-server
     shellcheck
     shfmt
 
+    # Elixir
     expert
 
     # HTML
     superhtml
     emmet-language-server
 
+    # Nix
     nil
     nixfmt
 
+
+    # JavaScript/TypeScript
+    deno
     typescript-language-server
 
-    deno
-    vscode-langservers-extracted
+    # Markdown
     marksman
     markdownlint-cli2
     markdownlint-cli
 
+    # YAML
     yaml-language-server
     yamlfmt
   ];
 
   home.file = {
-    "${config.xdg.configHome}/efm-langserver".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/efm-langserver";
+    "${config.xdg.configHome}/efm-langserver".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/efm-langserver";
   };
 }
