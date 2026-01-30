@@ -1,12 +1,15 @@
 {
-  config,
   pkgs,
+  config,
   xdg_nixos,
+
+  # Documentation
+  zeal,
+
+  # Tools
   devenv,
   filezilla,
   zellij,
-
-  zeal,
   ...
 }:
 let
@@ -33,20 +36,23 @@ let
 in
 {
   _module.args = {
+    # Documentation
+    zeal = pkgs.zeal;
+
+    # Tools
     devenv = pkgs.devenv;
     filezilla = pkgs.filezilla;
     zellij = pkgs.zellij;
-    # zellij = zellij-unreleased;
-
-    zeal = pkgs.zeal;
   };
 
   home.packages = [
+    # Documentation
+    zeal
+
+    # Tools
     devenv
     filezilla
     zellij
-
-    zeal
   ];
 
   home.file = {
