@@ -75,6 +75,17 @@ indent = { tab-width = 2, unit = "  " }
 rulers = [100]
 
 ########################################
+# HTML
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[[language]]
+name = "html"
+roots = [".git"]
+language-servers = [ "superhtml", "emmet-lsp", "vscode-css-language-server", "scls" ]
+
+########################################
 # Markdown
 
 [[language]]

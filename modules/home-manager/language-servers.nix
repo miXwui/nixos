@@ -14,6 +14,10 @@
 
   expert,
 
+  # HTML
+  superhtml,
+  emmet-language-server,
+
   nil,
   nixfmt,
 
@@ -51,6 +55,10 @@
       (builtins.getFlake "github:elixir-lang/expert/86fe8ec2168c266631e7f3506fcbf0afa6083656")
       .packages.${pkgs.system}.expert;
 
+    # HTML
+    superhtml = pkgs.superhtml;
+    emmet-language-server = pkgs.emmet-language-server;
+
     # Nix
     nil = pkgs.nil;
     nixfmt = pkgs.nixfmt-rfc-style;
@@ -77,6 +85,10 @@
     shfmt
 
     expert
+
+    # HTML
+    superhtml
+    emmet-language-server
 
     nil
     nixfmt
