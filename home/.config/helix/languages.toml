@@ -65,11 +65,14 @@ name = "elixir"
 # auto-format = false
 language-servers = [ "expert", "scls" ]
 indent = { tab-width = 2, unit = "  " }
+rulers = [100]
 
 [[language]]
 name = "heex"
 # auto-format = false
 language-servers = [ "expert", "scls" ]
+indent = { tab-width = 2, unit = "  " }
+rulers = [100]
 
 ########################################
 # Markdown
