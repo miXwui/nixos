@@ -21,11 +21,12 @@
     ./wlay.nix
     ./xdg-desktop-portals.nix
     ./editors.nix
-    ./development.nix
     ./media.nix
     ./language-servers.nix
     ./backup.nix
     ./security.nix
     ./torrent.nix
+    # Development
+    ./development/base.nix
   ];
 }
