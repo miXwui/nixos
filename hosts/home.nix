@@ -339,8 +339,6 @@ in
     # GUI utilities
     zenity # requirement for scripts using zenity
 
-    zeal
-
     # Terminal
     tmux
     tree

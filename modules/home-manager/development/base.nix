@@ -5,6 +5,8 @@
   devenv,
   filezilla,
   zellij,
+
+  zeal,
   ...
 }:
 let
@@ -35,12 +37,16 @@ in
     filezilla = pkgs.filezilla;
     zellij = pkgs.zellij;
     # zellij = zellij-unreleased;
+
+    zeal = pkgs.zeal;
   };
 
   home.packages = [
     devenv
     filezilla
     zellij
+
+    zeal
   ];
 
   home.file = {
