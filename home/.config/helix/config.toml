@@ -75,6 +75,11 @@ S-up = ["select_mode", "extend_line_up"]
 S-down = ["select_mode", "extend_line_down"]
 S-left = ["select_mode", "extend_char_left"]
 S-right = ["select_mode", "extend_char_right"]
+# Select next occurrence
+C-d = ["search_selection", "select_mode", "extend_search_next"]
+# Needs `enable_kitty_keyboard` in Wezterm, else Ctrl+Shift+D doesn't work.
+# See: https://github.com/helix-editor/helix/wiki/Terminal-Support#enhanced-keyboard-protocol
+C-S-d = ["search_selection", "select_mode", "extend_search_prev"]
 
 # Move lines/selections up/down
 # https://github.com/helix-editor/helix/pull/4545#pullrequestreview-1195055143
@@ -132,3 +137,8 @@ S-up = "extend_line_up"
 S-down = "extend_line_down"
 S-left = "extend_char_left"
 S-right = "extend_char_right"
+# Select next occurrence
+C-d = ["search_selection", "extend_search_next"]
+# Needs `enable_kitty_keyboard` in Wezterm, else Ctrl+Shift+D doesn't work.
+# See: https://github.com/helix-editor/helix/wiki/Terminal-Support#enhanced-keyboard-protocol
+C-S-d = ["search_selection", "extend_search_prev"]
