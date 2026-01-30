@@ -378,6 +378,11 @@ in
     };
   };
 
+  ### Programs ###
+
+  # Development
+  ## Default Home Manager options
+  programs.go.enable = true;
 
   ### MISCELLANEOUS ###
   # Let Home Manager install and manage itself.

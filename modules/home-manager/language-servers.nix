@@ -17,6 +17,11 @@
   # Elixir
   expert,
 
+  # Go
+  gopls,
+  golangci-lint-langserver,
+  delve,
+
   # HTML
   superhtml,
   emmet-language-server,
@@ -67,6 +72,11 @@
       (builtins.getFlake "github:elixir-lang/expert/86fe8ec2168c266631e7f3506fcbf0afa6083656")
       .packages.${pkgs.system}.expert;
 
+    # Go
+    gopls = pkgs.gopls;
+    golangci-lint-langserver = pkgs.golangci-lint-langserver;
+    delve = pkgs.delve;
+
     # HTML
     superhtml = pkgs.superhtml;
     emmet-language-server = pkgs.emmet-language-server;
@@ -110,6 +120,11 @@
 
     # Elixir
     expert
+
+    # Go
+    gopls
+    golangci-lint-langserver
+    delve
 
     # HTML
     superhtml
