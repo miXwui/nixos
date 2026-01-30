@@ -70,6 +70,12 @@ C-S-end = ["select_mode", "goto_line_end"]
 # Ctrl+Up/Down
 C-up = "goto_prev_paragraph"
 C-down = "goto_next_paragraph"
+# Shift+Arrow select
+S-up = ["select_mode", "extend_line_up"]
+S-down = ["select_mode", "extend_line_down"]
+S-left = ["select_mode", "extend_char_left"]
+S-right = ["select_mode", "extend_char_right"]
+
 # Move lines/selections up/down
 # https://github.com/helix-editor/helix/pull/4545#pullrequestreview-1195055143
 A-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before", "goto_line_start"]
@@ -109,3 +115,20 @@ S-tab = "move_parent_node_start"
 # https://docs.helix-editor.com/editor.html#editorsmart-tab-section
 tab = "extend_parent_node_end"
 S-tab = "extend_parent_node_start"
+# Ctrl+Up/Down
+C-up = "goto_prev_paragraph"
+C-down = "goto_next_paragraph"
+# Ctrl+Arrow/Home/End selection
+C-left = "extend_prev_word_end"
+C-right = "extend_next_word_start"
+C-S-up = "goto_prev_paragraph"
+C-S-down = "goto_next_paragraph"
+C-S-left = "extend_prev_word_end"
+C-S-right = "extend_next_word_start"
+C-S-home = "goto_line_start"
+C-S-end = "goto_line_end"
+# Shift+Arrow select
+S-up = "extend_line_up"
+S-down = "extend_line_down"
+S-left = "extend_char_left"
+S-right = "extend_char_right"
