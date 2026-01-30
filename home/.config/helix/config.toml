@@ -57,8 +57,17 @@ cursor-line = "warning" # show warnings and errors
 [keys.normal]
 # https://www.reddit.com/r/HelixEditor/comments/1iearpt/comment/ma65r81/
 "ret" = "goto_word"
+# Ctrl+Arrow navigation
 C-left = "move_prev_word_end"
 C-right = "move_next_word_start"
+# Ctrl+Arrow/Home/End
+C-S-up = ["select_mode", "goto_prev_paragraph"]
+C-S-down = ["select_mode", "goto_next_paragraph"]
+C-S-left = ["select_mode", "move_prev_word_end"]
+C-S-right = ["select_mode", "move_next_word_start"]
+C-S-home = ["select_mode", "goto_line_start"]
+C-S-end = ["select_mode", "goto_line_end"]
+# Ctrl+Up/Down
 C-up = "goto_prev_paragraph"
 C-down = "goto_next_paragraph"
 # Move lines/selections up/down
@@ -88,6 +97,7 @@ q = ":buffer-close"
 [keys.insert]
 C-left = "move_prev_word_end"
 C-right = "move_next_word_start"
+C-S-down = "goto_next_paragraph"
 C-backspace = "delete_word_backward"
 C-S-backspace = "delete_word_forward"
 # https://docs.helix-editor.com/editor.html#editorsmart-tab-section
