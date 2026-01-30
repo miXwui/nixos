@@ -111,6 +111,9 @@ q = ":buffer-close"
 # Show in buffer
 B = ":sh echo %sh{git show --no-patch --format='%%h \\(%%an: %%ar\\): %%s' $(git blame -p %{buffer_name} -L%{cursor_line},+1 | head -1 | cut -d' ' -f1)}"
 
+# Markdown viewer
+i = ":sh inlyne %{buffer_name}"
+
 [keys.insert]
 C-left = "move_prev_word_end"
 C-right = "move_next_word_start"
