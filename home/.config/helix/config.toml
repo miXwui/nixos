@@ -110,7 +110,10 @@ C-left = "move_prev_word_end"
 C-right = "move_next_word_start"
 C-S-down = "goto_next_paragraph"
 C-backspace = "delete_word_backward"
+# In Lily58 config, Shift+Backspace becomes Delete, so we also map
+# "delete_word_forward" to C-del because C-S-Backspace ends up becoming C-del
 C-S-backspace = "delete_word_forward"
+C-del = "delete_word_forward"
 # https://docs.helix-editor.com/editor.html#editorsmart-tab-section
 S-tab = "move_parent_node_start"
 
