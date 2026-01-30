@@ -21,6 +21,8 @@
   nil,
   nixfmt,
 
+  typescript-language-server,
+
   deno,
   vscode-langservers-extracted,
   marksman,
@@ -63,6 +65,9 @@
     nil = pkgs.nil;
     nixfmt = pkgs.nixfmt-rfc-style;
 
+    # TypeScript
+    typescript-language-server = pkgs.typescript-language-server;
+
     deno = pkgs.deno;
     vscode-langservers-extracted = pkgs.vscode-langservers-extracted;
     marksman = pkgs.marksman;
@@ -92,6 +97,8 @@
 
     nil
     nixfmt
+
+    typescript-language-server
 
     deno
     vscode-langservers-extracted
