@@ -21,6 +21,9 @@
   superhtml,
   emmet-language-server,
 
+  # Lua
+  lua-language-server,
+
   # Nix
   nil,
   nixfmt,
@@ -65,6 +68,9 @@
     superhtml = pkgs.superhtml;
     emmet-language-server = pkgs.emmet-language-server;
 
+    # Lua
+    lua-language-server = pkgs.lua-language-server;
+
     # Nix
     nil = pkgs.nil;
     nixfmt = pkgs.nixfmt-rfc-style;
@@ -103,6 +109,9 @@
     # HTML
     superhtml
     emmet-language-server
+
+    # Lua
+    lua-language-server
 
     # Nix
     nil

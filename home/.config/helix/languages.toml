@@ -86,6 +86,13 @@ roots = [".git"]
 language-servers = [ "superhtml", "emmet-lsp", "vscode-css-language-server", "scls" ]
 
 ########################################
+# Lua
+
+[[language]]
+name = "lua"
+language-servers = [ "lua-language-server", "scls" ]
+
+########################################
 # Markdown
 
 [[language]]
