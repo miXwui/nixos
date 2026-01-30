@@ -118,6 +118,18 @@ language-servers = [ "nil", "scls" ]
 indent = { tab-width = 2, unit = "  " }
 
 ########################################
+# Python
+
+[language-server.ruff]
+command = "ruff"
+
+[[language]]
+name = "python"
+formatter = { command = "ruff", args = ["format", "-" ] }
+language-servers = [ "ruff", "scls" ]
+indent = { tab-width = 2, unit = "  " }
+
+########################################
 # TypeScript
 
 [[language]]

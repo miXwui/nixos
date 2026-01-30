@@ -28,6 +28,9 @@
   nil,
   nixfmt,
 
+  # Python
+  ruff,
+
   # JavaScript/TypeScript
   typescript-language-server,
 
@@ -75,6 +78,8 @@
     nil = pkgs.nil;
     nixfmt = pkgs.nixfmt-rfc-style;
 
+    # Python
+    ruff = pkgs.ruff;
 
     # JavaScript/TypeScript
     deno = pkgs.deno;
@@ -117,6 +122,8 @@
     nil
     nixfmt
 
+    # Python
+    ruff
 
     # JavaScript/TypeScript
     deno
