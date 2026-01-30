@@ -12,7 +12,7 @@
   shellcheck,
   shfmt,
 
-  lexical,
+  expert,
 
   nil,
   nixfmt,
@@ -47,9 +47,9 @@
     shfmt = pkgs.shfmt;
 
     # Elixir
-    lexical =
-      (builtins.getFlake "github:lexical-lsp/lexical/477e8b418b27960710109d0014167bb371b0cade")
-      .packages.${pkgs.system}.default;
+    expert =
+      (builtins.getFlake "github:elixir-lang/expert/86fe8ec2168c266631e7f3506fcbf0afa6083656")
+      .packages.${pkgs.system}.expert;
 
     # Nix
     nil = pkgs.nil;
@@ -76,7 +76,7 @@
     shellcheck
     shfmt
 
-    lexical
+    expert
 
     nil
     nixfmt

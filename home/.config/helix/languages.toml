@@ -56,15 +56,20 @@ indent = { tab-width = 2, unit = "  " }
 ########################################
 # Elixir
 
-[language-server.lexical]
-command = "lexical"
-config = { provideFormatter = true }
+[language-server.expert]
+command = "expert"
+args = ["--stdio"]
 
 [[language]]
 name = "elixir"
 # auto-format = false
-language-servers = [ "lexical", "scls" ]
+language-servers = [ "expert", "scls" ]
 indent = { tab-width = 2, unit = "  " }
+
+[[language]]
+name = "heex"
+# auto-format = false
+language-servers = [ "expert", "scls" ]
 
 ########################################
 # Markdown
