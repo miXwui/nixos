@@ -114,6 +114,10 @@ B = ":sh echo %sh{git show --no-patch --format='%%h \\(%%an: %%ar\\): %%s' $(git
 # Markdown viewer
 i = ":sh inlyne %{buffer_name}"
 
+[keys.normal.space.1]
+p = ":sh wl-copy \"${pwd}/%{buffer_name}\"" # copy filepath to system clipboard 
+t = ":pipe sed 's/[[:space:]]*$//'" # remove all trailing whitespace
+
 [keys.insert]
 C-left = "move_prev_word_end"
 C-right = "move_next_word_start"
