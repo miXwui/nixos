@@ -274,8 +274,6 @@ in
     gnome-disk-utility
     parted
 
-    gnumake
-
     elixir_1_18
     erlang_27
 

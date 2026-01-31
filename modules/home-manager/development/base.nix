@@ -12,6 +12,7 @@
   # Tools
   devenv,
   filezilla,
+  gnumake,
   zellij,
   ...
 }:
@@ -48,6 +49,7 @@ in
     # Tools
     devenv = pkgs.devenv;
     filezilla = pkgs.filezilla;
+    gnumake = pkgs.gnumake;
     zellij = pkgs.zellij;
   };
 
@@ -61,6 +63,7 @@ in
     # Tools
     devenv
     filezilla
+    gnumake
     zellij
   ];
 
