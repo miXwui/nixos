@@ -278,7 +278,6 @@ in
 
     rustc
     rustup
-    gcc
 
     elixir_1_18
     erlang_27
@@ -381,6 +380,8 @@ in
   ### Programs ###
 
   # Development
+  ## Custom options
+  programs.c.enable = true;
   ## Default Home Manager options
   programs.go.enable = true;
 

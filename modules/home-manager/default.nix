@@ -28,5 +28,6 @@
     ./torrent.nix
     # Development
     ./development/base.nix
+    ./development/c.nix
   ];
 }
