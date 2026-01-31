@@ -276,9 +276,6 @@ in
 
     gnumake
 
-    rustc
-    rustup
-
     elixir_1_18
     erlang_27
 
@@ -382,6 +379,7 @@ in
   # Development
   ## Custom options
   programs.c.enable = true;
+  programs.rust.enable = true;
   ## Default Home Manager options
   programs.go.enable = true;
 

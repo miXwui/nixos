@@ -29,5 +29,6 @@
     # Development
     ./development/base.nix
     ./development/c.nix
+    ./development/rust.nix
   ];
 }
