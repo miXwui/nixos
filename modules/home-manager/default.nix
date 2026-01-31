@@ -28,6 +28,7 @@
     ./torrent.nix
     # Development
     ./development/base.nix
+    ./development/ai.nix
     ./development/c.nix
     ./development/rust.nix
   ];

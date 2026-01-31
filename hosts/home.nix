@@ -297,9 +297,6 @@ in
     # smile
     emote
 
-    ollama
-    # open-webui # commented because it fails/prevents build
-
     # Camera
     snapshot
 
@@ -378,6 +375,7 @@ in
 
   # Development
   ## Custom options
+  programs.ai.enable = true;
   programs.c.enable = true;
   programs.rust.enable = true;
   ## Default Home Manager options
