@@ -6,6 +6,9 @@
   # Documentation
   zeal,
 
+  # Education
+  exercism,
+
   # Tools
   devenv,
   filezilla,
@@ -39,6 +42,9 @@ in
     # Documentation
     zeal = pkgs.zeal;
 
+    # Education
+    exercism = pkgs.exercism;
+
     # Tools
     devenv = pkgs.devenv;
     filezilla = pkgs.filezilla;
@@ -48,6 +54,9 @@ in
   home.packages = [
     # Documentation
     zeal
+
+    # Education
+    exercism
 
     # Tools
     devenv
