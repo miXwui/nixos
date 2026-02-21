@@ -62,8 +62,11 @@ in
         # When keyd is disabled, the keyboard is disabled from libinput and doesn't work since nothing is intercepting it.
         ACTION!="remove", KERNELS=="input[0-9]*", SUBSYSTEMS=="input", ATTRS{id/product}=="0001", ATTRS{id/vendor}=="0001", ATTRS{id/version}=="ab83", ENV{LIBINPUT_IGNORE_DEVICE}="1"
         # Stop/start keyd when Lily58 bluetooth keyboard connects/disconnects.
-        ACTION=="add", SUBSYSTEM=="input", ATTRS{name}=="Lily58 Keyboard", RUN+="${pkgs.systemd}/bin/systemctl stop keyd.service"
-        ACTION=="remove", SUBSYSTEM=="input", ATTRS{name}=="Lily58 Keyboard", RUN+="${pkgs.systemd}/bin/systemctl start keyd.service"
+        ## Tag with `ENV{LILY_KBD}="1"` since `ATTRS{name}` can disappear on removal.
+        ## Check that the tag was added with `udevadm info --export-db | grep -B 20 "LILY_KBD"`.
+        ACTION=="add", SUBSYSTEM=="input", ATTRS{name}=="Lily58 Keyboard", ENV{LILY_KBD}="1", RUN+="${pkgs.systemd}/bin/systemctl stop keyd.service"
+        ## Match the previous entry that may not have `ATTRS{name}` anymore with `ENV{LILY_KBD}=="1"`.
+        ACTION=="remove", SUBSYSTEM=="input", ENV{ID_INPUT_KEYBOARD}=="1" ENV{LILY_KBD}=="1", RUN+="${pkgs.systemd}/bin/systemctl start keyd.service"
         # We're using `/etc/systemd/system-sleep/keyd-toggle` and `bin/toggle-internal-kb` to stop/start between system sleep/resume.
       '';
     };
