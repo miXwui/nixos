@@ -2,6 +2,7 @@
 
 # Decrypt/set PIA_USER/PIA_PASS environment variables with sops.
 # Then `run_setup.sh` with passed in variables.
+# Can pass in $PREFERRED_REGION.
 # shellcheck disable=SC2016
 sops exec-env "$XDG_NIXOS_DIR/secrets/secrets.yaml" '
     sudo VPN_PROTOCOL=wireguard \
@@ -12,5 +13,6 @@ sops exec-env "$XDG_NIXOS_DIR/secrets/secrets.yaml" '
     PIA_DNS=true \
     PIA_USER=$PIA_USER \
     PIA_PASS=$PIA_PASS \
+    PREFERRED_REGION=$PREFERRED_REGION \
     ./run_setup.sh
 '
