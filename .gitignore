@@ -3,3 +3,6 @@ result
 
 # sops-nix
 secrets
+
+# Helix grammars
+home/.config/helix/runtime

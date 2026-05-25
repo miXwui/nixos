@@ -680,6 +680,50 @@ Nagit is really something special and thankfully there's a standalone Rust imple
 * Macros are useful, (`Q`: `record_macro`) to start/stop record, and (`q`: `replay_macro`) to play.
 * [Find next occurence of selection under cursor](https://www.reddit.com/r/HelixEditor/comments/1aqif6u/find_next_occurrence_of_word_under_cursor/): `*` to yank to search register. (`n`: `search_next`) / (`p`: `search_prev`)
 
+### Tree-sitter grammar
+
+E.g. for `D2`:
+
+<https://github.com/ravsii/tree-sitter-d2?tab=readme-ov-file#helix>
+
+```sh
+hx --grammar fetch && hx --grammar build
+```
+
+Copy queries to load `Highlight queries`:
+
+```sh
+cp -r ~/.config/helix/runtime/grammars/sources/d2/queries/* ~/.config/helix/runtime/queries/d2/
+```
+
+Check `Tree-sitter parser` and `Highlight queries` are valid:
+
+```sh
+> hx --health d2
+...
+Tree-sitter parser: ✓
+Highlight queries: ✓
+```
+
+See: <https://github.com/ravsii/tree-sitter-d2/tree/main?tab=readme-ov-file#helix>
+
+### Fixing no syntax highlighting
+
+Delete the grammars folder and regenerate:
+
+```sh
+rm -rf ~/.config/helix/runtime/grammars
+hx --grammar fetch && hx --grammar build
+```
+
+See: https://github.com/helix-editor/helix/discussions/7773#discussioncomment-8894821
+
+## Steps to set up a full system
+
+### Helix
+
+1. [Set up Tree-sitter grammar](#tree-sitter-grammar)
+
 ## Emacs
 
 NOTE: I came out of the rabbit hole frustrated with the slowness/power efficiency of Emacs relative to Helix. So I switched to Helix.
