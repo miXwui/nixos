@@ -168,7 +168,7 @@
     inlyne = pkgs.inlyne;
 
     libreoffice = pkgs.libreoffice;
-    onlyoffice = pkgs.onlyoffice-bin;
+    onlyoffice = pkgs.onlyoffice-desktopeditors;
 
     xournalpp = pkgs.xournalpp;
   };
