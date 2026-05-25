@@ -12,6 +12,7 @@ let
   # Dirs
   xdg_nixos = rec {
     rootDir = xdg_nixos_dir;
+    userHomeDir = "${rootDir}/home";
     userConfigDir = "${rootDir}/home/.config";
     scriptsDir = "${rootDir}/scripts";
   };
@@ -183,6 +184,9 @@ in
     # Wireshark
     "${config.xdg.configHome}/wireshark".source =
       config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/wireshark";
+
+    # .ignore file for ripgrep, scooter, scooter.hx etc.
+    ".ignore".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userHomeDir}/.ignore";
   };
 
   ### THEMES ###
