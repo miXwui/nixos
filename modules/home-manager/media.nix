@@ -25,7 +25,7 @@ in
 {
   _module.args = {
     mpd = pkgs.mpd;
-    mpc = pkgs.mpc-cli; # TODO: change to mpc once https://nixpk.gs/pr-tracker.html?pr=353272 is pushed through.
+    mpc = pkgs.mpc;
     # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/applications/audio/ncmpcpp/default.nix
     # `visualizerSupport` is disabled by default
     # ncmpcpp = pkgs.ncmpcpp.override { visualizerSupport = enableMusicVisualization; };
