@@ -6,6 +6,9 @@
   # Documentation
   zeal,
 
+  # Diagrams
+  d2,
+
   # Education
   exercism,
 
@@ -43,6 +46,9 @@ in
     # Documentation
     zeal = pkgs.zeal;
 
+    # Diagrams
+    d2 = pkgs.d2;
+
     # Education
     exercism = pkgs.exercism;
 
@@ -56,6 +62,9 @@ in
   home.packages = [
     # Documentation
     zeal
+
+    # Diagrams
+    d2
 
     # Education
     exercism
