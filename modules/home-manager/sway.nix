@@ -135,7 +135,7 @@ in
       config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/hypr";
 
     # Wallpapers
-    "${config.xdg.userDirs.extraConfig.XDG_WALLPAPERS_DIR}" = {
+    "${config.xdg.userDirs.extraConfig.WALLPAPERS}" = {
       source = ../../home/pictures/wallpapers;
       recursive = true;
     };

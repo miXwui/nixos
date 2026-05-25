@@ -229,16 +229,16 @@ in
       templates = "${config.home.homeDirectory}/templates";
       publicShare = "${config.home.homeDirectory}/public";
       extraConfig = {
-        XDG_NIXOS_DIR = "${xdg_nixos_dir}";
+        NIXOS = "${xdg_nixos_dir}";
         # Prioritize using `config.xdg.configHome` where possible.
         # This is not currently set by default in NixOS, see:
         # https://github.com/NixOS/nixpkgs/issues/224525
         XDG_CONFIG_HOME = "${config.xdg.configHome}";
-        XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
-        XDG_GIT_CLONES_DIR = "${config.home.homeDirectory}/projects/git-clones";
-        XDG_SCRIPTS_DIR = "${xdg_nixos.scriptsDir}";
-        XDG_TMP_DIR = "${config.home.homeDirectory}/tmp";
-        XDG_WALLPAPERS_DIR = "${config.home.homeDirectory}/pictures/wallpapers";
+        PROJECTS = "${config.home.homeDirectory}/projects";
+        GIT_CLONES = "${config.home.homeDirectory}/projects/git-clones";
+        SCRIPTS = "${xdg_nixos.scriptsDir}";
+        TMP = "${config.home.homeDirectory}/tmp";
+        WALLPAPERS = "${config.home.homeDirectory}/pictures/wallpapers";
       };
     };
 

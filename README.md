@@ -164,7 +164,7 @@ nix build $XDG_NIXOS_DIR/.#nixosConfigurations.live-image.config.system.build.is
 Set in `xdg.userDirs` in [home.nix](hosts/home.nix). See for full list.
 
 The values can be accessed within `nix` flakes like so:\
-`"${config.xdg.userDirs.extraConfig.XDG_WALLPAPERS_DIR}"`.
+`"${config.xdg.userDirs.extraConfig.WALLPAPERS}"`
 
 The environment variables can be used in scripts, e.g. `$XDG_WALLPAPERS_DIR`.
 
