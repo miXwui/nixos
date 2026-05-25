@@ -23,7 +23,7 @@ feature_paths = true          # enable path completion
 # Git commit
 [[language]]
 name = "git-commit"
-language-servers = [ "scls" ]
+language-servers = ["scls"]
 indent = { tab-width = 2, unit = "  " }
 
 # introduce a new language to enable completion on any doc by forcing set language with :set-language stub
@@ -34,7 +34,7 @@ file-types = []
 shebangs = []
 roots = []
 auto-format = false
-language-servers = [ "scls" ]
+language-servers = ["scls"]
 indent = { tab-width = 2, unit = "  " }
 
 ########################################
@@ -50,8 +50,42 @@ config = { provideFormatter = true }
 [[language]]
 name = "bash"
 formatter = { command = "shfmt", args = ["-i", "2"] }
-language-servers = [ "bash-language-server" ]
+language-servers = ["bash-language-server"]
 indent = { tab-width = 2, unit = "  " }
+
+########################################
+# Dart
+
+[language-server.dart.config.dart]
+completeFunctionCalls = true
+
+[[language]]
+name = "dart"
+language-servers = ["dart", "scls"]
+formatter = { command = "dart", args = ["format"] }
+
+########################################
+# D2
+
+# https://github.com/ravsii/tree-sitter-d2?tab=readme-ov-file#helix
+[[language]]
+name = "d2"
+scope = "source.git"
+file-types = ["d2"]
+comment-token = "#"
+roots = [""]
+language-servers = ["scls"]
+formatter = { command = "d2", args = ["fmt", "-"] }
+indent = { tab-width = 2, unit = "  " }
+
+# Run:
+# ```sh
+# hx --grammar fetch && hx --grammar build
+# cp -r ~/.config/helix/runtime/grammars/sources/d2/queries/* ~/.config/helix/runtime/queries/d2/
+# ```
+[[grammar]]
+source = { git = "https://github.com/ravsii/tree-sitter-d2", rev = "main" }
+name = "d2"
 
 ########################################
 # Elixir
@@ -63,53 +97,47 @@ args = ["--stdio"]
 [[language]]
 name = "elixir"
 # auto-format = false
-language-servers = [ "expert", "scls" ]
+language-servers = ["expert", "scls"]
 indent = { tab-width = 2, unit = "  " }
 rulers = [100]
 
 [[language]]
 name = "heex"
 # auto-format = false
-language-servers = [ "expert", "scls" ]
+language-servers = ["expert", "scls"]
 indent = { tab-width = 2, unit = "  " }
 rulers = [100]
-
-########################################
-# HTML
-[language-server.emmet-lsp]
-command = "emmet-language-server"
-args = ["--stdio"]
-
-[[language]]
-name = "html"
-roots = [".git"]
-language-servers = [ "superhtml", "emmet-lsp", "vscode-css-language-server", "scls" ]
 
 ########################################
 # Lua
 
 [[language]]
 name = "lua"
-language-servers = [ "lua-language-server", "scls" ]
+language-servers = ["lua-language-server", "scls"]
 
 ########################################
 # JSON
 
 [[language]]
 name = "json"
+language-servers = [
+  { name = "vscode-json-language-server", except-features = ["format"] },
+]
 formatter = { command = "dprint", args = ["fmt", "--stdin", "json"] }
-# language-servers = [ "marksman", "scls", "efm" ]
+auto-format = false
 # indent = { tab-width = 2, unit = "  " }
 
 ########################################
 # Markdown
+# https://github.com/helix-editor/helix/discussions/11325#discussioncomment-13799986
 
 [[language]]
 name = "markdown"
+language-servers = ["marksman", "scls", "efm", # { name = "efm", only-features = [ "diagnostics", "format" ] }
+]
+
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }
-language-servers = [ "marksman", "scls", "efm"
-  #{ name = "efm", only-features = [ "diagnostics", "format" ] }
-  ]
+auto-format = false
 indent = { tab-width = 2, unit = "  " }
 
 ########################################
@@ -123,7 +151,7 @@ config = { provideFormatter = true }
 name = "nix"
 formatter = { command = "nixfmt" }
 # auto-format = false
-language-servers = [ "nil", "scls" ]
+language-servers = ["nil", "scls"]
 indent = { tab-width = 2, unit = "  " }
 
 ########################################
@@ -134,29 +162,105 @@ command = "ruff"
 
 [[language]]
 name = "python"
-formatter = { command = "ruff", args = ["format", "-" ] }
-language-servers = [ "ruff", "scls" ]
+formatter = { command = "ruff", args = ["format", "-"] }
+language-servers = ["ruff", "scls"]
 indent = { tab-width = 2, unit = "  " }
 
 ########################################
-# TypeScript
+# Web
+
+[language-server.biome]
+command = "biome"
+args = ["lsp-proxy"]
+
+[language-server.emmet-lsp]
+command = "emmet-language-server"
+args = ["--stdio"]
+
+[language-server.vtsls]
+command = "vtsls"
+args = ["--stdio"]
+config.hostInfo = "helix"
+
+## CSS
+
+[[language]]
+name = "css"
+language-servers = [
+  { name = "vscode-css-language-server", except-features = ["format"] },
+  { name = "emmet-lsp" },
+  { name = "scls" },
+]
+auto-format = false
+formatter = { command = "dprint", args = ["fmt", "--stdin", "css"] }
+
+## HTML
+
+[[language]]
+name = "html"
+language-servers = [
+  # { name = "biome" },
+  # { name = "vscode-html-language-server", except-features = [ "format" ] },
+  { name = "superhtml" },
+  { name = "emmet-lsp" },
+  { name = "scls" },
+]
+formatter = { command = "superhtml", args = ["fmt", "--stdin"] }
+auto-format = false
+
+## JavaScript
+
+[language-server.vtsls.config.javascript]
+updateImportsOnFileMove = { enabled = "always" }
+suggest = { completeFunctionCalls = true }
+
+[[language]]
+name = "javascript"
+language-servers = [
+  { name = "biome" },
+  { name = "vtsls", except-features = ["format"] },
+  { name = "scls" },
+]
+indent = { tab-width = 2, unit = "  " }
+
+### JSX
+
+[[language]]
+name = "jsx"
+language-servers = [
+  { name = "biome" },
+  { name = "vtsls", except-features = ["format"] },
+  { name = "scls" },
+]
+indent = { tab-width = 2, unit = "  " }
+
+## TypeScript
+
+[language-server.vtsls.config.typescript]
+updateImportsOnFileMove = { enabled = "always" }
+suggest = { completeFunctionCalls = true }
 
 [[language]]
 name = "typescript"
 language-servers = [
-  { name = "efm", only-features = [ "diagnostics", "format" ] },
-  { name = "typescript-language-server", except-features = [ "format" ] }
+  { name = "biome" },
+  { name = "vtsls", except-features = ["format"] },
+  { name = "scls" },
+]
+indent = { tab-width = 2, unit = "  " }
+
+### TSX
+[[language]]
+name = "tsx"
+language-servers = [
+  { name = "biome" },
+  { name = "vtsls", except-features = ["format"] },
+  { name = "scls" },
 ]
 indent = { tab-width = 2, unit = "  " }
 
 ########################################
 # YAML
-
-[[language]]
-name = "yaml"
-file-types = ["yaml", "yml"]
-language-servers = [ "yaml-language-server" ]
-formatter = { command = "yamlfmt", args = ["-"] }
 
 [language-server.yaml-language-server.config.yaml]
 # https://github.com/redhat-developer/yaml-language-server?tab=readme-ov-file#language-server-settings
@@ -170,3 +274,16 @@ format.enable = true # for some reason doesn't work, so using `ymlfmt`
 "https://json.schemastore.org/github-workflow.json" = ".github/workflows/*.{yml,yaml}"
 "https://raw.githubusercontent.com/ansible-community/schemas/main/f/ansible-tasks.json" = "roles/{tasks,handlers}/*.{yml,yaml}"
 "https://garnix.io/api/garnix-config-schema.json" = "garnix.yaml"
+
+[[language]]
+name = "yaml"
+file-types = ["yaml", "yml"]
+language-servers = ["yaml-language-server"]
+formatter = { command = "yamlfmt", args = ["-"] }
+
+[[language]]
+name = "toml"
+language-servers = [
+  { name = "tombi", except-features = ["format"] },
+]
+formatter = { command = "dprint", args = ["fmt", "--stdin", "toml"] }
