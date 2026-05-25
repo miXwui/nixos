@@ -143,5 +143,8 @@ in
   home.file = {
     # mpv
     "${config.xdg.configHome}/mpv".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/mpv";
+
+    # rmpc
+    "${config.xdg.configHome}/rmpc".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/rmpc";
   };
 }

@@ -902,6 +902,7 @@ Using:
 * [mpd](https://www.musicpd.org/)
 ~~* [mpd-notification](https://github.com/eworm-de/mpd-notification)~~
 * [mpris-notifer](https://github.com/l1na-forever/mpris-notifier)
+* [rmpc](https://github.com/mierak/rmpc)
 
 [mpc](https://www.musicpd.org/clients/mpc/) is also installed.
 
