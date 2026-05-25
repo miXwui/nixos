@@ -6,6 +6,8 @@
   playerctl,
 
   mpd,
+  # mpd-notification,
+  mpris-notifier,
   mpc,
   # ncmpcpp,
   rmpc,
@@ -25,6 +27,8 @@ in
 {
   _module.args = {
     mpd = pkgs.mpd;
+    # mpd-notification = pkgs.mpd-notification;
+    mpris-notifier = pkgs.mpris-notifier;
     mpc = pkgs.mpc;
     # https://github.com/NixOS/nixpkgs/blob/nixpkgs-unstable/pkgs/applications/audio/ncmpcpp/default.nix
     # `visualizerSupport` is disabled by default
@@ -46,6 +50,8 @@ in
     playerctl
 
     mpd
+    # mpd-notification
+    mpris-notifier
     mpc
     # ncmpcpp
     rmpc

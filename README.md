@@ -897,7 +897,11 @@ zellij_0-38 = pkgs.zellij.overrideAttrs (old: rec {
 
 ## Music
 
-Using [mpd](https://www.musicpd.org/) with [rmpc](https://github.com/mierak/rmpc)
+Using:  
+
+* [mpd](https://www.musicpd.org/)
+~~* [mpd-notification](https://github.com/eworm-de/mpd-notification)~~
+* [mpris-notifer](https://github.com/l1na-forever/mpris-notifier)
 
 [mpc](https://www.musicpd.org/clients/mpc/) is also installed.
 

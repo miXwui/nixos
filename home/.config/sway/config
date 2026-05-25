@@ -13,6 +13,9 @@ exec systemctl start --user polkit-gnome-authentication-agent-1.service
 exec systemctl start --user gnome-keyring.service
 # Enable ssh-agent through gcr
 exec systemctl start --user gcr-ssh-agent.{service, socket}
+# Enable mpd-notification service
+# exec systemctl start --user mpd-notification.service
+exec mpris-notifier
 # Network
 exec nm-applet --indicator
 # Bluetooth
