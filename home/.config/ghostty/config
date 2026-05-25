@@ -1,0 +1,10 @@
+gtk-custom-css = ./gtk-custom.css
+
+# cursor-style = block
+cursor-style-blink = false
+# shell-integration-features = no-cursor
+
+# Keyboard
+keybind = ctrl+shift+page_up=move_tab:-1
+keybind = ctrl+shift+page_down=move_tab:1
+
