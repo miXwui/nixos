@@ -168,11 +168,11 @@
     // "device": "acpi_video1",
     "format": "{percent}% {icon}",
     "format-icons": ["🌚", "🌛", "🌓", "🌔", "🌝"],
-    "on-scroll-up": "light -A 5",
-    "on-scroll-down": "light -U 5",
-    "on-click": "light -S 30",
-    "on-click-right": "light -S 75",
-    "on-click-middle": "light -S 100"
+    "on-scroll-up": "brightnessctl set +5%",
+    "on-scroll-down": "brightnessctl set 5%-",
+    "on-click": "brightnessctl set 30%",
+    "on-click-right": "brightnessctl set 75%",
+    "on-click-middle": "brightnessctl set 100%"
   },
   "battery": {
     "states": {

@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 
-# dependencies: dunstify, light
+# dependencies: dunstify, brightnessctl
 
 get_brightness() {
-  # light returns a float, so we round up to an integer using ceiling, \
-  # since light -S 0.1 doesn't turn off the backlight. 0.1 => 1.
-  # https://bits.mdminhazulhaque.io/linux/round-number-in-bash-script.html
-  light -G | awk '{print ($0-int($0)>0)?int($0)+1:int($0)}'
+  # Get the brightness in percentage since `brightnessctl get` returns raw values.
+  # setting, e.g., 0.1 doesn't turn off the backlight, so we get the ceiling.
+  # 0.1 => 1
+  current=$(brightnessctl get)
+  max=$(brightnessctl max)
+  awk -v c="$current" -v m="$max" 'BEGIN{v=c/m*100; print int(v) + ((v>int(v))?1:0) "%"}'
 }
 
 notify_brightness() {
@@ -29,21 +31,21 @@ brightness=$(get_brightness)
 case "$1" in
 up)
   if [ "$brightness" -le 0 ]; then
-    light -S 1
+    brightnessctl set 1%
   elif [ "$brightness" -ge 1 ] && [ "$brightness" -le 4 ]; then
-    light -S 5
+    brightnessctl set 5%
   else
-    light -A 5
+    brightnessctl set +5%
   fi
   notify_brightness
   ;;
 down)
   if [ "$brightness" -ge 2 ] && [ "$brightness" -le 5 ]; then
-    light -S 1
+    brightnessctl set 1%
   elif [ "$brightness" -le 1 ]; then
-    light -S 0
+    brightnessctl set 0%
   else
-    light -U 5
+    brightnessctl set 5%-
   fi
   notify_brightness
   ;;

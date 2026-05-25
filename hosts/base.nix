@@ -525,6 +525,7 @@ in
     logger
 
     # Utilities
+    brightnessctl
     drm_info
 
     # Enable automounting USB/drives
