@@ -543,7 +543,7 @@ in
 
     # Audio
     pavucontrol
-    helvum
+    crosspipe
   ];
 
   ### ETC FILES ###
