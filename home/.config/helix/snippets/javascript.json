@@ -1,7 +1,188 @@
 {
-  "Arrow Function": {
+  "arrow function": {
     "prefix": "af",
     "body": ["const $1 = ($2) => {$3}", "$4"],
-    "description": "Add Arrow Function"
+    "description": "arrow function"
+  },
+
+  "console.log": {
+    "prefix": "cl",
+    "body": "console.log(${0})"
+  },
+  "console.log with log": {
+    "prefix": "log",
+    "body": "console.log(${0})"
+  },
+  "console.log a variable": {
+    "prefix": "cv",
+    "body": "console.log('${1}:', ${1})"
+  },
+  "console.error": {
+    "prefix": "ce",
+    "body": "console.error(${0})"
+  },
+  "console.warn": {
+    "prefix": "cw",
+    "body": "console.warn(${0})"
+  },
+  "console.dir": {
+    "prefix": "cod",
+    "body": "console.dir('${1}:', ${1})"
+  },
+
+  "function": {
+    "prefix": ["function", "fn"],
+    "body": [
+      "function ${1:name}(${2:params}) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "function definition"
+  },
+  "for loop": {
+    "prefix": ["for"],
+    "body": [
+      "for (let ${1:index} = 0; ${1:index} < ${2:bound}; ${1:index}++) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "for loop"
+  },
+  "for-of loop": {
+    "prefix": ["forof"],
+    "body": [
+      "for (let ${1:name} of ${2:collection}) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "for-of loop"
+  },
+  "do while loop": {
+    "prefix": ["do"],
+    "body": [
+      "do {",
+      "\t${0}",
+      "} while (${1})"
+    ],
+    "description": "do/while loop"
+  },
+  "while loop": {
+    "prefix": ["while"],
+    "body": [
+      "while (${1}) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "while loop"
+  },
+
+  "forEach loop": {
+    "prefix": "fe",
+    "body": "${1:iterable}.forEach((${2:item}) => {\n\t${0}\n})"
+  },
+  "map": {
+    "prefix": "map",
+    "body": "${1:iterable}.map((${2:item}) => {\n\t${0}\n})"
+  },
+  "reduce": {
+    "prefix": "reduce",
+    "body": "${1:iterable}.reduce((${2:previous}, ${3:current}) => {\n\t${0}\n}${4:, initial})"
+  },
+  "filter": {
+    "prefix": "filter",
+    "body": "${1:iterable}.filter((${2:item}) => {\n\t${0}\n})"
+  },
+  "find": {
+    "prefix": "find",
+    "body": "${1:iterable}.find((${2:item}) => {\n\t${0}\n})"
+  },
+  "every": {
+    "prefix": "every",
+    "body": "${1:iterable}.every((${2:item}) => {\n\t${0}\n})"
+  },
+  "some": {
+    "prefix": "some",
+    "body": "${1:iterable}.some((${2:item}) => {\n\t${0}\n})"
+  },
+
+  "try catch": {
+    "prefix": ["try"],
+    "body": [
+      "try {",
+      "\t${1}",
+      "} catch (${2:error}) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "try/catch block"
+  },
+
+  "throw new Error": {
+    "prefix": "throw",
+    "body": "throw new Error(${0:error})"
+  },
+
+  "if block": {
+    "prefix": ["if"],
+    "body": [
+      "if (${1}) {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "if block"
+  },
+  "if else block": {
+    "prefix": ["ife"],
+    "body": [
+      "if (${1}) {",
+      "\t${2}",
+      "} else {",
+      "\t${0}",
+      "}"
+    ],
+    "description": "if/else block"
+  },
+
+  "Switch Statement": {
+    "prefix": "switch",
+    "body": [
+      "switch (${1:key}) {",
+      "\tcase ${2:value}:",
+      "\t\t$0",
+      "\t\tbreak;",
+      "",
+      "\tdefault:",
+      "\t\tbreak;",
+      "}"
+    ],
+    "description": "Switch Statement"
+  },
+
+  "class": {
+    "prefix": ["class", "cls"],
+    "body": [
+      "class ${1:name} {",
+      "\tconstructor(${2:params}) {",
+      "\t\t${0}",
+      "\t}",
+      "}"
+    ],
+    "description": "class definition"
+  },
+  "import named": {
+    "prefix": ["imn", "import"],
+    "body": [
+      "import { ${1:names} } from \"${2:module}\";",
+      "${0}"
+    ],
+    "description": "named import"
+  },
+  "import default": {
+    "prefix": ["imd"],
+    "body": [
+      "import ${1:name} from \"${2:module}\";",
+      "${0}"
+    ],
+    "description": "default import"
   }
 }

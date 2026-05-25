@@ -65,9 +65,7 @@
     efm-ls = pkgs.efm-langserver;
     dprint = pkgs.dprint;
     ispell = pkgs.ispell;
-    scls =
-      (builtins.getFlake "github:estin/simple-completion-language-server/49b53f63f588765abfcebb59cfc2889170c2e42b")
-      .defaultPackage.${pkgs.system}; # simple-completion-language-server
+    scls = inputs.simple-completion-language-server.defaultPackage.${pkgs.system};
     vscode-langservers-extracted = pkgs.vscode-langservers-extracted;
 
     # Bash

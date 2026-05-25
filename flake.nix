@@ -84,6 +84,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    simple-completion-language-server = {
+      url = "github:estin/simple-completion-language-server/f510c898bd84d37725171ca4bbceaf47baa2e355";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     expert = {
       url = "github:elixir-lang/expert/b59dd76507f94580855612c86aafbbf4c22f9765";
       inputs.nixpkgs.follows = "nixpkgs";

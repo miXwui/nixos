@@ -1,4 +1,9 @@
 {
+  "fn": {
+    "prefix": "fn",
+    "body": ["fn $1 -> $2 end"],
+    "description": "fn -> end"
+  },
   "key": {
     "prefix": "k",
     "body": ["$1: $1"],
