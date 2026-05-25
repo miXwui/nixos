@@ -131,9 +131,16 @@ auto-format = false
 # Markdown
 # https://github.com/helix-editor/helix/discussions/11325#discussioncomment-13799986
 
+[language-server.mpls]
+command = "mpls"
+args = ["--no-auto", "--full-sync", "--browser", "chromium", "--theme", "tokyonight", "--enable-emoji"]
+# An example args entry showing how to specify flags with values:
+# args = ["--port", "8080", "--browser", "google-chrome", "--theme", "gruvbox-dark"]
+#
+
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "scls", "efm", # { name = "efm", only-features = [ "diagnostics", "format" ] }
+language-servers = ["marksman", "scls", "efm", "mpls" # { name = "efm", only-features = [ "diagnostics", "format" ] }
 ]
 
 formatter = { command = "dprint", args = ["fmt", "--stdin", "md"] }

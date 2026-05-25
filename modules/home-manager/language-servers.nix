@@ -30,6 +30,9 @@
   # Lua
   lua-language-server,
 
+  # Markdown Preview Language Server
+  mpls,
+  
   # Nix
   nil,
   nixfmt,
@@ -87,6 +90,9 @@
     # Lua
     lua-language-server = pkgs.lua-language-server;
 
+    # Markdown Preview Language Server
+    mpls = pkgs.mpls;
+
     # Nix
     nil = pkgs.nil;
     nixfmt = pkgs.nixfmt-rfc-style;
@@ -141,6 +147,9 @@
     # Lua
     lua-language-server
 
+    # Markdown Preview Language Server
+    mpls
+    
     # Nix
     nil
     nixfmt
