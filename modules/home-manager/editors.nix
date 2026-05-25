@@ -4,6 +4,7 @@
   xdg_nixos,
 
   helix,
+  steel,
 
   emacs,
   emacs-lsp-booster,
@@ -83,9 +84,22 @@
     # sh command substitutions
     # - https://github.com/helix-editor/helix/issues/3134
     # - https://github.com/helix-editor/helix/pull/11164
-    helix =
-      (builtins.getFlake "github:helix-editor/helix/e7ac2fcdecfdbf43a4f772e7f7c163b43b3d0b9b")
-      .packages.${pkgs.system}.default; # 25.01.1
+    # TODO: maybe move Helix Forge/Steel to it's own file?
+    # helix =
+    #   (builtins.getFlake "github:mattwparas/helix/63fb23413a9710297cabb37d87f60b402329838f")
+    #   .packages.${pkgs.system}.default.overrideAttrs
+    #     (oldAttrs: {
+    #       cargoBuildFlags = (oldAttrs.cargoBuildFlags or [ ]) ++ [
+    #         "--features"
+    #         "steel,git"
+    #       ];
+    #     });
+    helix = (
+      inputs.helix-steel.packages.${pkgs.system}.default.overrideAttrs {
+        cargoBuildFeatures = [ "steel" ];
+      }
+    );
+    steel = (inputs.steel.packages.${pkgs.system}.default);
 
     emacs = pkgs.emacs30-pgtk; # can uncomment/use emacs-30-pgtk above
     emacs-lsp-booster = pkgs.emacs-lsp-booster;
@@ -161,6 +175,7 @@
 
   home.packages = [
     helix
+    steel
 
     emacs
     emacs-lsp-booster
@@ -201,6 +216,10 @@
     "${config.xdg.configHome}/dprint".source =
       config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/dprint";
 
-    "${config.xdg.configHome}/inlyne".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/inlyne";
+    "${config.xdg.configHome}/helix".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/helix";
+
+    "${config.xdg.configHome}/inlyne".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/inlyne";
   };
 }

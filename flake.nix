@@ -78,6 +78,12 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Helix
+    helix-steel.url = "github:mattwparas/helix/steel-event-system";
+    helix-steel.inputs.nixpkgs.follows = "nixpkgs"; # nixos-generators
+    # Steel
+    steel.url = "github:mattwparas/steel";
+    steel.inputs.nixpkgs.follows = "nixpkgs"; # nixos-generators
     # https://github.com/nix-community/emacs-overlay/issues/396#issuecomment-2071348230
     emacs-overlay = {
       url = "github:nix-community/emacs-overlay";
