@@ -83,6 +83,11 @@
       url = "github:nix-community/emacs-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    expert = {
+      url = "github:elixir-lang/expert/b59dd76507f94580855612c86aafbbf4c22f9765";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

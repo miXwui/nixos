@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  inputs,
   xdg_nixos,
 
   # General
@@ -37,9 +38,11 @@
   ruff,
 
   # JavaScript/TypeScript
-  typescript-language-server,
-
+  biome,
   deno,
+  typescript-language-server,
+  vtsls,
+
   vscode-langservers-extracted,
   marksman,
   markdownlint-cli2,
@@ -49,6 +52,8 @@
   yaml-language-server,
   yamlfmt,
 
+  # TOML
+  tombi,
   ...
 }:
 {
@@ -68,9 +73,7 @@
     shfmt = pkgs.shfmt;
 
     # Elixir
-    expert =
-      (builtins.getFlake "github:elixir-lang/expert/86fe8ec2168c266631e7f3506fcbf0afa6083656")
-      .packages.${pkgs.system}.expert;
+    expert = inputs.expert.packages.${pkgs.system}.default;
 
     # Go
     gopls = pkgs.gopls;
@@ -92,8 +95,10 @@
     ruff = pkgs.ruff;
 
     # JavaScript/TypeScript
+    biome = pkgs.biome;
     deno = pkgs.deno;
     typescript-language-server = pkgs.typescript-language-server;
+    vtsls = pkgs.vtsls;
 
     # Markdown
     marksman = pkgs.marksman;
@@ -103,6 +108,9 @@
     # YAML
     yaml-language-server = pkgs.yaml-language-server;
     yamlfmt = pkgs.yamlfmt;
+
+    # TOML
+    tombi = pkgs.tombi;
   };
 
   home.packages = [
@@ -141,8 +149,10 @@
     ruff
 
     # JavaScript/TypeScript
+    biome
     deno
     typescript-language-server
+    vtsls
 
     # Markdown
     marksman
@@ -152,6 +162,9 @@
     # YAML
     yaml-language-server
     yamlfmt
+
+    # TOML
+    tombi
   ];
 
   home.file = {
