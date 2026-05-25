@@ -149,5 +149,8 @@ in
 
     # rmpc
     "${config.xdg.configHome}/rmpc".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/rmpc";
+
+    # yt-dlp
+    "${config.xdg.configHome}/yt-dlp".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/yt-dlp";
   };
 }
