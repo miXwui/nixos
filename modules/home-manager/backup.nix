@@ -14,7 +14,7 @@
     backrest = pkgs.backrest;
     rclone = pkgs.rclone;
     restic = pkgs.restic;
-    rustic = pkgs.rustic-rs;
+    rustic = pkgs.rustic;
     testdisk-qt = pkgs.testdisk-qt;
   };
 
