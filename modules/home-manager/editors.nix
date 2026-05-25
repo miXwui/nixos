@@ -198,7 +198,8 @@
   ];
 
   home.file = {
-    "${config.xdg.configHome}/helix".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/helix";
+    "${config.xdg.configHome}/dprint".source =
+      config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/dprint";
 
     "${config.xdg.configHome}/inlyne".source = config.lib.file.mkOutOfStoreSymlink "${xdg_nixos.userConfigDir}/inlyne";
   };
