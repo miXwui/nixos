@@ -19,7 +19,7 @@ in
     home.packages = with pkgs; [
       # Set gcc as higher priority to prevent collision, see:
       # https://github.com/nix-community/home-manager/issues/1668#issuecomment-1264298055
-      (hiPrio gcc)
+      (lib.hiPrio gcc)
       clang
     ];
 

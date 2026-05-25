@@ -107,7 +107,7 @@ in
       enable = true;
       package = mpd;
       # `xdg.userDirs.enable` is set to true in Home Manager, so the defined XDG
-      # music directory is used. So no need to set `mumusicDirectory`.
+      # music directory is used. So no need to set `musicDirectory`.
       # musicDirectory = "";
       extraConfig =
         ''

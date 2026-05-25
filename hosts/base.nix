@@ -534,7 +534,7 @@ in
     usbutils
     # GParted
     my-gparted-with-xhost-root
-    xorg.xhost
+    xhost
 
     # Secrets
     sops

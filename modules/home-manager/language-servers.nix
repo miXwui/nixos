@@ -93,7 +93,7 @@
 
     # Nix
     nil = pkgs.nil;
-    nixfmt = pkgs.nixfmt-rfc-style;
+    nixfmt = pkgs.nixfmt;
 
     # Python
     ruff = pkgs.ruff;

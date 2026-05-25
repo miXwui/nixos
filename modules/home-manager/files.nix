@@ -4,7 +4,7 @@ let
     nautilus = pkgs.nautilus;
     nemo-with-extensions = pkgs.nemo-with-extensions;
     kdePackages.dolphin = pkgs.kdePackages.dolphin;
-    xfce.thunar = pkgs.xfce.thunar;
+    thunar = pkgs.thunar;
     spacedrive = pkgs.spacedrive;
     yazi = pkgs.yazi;
 
@@ -17,7 +17,7 @@ in
     nautilus = nautilus;
     nemo-with-extensions = nemo-with-extensions;
     kdePackages.dolphin = kdePackages.dolphin;
-    xfce.thunar = xfce.thunar;
+    thunar = thunar;
     spacedrive = spacedrive;
     yazi = yazi;
 
@@ -30,7 +30,7 @@ in
     nautilus
     nemo-with-extensions
     kdePackages.dolphin
-    xfce.thunar
+    thunar
     spacedrive
     yazi
 

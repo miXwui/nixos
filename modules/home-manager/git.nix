@@ -15,74 +15,72 @@
     enable = true;
     package = git;
 
-    userName = "Michael Wu";
-    userEmail = "me@miXwui.com";
+    settings = {
+      user.name = "Michael Wu";
+      user.email = "me@miXwui.com";
 
-    aliases = {
-      prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
-      root = "rev-parse --show-toplevel";
-    };
-
-    extraConfig = {
-      init = {
-        defaultBranch = "main";
+      aliases = {
+        prettylog = "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative";
+        root = "rev-parse --show-toplevel";
       };
 
-      fetch = {
-        prune = true;
-      };
+      extraConfig = {
+        init = {
+          defaultBranch = "main";
+        };
 
-      log = {
-        date = "local";
-      };
+        fetch = {
+          prune = true;
+        };
 
-      rerere = {
-        enabled = true;
-      };
+        log = {
+          date = "local";
+        };
 
-      core = {
-        editor = "hx";
-        # pager = "diff-so-fancy | less --tabs=4 -RF"; # [1]
-        pager = "delta"; # [2]
-      };
+        rerere = {
+          enabled = true;
+        };
 
-      interactive = {
-        # diffFilter = "diff-so-fancy --patch"; # [1]
-        diffFilter = "delta --color-only"; # [2]
-      };
+        core = {
+          editor = "hx";
+          # pager = "diff-so-fancy | less --tabs=4 -RF"; # [1]
+          pager = "delta"; # [2]
+        };
 
-      #[2]
-      delta = {
-        navigate = true; # use n and N to move between diff sections
+        interactive = {
+          # diffFilter = "diff-so-fancy --patch"; # [1]
+          diffFilter = "delta --color-only"; # [2]
+        };
 
-        # delta detects terminal colors automatically; set one of these to disable auto-detection
-        # dark = true
-        # light = true
-      };
+        #[2]
+        delta = {
+          navigate = true; # use n and N to move between diff sections
 
-      diff = {
-        # TODO: Maybe use vimdiff or helix instead?
-        tool = "vscode";
-        wsErrorHighlight = "all";
-        colorMoved = "default"; # [2]
-      };
+          # delta detects terminal colors automatically; set one of these to disable auto-detection
+          # dark = true
+          # light = true
+        };
 
-      difftool = {
-        vscode = {
+        diff = {
+          # TODO: Maybe use vimdiff or helix instead?
+          tool = "vscode";
+          wsErrorHighlight = "all";
+          colorMoved = "default"; # [2]
+        };
+
+        "difftool \"vscode\"" = {
           # TODO: Maybe use vimdiff or helix instead?
           cmd = "code --wait --diff $LOCAL $REMOTE";
         };
-      };
 
-      merge = {
-        conflictstyle = "diff3"; # [2]
-        # TODO: Maybe use vimdiff or helix instead?
-        tool = "vscode";
-      };
+        merge = {
+          conflictstyle = "diff3"; # [2]
+          # TODO: Maybe use vimdiff or helix instead?
+          tool = "vscode";
+        };
 
-      mergetool = {
-        # TODO: Maybe use vimdiff or helix instead?
-        vscode = {
+        "mergetool \"vscode\"" = {
+          # TODO: Maybe use vimdiff or helix instead?
           cmd = "code --wait $MERGED";
         };
       };

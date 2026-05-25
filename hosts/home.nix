@@ -197,11 +197,15 @@ in
   };
 
   gtk = {
+    # This is for GTK3. The above dconf.settings.color-scheme sets it for GTK4.
+    # Can remove if no longer using any GTK3 apps, but removing for now.
     enable = true;
     theme = {
       name = "Adwaita-dark";
       package = pkgs.gnome-themes-extra;
     };
+    # See comment about GTK3/GTK4 above.
+    gtk4.theme = null;
   };
 
   qt = {
@@ -220,6 +224,8 @@ in
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true;
+
       download = "${config.home.homeDirectory}/tmp";
       documents = "${config.home.homeDirectory}/documents";
       music = "${config.home.homeDirectory}/music";
@@ -228,6 +234,7 @@ in
       desktop = "${config.home.homeDirectory}/desktop";
       templates = "${config.home.homeDirectory}/templates";
       publicShare = "${config.home.homeDirectory}/public";
+
       extraConfig = {
         NIXOS = "${xdg_nixos_dir}";
         # Prioritize using `config.xdg.configHome` where possible.
