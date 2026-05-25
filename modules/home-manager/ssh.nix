@@ -16,6 +16,8 @@ in
   systemd.user.services.ssh-config = lib.mkIf sshKeysExist {
     Unit = {
       Description = "Write ssh keys to ~/.ssh/";
+      After = [ "sops-nix.service" ];
+      Requires = [ "sops-nix.service" ];
     };
     Install = {
       WantedBy = [ "default.target" ];
