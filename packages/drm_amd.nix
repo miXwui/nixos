@@ -4,7 +4,7 @@
 # down the hole,
 # where rabbits lay.
 
-# These were helpful: 
+# These were helpful:
 # * https://pygobject.gnome.org/getting_started.html#arch-getting-started
 # * https://discourse.nixos.org/t/python-glib-introspection-fails/47391/13
 # * https://discourse.nixos.org/t/packaging-a-single-python-script-with-runtime-dependencies/31046/3
@@ -42,7 +42,8 @@ python3Packages.buildPythonApplication {
       packaging
       pygobject3
       pyudev
-      systemd
+
+      systemd-python
     ]
     ++ (with pkgs; [
       acpica-tools
