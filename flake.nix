@@ -55,6 +55,7 @@
     # Also see: https://status.nixos.org/
 
     nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs-master.url = "nixpkgs/master";
 
     # nixos-generators
     nixos-generators = {
@@ -112,13 +113,13 @@
     }@inputs:
     let
       overlays = [
-        # # [1]
-        # (final: prev: {
-        #   unstable = import inputs.nixpkgs-unstable {
-        #     system = final.system;
-        #     config.allowUnfree = true;
-        #   };
-        # })
+        # [1]
+        (final: prev: {
+          master = import inputs.nixpkgs-master {
+            system = final.system;
+            config.allowUnfree = true;
+          };
+        })
         emacs-overlay.overlays.default
       ];
     in
