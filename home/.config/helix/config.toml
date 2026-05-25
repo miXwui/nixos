@@ -1,21 +1,33 @@
 theme = "onedark-bleeding"
 
 [editor]
-# mouse = false
 completion-timeout = 5
 completion-trigger-len = 0
-line-number = "relative"
 rulers = [80]
 bufferline = "multiple"
 color-modes = true
 auto-pairs = false
-end-of-line-diagnostics = "hint"
-# https://www.reddit.com/r/HelixEditor/comments/1iearpt/comment/ma6sgt8/
-# jump-label-alphabet = "jfkdls;aurieowpqnvmcxz"
+
+[editor.inline-diagnostics]
+cursor-line = "hint" # show hints, infos, warnings, and errors
 
 [editor.statusline]
-left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator", "version-control"]
-right = ["diagnostics", "selections", "register", "position", "file-encoding", "position-percentage"]
+left = [
+  "mode",
+  "spinner",
+  "file-name",
+  "read-only-indicator",
+  "file-modification-indicator",
+  "version-control",
+]
+right = [
+  "diagnostics",
+  "selections",
+  "register",
+  "position",
+  "file-encoding",
+  "position-percentage",
+]
 
 [editor.lsp]
 display-messages = true
@@ -47,12 +59,7 @@ tabpad = "·" # Tabs will look like "→···" (depending on tab width)
 render = true
 
 [editor.soft-wrap]
-# NOTE: soft-wrap currently doesn't show if text extends past the ruler:
-# https://github.com/helix-editor/helix/discussions/6901
 enable = true
-
-[editor.inline-diagnostics]
-cursor-line = "warning" # show warnings and errors
 
 [keys.normal]
 # https://www.reddit.com/r/HelixEditor/comments/1iearpt/comment/ma65r81/
@@ -80,11 +87,21 @@ C-d = ["search_selection", "select_mode", "extend_search_next"]
 # Needs `enable_kitty_keyboard` in Wezterm, else Ctrl+Shift+D doesn't work.
 # See: https://github.com/helix-editor/helix/wiki/Terminal-Support#enhanced-keyboard-protocol
 C-S-d = ["search_selection", "select_mode", "extend_search_prev"]
-
 # Move lines/selections up/down
 # https://github.com/helix-editor/helix/pull/4545#pullrequestreview-1195055143
-A-up = ["extend_to_line_bounds", "delete_selection", "move_line_up", "paste_before", "goto_line_start"]
-A-down = ["extend_to_line_bounds", "delete_selection", "paste_after", "goto_line_start"]
+A-up = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "move_line_up",
+  "paste_before",
+  "goto_line_start",
+]
+A-down = [
+  "extend_to_line_bounds",
+  "delete_selection",
+  "paste_after",
+  "goto_line_start",
+]
 X = "select_line_above"
 # https://docs.helix-editor.com/editor.html#editorsmart-tab-section
 tab = "move_parent_node_end"
@@ -101,21 +118,19 @@ C-S-tab = ":buffer-previous"
 
 [keys.normal.space]
 q = ":buffer-close"
-
 "=" = ":write"
 "-" = ":format"
-
 # Git blame
 # Show in statusline
 # B = ":echo %sh{git blame -L %{cursor_line},+1 %{buffer_name}}"
 # Show in buffer
 B = ":sh echo %sh{git show --no-patch --format='%%h \\(%%an: %%ar\\): %%s' $(git blame -p %{buffer_name} -L%{cursor_line},+1 | head -1 | cut -d' ' -f1)}"
-
 # Markdown viewer
 i = ":sh inlyne %{buffer_name}"
+m = ":lsp-workspace-command open-preview"
 
 [keys.normal.space.1]
-p = ":sh wl-copy \"${pwd}/%{buffer_name}\"" # copy filepath to system clipboard 
+p = ":sh wl-copy \"${pwd}/%{buffer_name}\"" # copy filepath to system clipboard
 t = ":pipe sed 's/[[:space:]]*$//'" # remove all trailing whitespace
 
 [keys.insert]
