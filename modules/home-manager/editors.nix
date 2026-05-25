@@ -87,7 +87,7 @@
     # TODO: maybe move Helix Forge/Steel to it's own file?
     # helix =
     #   (builtins.getFlake "github:mattwparas/helix/63fb23413a9710297cabb37d87f60b402329838f")
-    #   .packages.${pkgs.system}.default.overrideAttrs
+    #   .packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs
     #     (oldAttrs: {
     #       cargoBuildFlags = (oldAttrs.cargoBuildFlags or [ ]) ++ [
     #         "--features"
@@ -95,11 +95,11 @@
     #       ];
     #     });
     helix = (
-      inputs.helix-steel.packages.${pkgs.system}.default.overrideAttrs {
+      inputs.helix-steel.packages.${pkgs.stdenv.hostPlatform.system}.default.overrideAttrs {
         cargoBuildFeatures = [ "steel" ];
       }
     );
-    steel = (inputs.steel.packages.${pkgs.system}.default);
+    steel = (inputs.steel.packages.${pkgs.stdenv.hostPlatform.system}.default);
 
     emacs = pkgs.emacs30-pgtk; # can uncomment/use emacs-30-pgtk above
     emacs-lsp-booster = pkgs.emacs-lsp-booster;

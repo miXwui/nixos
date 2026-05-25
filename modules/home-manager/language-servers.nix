@@ -65,7 +65,7 @@
     efm-ls = pkgs.efm-langserver;
     dprint = pkgs.dprint;
     ispell = pkgs.ispell;
-    scls = inputs.simple-completion-language-server.defaultPackage.${pkgs.system};
+    scls = inputs.simple-completion-language-server.defaultPackage.${pkgs.stdenv.hostPlatform.system};
     vscode-langservers-extracted = pkgs.vscode-langservers-extracted;
 
     # Bash
@@ -74,7 +74,7 @@
     shfmt = pkgs.shfmt;
 
     # Elixir
-    expert = inputs.expert.packages.${pkgs.system}.default;
+    expert = inputs.expert.packages.${pkgs.stdenv.hostPlatform.system}.default;
 
     # Go
     gopls = pkgs.gopls;
