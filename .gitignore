@@ -6,3 +6,6 @@ secrets
 
 # Helix grammars
 home/.config/helix/runtime
+
+# Node dependencies (TS LSP for Glide config, etc.)
+node_modules
