@@ -474,6 +474,20 @@ IPv6 will be disabled (since apparently it's not supported by PIA). The disconne
   * Currently set up to use Geoclue.
 * [amd_s2idle](packages/drm_amd) check/verify s2idle and power draw. `sudo amd_s2idle`.
 
+### Development
+
+See:
+
+- `modules/nixos/development/*`
+
+#### AI
+
+Local LLM inference stack running on AMD 7840U (Radeon 780M) via Vulkan.
+See [AI.md](AI.md) for details.
+
+- llama-swap with Qwen3.6-35B and Gemma-4-12B models on port 8080
+- Open WebUI frontend on port 12345
+
 ## Nix cookbook
 
 <https://nixos.wiki/wiki/Nix_Cookbook>

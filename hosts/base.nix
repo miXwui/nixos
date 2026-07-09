@@ -99,6 +99,7 @@ in
     ../modules/nixos/vpn.nix
     ../modules/nixos/utils.nix
     ../modules/nixos/development.nix
+    ../modules/nixos/development/ai.nix
     ../modules/nixos/virtual-machines.nix
   ];
 
@@ -202,7 +203,7 @@ in
   #   '';
   #   wantedBy = [ "multi-user.target" ];
   # };
-  environment.etc."geoclue/conf.d/90-custom-wifi.conf".text = '''';
+  environment.etc."geoclue/conf.d/90-custom-wifi.conf".text = "";
 
   ### i18n/Internationalization ###
   i18n.defaultLocale = "en_US.UTF-8";
@@ -509,6 +510,11 @@ in
   #   enable = true;
   #   enableSSHSupport = true;
   # };
+
+  ## Development
+
+  # AI
+  programs.development.ai.enable = true;
 
   ### SYSTEM PACKAGES ###
   environment.systemPackages = with pkgs; [
