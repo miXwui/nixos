@@ -1,7 +1,11 @@
 keys:
   - &primary age1gczq2ug8svklsdlud7yvq53tu5f0vnr9f62nuzsqpfp3nmskzeuqv7sy7u
 creation_rules:
-  - path_regex: secrets/secrets.yaml$
+  # TODO: use yubikey with sops-nix pgp so it prompts for it instead of just
+  # being able to run sops secrets.yaml with no password.
+  # Or investigate using gpg/pgp instead of age. apparently that can still work
+  # with nix services and also allow asking for a password.
+  - path_regex: ^secrets/.*\.yaml$
     key_groups:
       - age:
           - *primary
